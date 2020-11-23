@@ -1,0 +1,38 @@
+<div class="my-4">
+    <div class="container col-sm-4 col-md-6 col-lg-4 sign-up">
+        <h2>Đăng nhập</h2>
+        <form action="/login" method="POST"  onsubmit="validateCaptcha()">
+            <div class="form-group">
+                <label for="name1">Tên đăng nhập</label>
+                <input type="text" class="form-control" minlength="6" id="" name="name1" placeholder="Nhập tên đăng nhập" required="true">
+            </div>
+            <div class="form-group">
+                <label for="Password1">Nhập mật khẩu</label>
+                <input type="password" class="form-control" id="Password1" name="pass" placeholder="Nhập mật khẩu" required="true">
+            </div>
+            <div class="form-group">
+                <label for="mact">Kết quả</label>
+            <div class="form-inline">
+                <input type="text" class="form-control col-4 mb-2" maxlength="6" id="cpatchaTextBox" name="mact" required="true">
+                <div class="captcha" onclick="check()"><b id="demo"></b></div>
+                <input type="hidden" class="form-control col-4 mb-2" id="c" maxlength="6" id="cpatchaTextBox" name="mact2" readonly="false" required="true"> 
+            </div>
+            </div>
+            <div class="thong-bao" ><p>{{msg}}</p></div>
+            <div class="login">
+               <button type="submit" class="btn btn-danger btn-sign-footer">Đăng nhập</button>
+               <a href="signup" class="btn btn-danger btn-sign-footer">Chưa có tài khoản</a>
+            </div>             
+        </form>
+    </div>
+    <script>
+function check(){
+var a = Math.floor(Math.random() * 100);
+var c = Math.floor(Math.random() * 100);
+var d = a+c;
+document.getElementById("demo").innerHTML = a+"+"+c ;
+document.getElementById("c").value = d;
+}
+</script>
+</div>
+

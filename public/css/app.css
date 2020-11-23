@@ -1,0 +1,87 @@
+/* CSS header*/
+body{
+    background-image: url('https://hinhanhdepmoi.files.wordpress.com/2020/04/mau-background-dep.jpg?w=2000&h=1281&crop=1');
+}
+.bottom-navbar{
+    background-color: #f8f9fa;
+    padding-bottom: 2%;
+    border-bottom:rgb(255, 255, 255) solid 2px;
+    box-shadow: black 0 0 8px 2px;
+}
+.logo{
+    color: #f05123;
+}
+.thong-bao{
+    color: rgb(255, 196, 1);
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+/*Footer*/
+.email-footer{
+    float: right;
+}
+.btn-sign-footer{
+    
+    border-radius: 3rem;
+}
+/*HOME CSS*/
+.btn-course-home{
+    color: #fff;
+    background-color: #f05123;
+    border-radius: 3rem;
+    width: 220px;
+    margin-top: 5%;
+}
+.btn-course-home:hover{
+    color: #fff;
+    background-color:  #da471f;
+}
+.background-home{
+    color: #fff;
+    padding-left: 15%;
+    padding-top: 10%;
+    height: 700px;
+}
+.info-home{
+    padding-top: 9%;
+    text-align: center;
+}
+/*COURSE CSS*/
+.card-item{
+    margin-left: 7%;
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+.noidung{
+    height: 80%;
+    margin-bottom: 4%;
+}
+.row{
+    margin-right:0;
+}
+.reviews{
+ border: #616263 solid 5px;
+}
+/* Sign up*/
+.sign-up{
+    color: #fff;
+    margin-bottom: 10%;
+}
+.sign-up h2{
+    text-align: center;
+}
+/* Sign in*/
+.login a{
+    float: right;
+}
+.captcha{
+    font-size: 30px;
+    margin-left: 35%;
+    cursor: default;
+    width: 120px;
+    padding:  5px 0 0 20px;
+    color: black;
+    background-image: url('https://i.pinimg.com/originals/b4/31/48/b43148675959cdb19d1964abe2d50254.png');
+}
