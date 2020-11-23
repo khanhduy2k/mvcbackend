@@ -4,20 +4,23 @@ const Post = require('./model/posts');
 class SiteController{
 
     index(req, res){
-            res.render('home');
+            const title = 'Course Online';
+            res.render('home', {title});
     }
     course(req, res, next){
     Course.find({})
         .then(courses => {
+            const title = 'Khóa học';
             res.render('courses',{ 
-                courses: mutipleMongooseToObject(courses)
+                courses: mutipleMongooseToObject(courses), title
             });
         })
         .catch(next);
         
     }
     login(req, res){
-        res.render('login');
+        const title ='Đăng nhập';
+        res.render('login', {title});
     }
     checklogin(req, res){
     const name1 = req.body.name1;
@@ -42,7 +45,8 @@ class SiteController{
     }
     }
     signup(req, res){  
-        res.render('signup');
+        const title='Đăng ký';
+        res.render('signup', {title});
     }
     checksignup(req, res){ 
             const { name1, name_user, email, pass, pass2 } = req.body;

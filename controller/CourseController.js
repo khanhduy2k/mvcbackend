@@ -6,7 +6,8 @@ class CourseController{
         Course.findOne({ slug: req.params.slug })
             .then(course =>{
                 if(course){
-                    res.render('show', { course: mongooseToObject(course) })
+                    const title = 'Khóa học '+req.params.slug;
+                    res.render('show', { course: mongooseToObject(course), title})
                 }else{
                     res.render('home');
                 }
