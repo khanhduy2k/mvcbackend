@@ -11,10 +11,16 @@
         <a class="nav-link" href="/">Trang chủ<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link " href="courses">Khóa học</a>
+        <a class="nav-link " href="course">Khóa học</a>
       </li>
     </ul>
-    <a type="button" class="btn btn-outline-danger" href="login">Đăng nhập</a>
+    {{#if cast}}
+    <ul class="navbar-nav mr-4"><b>Xin chào:&nbsp;</b></ul>
+    <a type="button" class="btn btn-outline-danger" href="logout">Đăng xuất</a></div>
+    
+    {{else}}
+    <a type="button" class="btn btn-outline-info" href="login">Đăng nhập</a>
+    {{/if }}
 
 </div>
 </nav>

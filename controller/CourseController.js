@@ -6,10 +6,16 @@ class CourseController{
         Course.findOne({ slug: req.params.slug })
             .then(course =>{
                 if(course){
+                if (!req.signedCookies.userId) {
                     const title = 'Khóa học '+req.params.slug;
-                    res.render('show', { course: mongooseToObject(course), title})
+                    res.render('show', { course: mongooseToObject(course), title,cast:false})
+                }
+                if (req.signedCookies.userId) {
+                    const title = 'Khóa học '+req.params.slug;
+                    res.render('show', { course: mongooseToObject(course), title,cast:'yehh'})
+                }
                 }else{
-                    res.render('home');
+                    res.redirect('/');
                 }
             })
             .catch(next);   
@@ -17,10 +23,13 @@ class CourseController{
     }
     
     back(req, res){
-        res.redirect('/courses');
+        res.redirect('/course');
     }
     backlogin(req, res){
         res.redirect('/login');
+}   backlogout(req, res){
+    res.cookie('userId','logout');
+    res.redirect('/');
 }
 }
 module.exports = new CourseController();

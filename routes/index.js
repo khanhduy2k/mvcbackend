@@ -1,9 +1,10 @@
 const siteRouter = require('./site');
 const coursesRouter = require('./courses');
+const authMiddlewares = require('../middlewares/authmiddlewares');
 
 
 function route(app){
-    app.use('/courses', coursesRouter);
+    app.use('/courses',authMiddlewares.requireAuth, coursesRouter);
     app.use('/', siteRouter);
 }
 
