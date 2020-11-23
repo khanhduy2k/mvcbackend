@@ -4,27 +4,25 @@ const Post = require('./model/posts');
 class SiteController{
 
     index(req, res){
+        const title = 'Course Online';
         if (!req.signedCookies.userId) {
-            const title = 'Course Online';
             res.render('home', {title, cast:false});
             return;
         }
         if (req.signedCookies.userId) {
-            const title = 'Course Online';
             const name = req.cookies.userId;
             res.render('home', {title, cast:'yehh'});
         }      
     }
     course(req, res, next){
+        const title = 'Khóa học';
     Course.find({})
         .then(courses => {
             if (!req.signedCookies.userId) {
-                const title = 'Khóa học';
             res.render('course',{ 
                 courses: mutipleMongooseToObject(courses), title, cast:false});
             }
             if (req.signedCookies.userId) {
-                const title = 'Khóa học';
             res.render('course',{ 
                 courses: mutipleMongooseToObject(courses), title, cast:'yehh'});
             }
