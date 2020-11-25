@@ -10,14 +10,18 @@ body{
 }
 .logo{
     color: #f05123;
+    cursor:no-drop;
 }
+
 .thong-bao{
     color: rgb(255, 196, 1);
     margin-bottom: 10px;
     width: 100%;
     text-align: center;
 }
-
+.logout{
+    color:  #f05123;
+}
 /*Footer*/
 .email-footer{
     float: right;
@@ -84,4 +88,29 @@ body{
     padding:  5px 0 0 20px;
     color: black;
     background-image: url('https://i.pinimg.com/originals/b4/31/48/b43148675959cdb19d1964abe2d50254.png');
+}
+/* Show*/
+.show-info{
+    background-color: #fff;
+    border-radius: 1rem;
+}
+.show-info li{
+    color: #da471f;
+}
+.show-video{
+    background:rgba(0, 0, 0, 0.3);
+    color:#fff;
+    border-radius: 1rem;
+}
+.lesson{
+    margin-top: 5%;
+    height: 60px;
+    background-color: #fff;
+}
+.lesson a{
+    height: 100%;
+    width: 100%;
+}
+.lesson:hover{
+    background: linear-gradient(to right, rgb(0, 255, 221), rgb(0, 255, 128))
 }

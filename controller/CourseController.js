@@ -1,4 +1,5 @@
 const { mongooseToObject } = require('../ulti/mongoose');
+const course = require('./model/course');
 const Course = require('./model/course');
 
 class CourseController{
@@ -7,18 +8,30 @@ class CourseController{
         Course.findOne({ slug: req.params.slug })
             .then(course =>{
                 if(course){
-                if (!req.signedCookies.userId) {
-                    res.render('show', { course: mongooseToObject(course), title,cast:false})
-                }
-                if (req.signedCookies.userId) {
-                    res.render('show', { course: mongooseToObject(course), title,cast:'yehh'})
-                }
+                    res.cookie('khoahoc',course.slug)
+                    const name = req.cookies.username;
+                    res.render('show', { course: mongooseToObject(course), title,cast:'yehh', name})
                 }else{
                     res.redirect('/');
                 }
             })
             .catch(next);   
             return;
+    }
+    show2(req, res, next){
+        const title = 'Khóa học '+req.cookies.khoahoc;
+        Course.findOne({ slug: req.cookies.khoahoc})
+            .then(course =>{
+                if(course){
+                    const name = req.cookies.username;
+                    const Idslug = req.params.slug;
+                    res.render('show2', { course: mongooseToObject(course), title,cast:'yehh', name, Idslug})
+                }else{
+                    res.redirect('/');
+                }
+            })
+            .catch(next);   
+            return;      
     }
     
     back(req, res){

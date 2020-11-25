@@ -10,8 +10,8 @@ class SiteController{
             return;
         }
         if (req.signedCookies.userId) {
-            const name = req.cookies.userId;
-            res.render('home', {title, cast:'yehh'});
+            const name = req.cookies.username;
+            res.render('home', {title, cast:'yehh',name});
         }      
     }
     course(req, res, next){
@@ -23,8 +23,9 @@ class SiteController{
                 courses: mutipleMongooseToObject(courses), title, cast:false});
             }
             if (req.signedCookies.userId) {
+            const name = req.cookies.username;
             res.render('course',{ 
-                courses: mutipleMongooseToObject(courses), title, cast:'yehh'});
+                courses: mutipleMongooseToObject(courses), title, cast:'yehh',name});
             }
             
         })
@@ -45,9 +46,10 @@ class SiteController{
       Post.findOne({name1: name1,pass: pass})
     .then(data=>{
         if(data){
-            res.cookie('userId', name1,{
+            res.cookie('userId', data._id,{
                 signed: true
             });
+            res.cookie('username', data.name1);
             res.redirect('/');
         }else{
             const msg ='Tài khoản hoặc mật khẩu không chính xác!!';
@@ -75,7 +77,7 @@ class SiteController{
                 }else{
                     let errors = [];
                     if(!name1){
-                        errors.push({ msg: 'Nhap ten us' });
+                        errors.push({ msg: 'Nhập tên khoản!' });
                     }else{
                             const newPostData = req.body;
                             const newPost = new Post(newPostData);
