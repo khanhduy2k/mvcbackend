@@ -20,6 +20,7 @@ class CourseController{
     }
     show2(req, res, next){
         const title = 'Khóa học '+req.cookies.khoahoc;
+        
         Course.findOne({ slug: req.cookies.khoahoc})
             .then(course =>{
                 if(course){
