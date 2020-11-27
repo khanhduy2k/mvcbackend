@@ -98,7 +98,9 @@ body{
     color: #da471f;
 }
 .show-video{
+    overflow: auto;
     background:rgba(0, 0, 0, 0.3);
+    height: 500px;
     color:#fff;
     border-radius: 1rem;
 }
@@ -112,5 +114,5 @@ body{
     width: 100%;
 }
 .lesson:hover{
-    background: linear-gradient(to right, rgb(0, 255, 221), rgb(0, 255, 128))
+    background: linear-gradient(to right, rgb(115, 255, 0), rgb(255, 255, 255))
 }
