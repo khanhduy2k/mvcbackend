@@ -18,21 +18,24 @@
                 <input type="hidden" class="form-control col-4 mb-2" id="c" maxlength="6" id="cpatchaTextBox" name="mact2" readonly="false" required="true"> 
             </div>
             </div>
-            <div class="thong-bao" ><p>{{msg}}</p></div>
+            
             <div class="login">
                <button type="submit" class="btn btn-danger btn-sign-footer">Đăng nhập</button>
                <a href="signup" class="btn btn-danger btn-sign-footer">Chưa có tài khoản</a>
             </div>             
-        </form>
+        </form><div class="thong-bao mt-4" ><p id="msg">{{msg}}</p></div>
     </div>
     <script>
-function check(){
-var a = Math.floor(Math.random() * 100);
-var c = Math.floor(Math.random() * 100);
-var d = a+c;
-document.getElementById("demo").innerHTML = a+"+"+c ;
-document.getElementById("c").value = d;
-}
+        setTimeout(function(){ 
+				document.getElementById('msg').style.display = "none";
+			}, 5000);
+        function check(){
+        var a = Math.floor(Math.random() * 100);
+        var c = Math.floor(Math.random() * 100);
+        var d = a+c;
+        document.getElementById("demo").innerHTML = a+"+"+c ;
+        document.getElementById("c").value = d;
+        }
 </script>
 </div>
 

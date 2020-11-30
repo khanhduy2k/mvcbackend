@@ -2,8 +2,8 @@
             <div><h3>Video bài học</h3></div>
                 <div class="mt-3">
                  {{#each course.videoId1}}   
-                <div class="lesson">
-                    <a class="btn" style="text-align: left;" href="/courses/{{../course.slug}}/{{this}}">
+                <div  class="lesson">
+                    <a class="btn" style="text-align: left;"  href="/courses/{{../course.slug}}/{{this}}">
                         <img src="http://demo637737.000webhostapp.com/img/play2.png" width="40px" alt="Play">
                          <b> Bài {{lookup ../course.bai @index}}</b>                       
                     </a>
@@ -11,3 +11,4 @@
                 {{/each}}
             </div>        
         </div>
+       

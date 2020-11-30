@@ -22,8 +22,13 @@
                 <label for="Password2">Nhập lại mật khẩu</label>
                 <input type="password" class="form-control" id="Password2" minlength="5" name="pass2" placeholder="Nhập lại mật khẩu" required="true">
             </div>
-            <div style="text-align: center;"><h4>{{msg}}</h4></div>
+            
             <div><button type="submit" class="btn btn-danger btn-sign-footer">Đăng ký tài khoản</button></div>
-        </form>
+        </form><div style="text-align: center;"><h4 id="msg">{{msg}}</h4></div>
     </div>
 </div>
+<script>
+    setTimeout(function(){ 
+				document.getElementById('msg').style.display = "none";
+			}, 5000);
+</script>
