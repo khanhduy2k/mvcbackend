@@ -25,7 +25,7 @@ class CourseController{
             .then(course =>{
                 if(course){
                     const name = req.cookies.username;
-                    const Idslug = req.params.slug;
+                    const Idslug = req.params.id;
                     res.render('show2', { course: mongooseToObject(course), title,cast:'yehh', name, Idslug})
                 }else{
                     res.redirect('/');

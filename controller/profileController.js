@@ -1,5 +1,4 @@
 const { mongooseToObject } = require('../ulti/mongoose');
-const Course = require('./model/course');
 const Post = require('./model/posts');
 class profileController{
     password(req, res, next){
@@ -28,7 +27,8 @@ class profileController{
        }
        if (pass === pass2){
             const msg2 = 'Đổi mật khẩu thành công!';
-            res.render('password',{msg2,title,cast:'yehh',success:false,name});
+            Post.updateOne({name1: name}, {pass: pass})
+            .then(() => res.render('password',{msg2,title,cast:'yehh',success:false,name}))
        }else{
             const msg = 'Mật khẩu không trùng khớp!';
             res.render('password',{msg,title,cast:'yehh',success:'done',name});
