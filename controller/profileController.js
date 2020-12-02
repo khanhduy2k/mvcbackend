@@ -18,7 +18,7 @@ class profileController{
        Post.findOne({name1: name})
        .then(data =>{
            if (data.pass ===pass2){
-            const msg = 'Vui sử dụng mật khẩu khác với mật khẩu hiện tại!';
+            const msg = 'Sử dụng mật khẩu khác với mật khẩu hiện tại!';
             res.render('password',{msg,title,cast:'yehh',success:'done',name});
             return;
            }
