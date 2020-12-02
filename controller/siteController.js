@@ -41,7 +41,11 @@ class SiteController{
     const pass = req.body.pass;
     const check = req.body.mact;
     const check2 = req.body.mact2;
-    const msg = '';
+    if (name1 ===''||pass===''){
+        const msg ='Vui lòng nhập đầy đủ!';
+        res.render('login',{msg});
+        return;
+    }
     if(check == check2){
       Post.findOne({name1: name1,pass: pass})
     .then(data=>{
@@ -58,7 +62,7 @@ class SiteController{
     })
     }else{
         const msg ='Mã xác thực không chính xác!!';
-            res.render('login',{msg});
+        res.render('login',{msg});
     }
     }
     signup(req, res){  
