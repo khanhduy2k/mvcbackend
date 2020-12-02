@@ -69,11 +69,21 @@ class SiteController{
             const { name1, name_user, email, pass, pass2 } = req.body;
             const msg ='';
             if(pass == pass2){
+                Post.findOne({email: email})
+                    .then(dataemail =>{
+                        if(dataemail){
+                            const msg = 'Email đã được sử dụng!';
+                            res.render('signup',{msg});
+                            return;
+                        }
+                    });
                 Post.findOne({name1: name1})
                 .then(data=>{
                 if(data){
                     const msg = 'Tài khoản đã tồn tại!';
                     res.render('signup',{msg});
+                    return;
+
                 }else{
                     let errors = [];
                     if(!name1){
