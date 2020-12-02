@@ -38,11 +38,15 @@ class CourseController{
     back(req, res){
         res.redirect('/course');
     }
+    backset(req, res){
+        res.redirect('/profile');
+    } 
     backlogin(req, res){
         res.redirect('/login');
-}   backlogout(req, res){
+    }   
+    backlogout(req, res){
     res.cookie('userId','logout');
     res.redirect('/');
-}
+    }
 }
 module.exports = new CourseController();

@@ -1,0 +1,28 @@
+<div class="container mt-4" >
+    <div class="bg-light col-sm-7 m-auto rounded pt-2" style="height: 500px;">
+        <div class="mb-5 pl-5">
+            <h1><i class='far fa-address-card mr-4 ml-sm-5 text-success'></i>Tài khoản</h1>
+            <small class="ml-sm-5">
+                Quản lý thông tin đăng nhập của bạn tại
+                <p class="ml-sm-5 text-danger"><b>Course Online</b></p>
+            </small>
+        </div>
+            <div class="col-sm-9 m-auto">
+                <p class="border-bottom" ><b>Thông tin đăng nhập</b></p>
+                <div class="border-bottom mb-3" style="cursor: pointer;" onclick="changepass()">
+                    <h4>Mật khẩu</h4>
+                    <span class="fas fa-angle-right text-info" style="float: right; font-size:20px"></span>
+                    <p class="text-info">********</p>
+                </div>
+                <div class="border-bottom mb-3" >
+                    <h4>Email</h4>
+                    <p class="text-info">{{profile.email}}</p>
+                </div>
+            </div>
+        </div>
+</div>
+<script>
+function changepass() {
+  location.replace("/profile/password")
+}
+</script>

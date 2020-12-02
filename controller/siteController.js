@@ -1,4 +1,5 @@
 const { mutipleMongooseToObject } = require('../ulti/mongoose');
+const { mongooseToObject } = require('../ulti/mongoose');
 const Course = require('./model/course');
 const Post = require('./model/posts');
 class SiteController{
@@ -29,8 +30,7 @@ class SiteController{
             }
             
         })
-        .catch(next);
-        
+        .catch(next);  
     }
     login(req, res){
         const title ='Đăng nhập';
@@ -68,6 +68,21 @@ class SiteController{
     checksignup(req, res){ 
             const { name1, name_user, email, pass, pass2 } = req.body;
             const msg ='';
+            if (name1 === ''|| name_user === ''||email=== ''||pass=== ''){
+                const msg = 'Vui lòng nhập đầy đủ thông tin!';
+                res.render('signup',{msg});
+                return;
+            }
+            if (name1.length < 4){
+                const msg = 'Tên đăng nhập từ 4 kí tự trở lên';
+                res.render('signup',{msg});
+                return;
+            }
+            if (pass.length < 5 || pass.length >20 ){
+                const msg = 'Mật khẩu gồm 5-20 kí tự';
+                res.render('signup',{msg});
+                return;
+           }
             if(pass == pass2){
                 Post.findOne({email: email})
                     .then(dataemail =>{
@@ -87,7 +102,7 @@ class SiteController{
                 }else{
                     let errors = [];
                     if(!name1){
-                        errors.push({ msg: 'Nhập tên khoản!' });
+                        errors.push({ msg: 'Nhập tên tài khoản!' });
                     }else{
                             const newPostData = req.body;
                             const newPost = new Post(newPostData);
@@ -106,6 +121,15 @@ class SiteController{
         res.cookie('userId','logout');
         res.redirect('/');
     }
+    profile(req, res, next){
+        const title = 'Setting';
+            Post.findOne({name1: req.cookies.username})
+                .then(profile =>{
+                    const name = req.cookies.username;
+                    res.render('profile', {profile: mongooseToObject(profile),title, cast:'yehh',name});  
+            })
+                .catch(next);
+        }     
 }
 
 module.exports = new SiteController();

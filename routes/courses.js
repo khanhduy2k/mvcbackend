@@ -5,6 +5,7 @@ const CourseController = require('../controller/CourseController');
 
 // newsController.index
 router.get('/logout', CourseController.backlogout);
+router.get('/profile', CourseController.backset);
 router.get('/login', CourseController.backlogin);
 router.get('/course', CourseController.back);
 router.get('/:slug/logout', CourseController.backlogout);
