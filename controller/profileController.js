@@ -17,12 +17,12 @@ class profileController{
        const name = req.cookies.username;
        Post.findOne({name1: name})
        .then(data =>{
-           if (pass === data.pass){
+           if (data.pass ===pass2){
             const msg = 'Vui sử dụng mật khẩu khác với mật khẩu hiện tại!';
             res.render('password',{msg,title,cast:'yehh',success:'done',name});
             return;
            }
-       });
+       })
        if (pass === ''){
             const msg = 'Vui lòng nhập mật khẩu mới!';
             res.render('password',{msg,title,cast:'yehh',success:'done',name});
