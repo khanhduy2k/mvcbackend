@@ -137,7 +137,7 @@ class SiteController{
     }
     profile(req, res, next){
         const title = 'Setting';
-            Post.findOne({name1: req.cookies.username})
+            Post.findOne({_id: req.cookies.user_i})
                 .then(profile =>{
                     const name = req.cookies.username;
                     if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){

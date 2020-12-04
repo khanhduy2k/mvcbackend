@@ -42,6 +42,36 @@ class adminController{
         .then(() => res.redirect('/admin'))
         .catch(next);
     }
+    addvideo(req, res, next){
+        const title = 'Thêm video khóa học';
+        const name = req.cookies.username;
+        Course.findOne({ _id: req.params.id})
+        .then(courses =>{
+            res.render('addvideo', {
+                courses: mongooseToObject(courses), title, cast:'yehh',admin:'done', name});
+        })
+        .catch(next);
+    }
+    deletevideo(req, res, next){
+        const title = 'Thêm video khóa học';
+        const name = req.cookies.username;
+        Course.update({_id: req.params.id}, { $pop:{videoId1: 1, bai: 1} })
+        .then(() => res.redirect('/admin'))
+        .catch(next)
+    }
+    postvideo(req, res, next){
+        const title = 'Thêm video khóa học';
+        const name = req.cookies.username;
+        const {videoId1, bai} = req.body;
+        Course.update({_id: req.params.id}, { $push:{videoId1: videoId1, bai: bai} })
+        .then(() => 
+        Course.findOne({ _id: req.params.id})
+        .then(courses =>{
+            res.render('addvideo', {
+                courses: mongooseToObject(courses), title, cast:'yehh',admin:'done', name});
+        }))
+        .catch(next)
+    }
     delete(req, res, next){
         Course.deleteMany({_id: req.params.id})
         .then(() => res.redirect('/admin'))
