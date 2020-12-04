@@ -1,7 +1,7 @@
 <div class="my-4">
     <div class="container col-sm-4 col-md-6 col-lg-4 sign-up">
         <h2>Đăng nhập</h2>
-        <form action="/login" method="POST"  onsubmit="validateCaptcha()">
+        <form method="POST" id="login-form" onsubmit="validateCaptcha()">
             <div class="form-group">
                 <label for="name1">Tên đăng nhập</label>
                 <input type="text" class="form-control"  id="" name="name1" placeholder="Nhập tên đăng nhập">
@@ -20,13 +20,27 @@
             </div>
             
             <div class="login">
-               <button type="submit" class="btn btn-danger btn-sign-footer">Đăng nhập</button>
+               <button id="btn-login" class="btn btn-danger btn-sign-footer">Đăng nhập</button>
                <a href="signup" class="btn btn-danger btn-sign-footer">Chưa có tài khoản</a>
             </div>             
         </form><div class="thong-bao mt-4" ><p id="msg">{{msg}}</p></div>
     </div>
-    <script>
-        setTimeout(function(){ 
+    <div class="load" id="load">
+        <div class="preload-icon">
+            <i class=" ml-5 fa fa-spinner fa-spin text-light" style="font-size: 60px;"></i>
+            <h4 class="mr-5">đang đăng nhập</h4>
+        </div>
+    </div>
+<script>
+    var btnInsertCourse = document.getElementById('btn-login');
+    var loginForm = document.forms['login-form'];
+        btnInsertCourse.onclick = function(){   
+            document.getElementById('load').style.display = "block";
+            loginForm.action="/login";
+            loginForm.submit();
+        }  
+
+        setInterval(function(){ 
 				document.getElementById('msg').style.display = "none";
 			}, 5000);
         function check(){

@@ -1,7 +1,7 @@
 <div class="container bg-light pt-4 mt-3">
     <div class="col-sm-8 m-auto">
         <h2 class="text-danger">Thêm khóa học</h2>
-        <form class="mt-4" action="" method="POST">
+        <form class="mt-4" action="insert" method="POST" id="insert-course-form" >
             <div class="form-group">
                 <label for="name"><h5>Tên khóa học</h5></label>
                 <input type="text" id="name" class="form-control" name="name">
@@ -19,8 +19,23 @@
                 <input type="text" id="slug" class="form-control" name="slug">
             </div>
             <div class="form-group text-right">
-                <input class="btn btn-success mb-4" id="ismForm"  type="submit" value="Thêm khóa học">
+                <button class="btn btn-success mb-4" id="btn-insert-course">Thêm khóa học</button>
             </div>
         </form>
     </div>
 </div>
+ {{!-- ready insert --}}
+    <div class="load" id="load">
+        <div class="preload-icon">
+            <i class=" ml-5 fa fa-spinner fa-spin text-light" style="font-size: 60px;"></i>
+            <h4 class="mr-5"> đăng khóa học</h4>
+        </div>
+    </div>
+<script>
+    var btnInsertCourse = document.getElementById('btn-insert-course');
+    var insertForm = document.forms['insert-course-form'];
+        btnInsertCourse.onclick = function(){   
+            document.getElementById('load').style.display = "block";
+            insertForm.submit();
+        }  
+</script>

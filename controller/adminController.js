@@ -1,4 +1,7 @@
 const { mutipleMongooseToObject } = require('../ulti/mongoose');
+const { mongooseToObject } = require('../ulti/mongoose');
+const { updateOne } = require('./model/course');
+
 const Course = require('./model/course');
 class adminController{
 
@@ -24,8 +27,25 @@ class adminController{
         newCourse.save();
         res.redirect('/admin');
     }
-    delete(req, res){
-        res.json(req.params.id);
+    edit(req, res, next){
+        const title = 'Sửa khóa học';
+        const name = req.cookies.username;
+        Course.findOne({ _id: req.params.id})
+        .then(courses =>{
+            res.render('edit', {
+                courses: mongooseToObject(courses), title, cast:'yehh',admin:'done', name});
+        })
+        .catch(next);      
+    }
+    update(req, res, next){
+        Course.updateOne({_id: req.params.id}, req.body)
+        .then(() => res.redirect('/admin'))
+        .catch(next);
+    }
+    delete(req, res, next){
+        Course.deleteMany({_id: req.params.id})
+        .then(() => res.redirect('/admin'))
+        .catch(next)  
     }
     back(req, res){
         res.redirect('/profile');
