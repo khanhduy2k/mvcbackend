@@ -10,7 +10,11 @@ class CourseController{
                 if(course){
                     res.cookie('khoahoc',course.slug)
                     const name = req.cookies.username;
-                    res.render('show', { course: mongooseToObject(course), title,cast:'yehh', name})
+                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                        res.render('show', { course: mongooseToObject(course), title,cast:'yehh',admin:'done', name})
+                    }else{
+                        res.render('show', { course: mongooseToObject(course), title,cast:'yehh', name})
+                    }
                 }else{
                     res.redirect('/');
                 }
@@ -26,7 +30,11 @@ class CourseController{
                 if(course){
                     const name = req.cookies.username;
                     const Idslug = req.params.id;
-                    res.render('show2', { course: mongooseToObject(course), title,cast:'yehh', name, Idslug})
+                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                        res.render('show2', { course: mongooseToObject(course), title,cast:'yehh',admin: 'done', name, Idslug})
+                    }else{
+                        res.render('show2', { course: mongooseToObject(course), title,cast:'yehh', name, Idslug})
+                    }
                 }else{
                     res.redirect('/');
                 }

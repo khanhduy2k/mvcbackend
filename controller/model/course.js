@@ -7,6 +7,8 @@ const Course = new Schema({
     name: { type: String, required: true },
     mota:{ type: String, required: true },
     slug: { type: String, required: true },
+    videoId1: { type: Array, required: true },
+    bai: { type: Array, required: true },
     date: { type: Date, default: Date.now },
 });
 

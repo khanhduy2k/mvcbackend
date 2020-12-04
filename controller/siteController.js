@@ -12,7 +12,12 @@ class SiteController{
         }
         if (req.signedCookies.userId) {
             const name = req.cookies.username;
-            res.render('home', {title, cast:'yehh',name});
+            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                res.render('home', {title, cast:'yehh',admin: 'done',name});
+            }else{
+                res.render('home', {title, cast:'yehh',name});
+            }
+            
         }      
     }
     course(req, res, next){
@@ -25,8 +30,13 @@ class SiteController{
             }
             if (req.signedCookies.userId) {
             const name = req.cookies.username;
-            res.render('course',{ 
-                courses: mutipleMongooseToObject(courses), title, cast:'yehh',name});
+            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                res.render('course',{ 
+                    courses: mutipleMongooseToObject(courses), title, cast:'yehh', admin:'done', name});
+                }else{
+                    res.render('course',{ 
+                        courses: mutipleMongooseToObject(courses), title, cast:'yehh',name});
+                }                
             }
             
         })
@@ -54,6 +64,7 @@ class SiteController{
                 signed: true
             });
             res.cookie('username', data.name1);
+            res.cookie('user_i', data._id);
             res.redirect('/');
         }else{
             const msg ='Tài khoản hoặc mật khẩu không chính xác!!';
@@ -71,7 +82,6 @@ class SiteController{
     }
     checksignup(req, res){ 
             const { name1, name_user, email, pass, pass2 } = req.body;
-            const msg ='';
             if (name1 === ''|| name_user === ''||email=== ''||pass=== ''){
                 const msg = 'Vui lòng nhập đầy đủ thông tin!';
                 res.render('signup',{msg});
@@ -130,7 +140,11 @@ class SiteController{
             Post.findOne({name1: req.cookies.username})
                 .then(profile =>{
                     const name = req.cookies.username;
-                    res.render('profile', {profile: mongooseToObject(profile),title, cast:'yehh',name});  
+                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                        res.render('profile', {profile: mongooseToObject(profile),title, cast:'yehh',admin: 'done', name}); 
+                    } else{
+                        res.render('profile', {profile: mongooseToObject(profile),title, cast:'yehh',name}); 
+                    }
             })
                 .catch(next);
         }     

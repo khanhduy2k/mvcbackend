@@ -24,6 +24,11 @@
                   <a type="button" class="dropdown-item" href="profile">
                       <i class="fas fa-cog"></i>&nbsp;Cài đặt
                   </a>
+                  {{#if admin}}
+                  <a type="button" class="dropdown-item" href="admin">
+                      <i class="fas fa-user-cog"></i>&nbsp;Quản lí
+                  </a>
+                  {{/if}}
                   <a type="button" class="dropdown-item" href="logout">
                       <i class='fas fa-sign-out-alt'></i>&nbsp;Đăng xuất
                   </a>
