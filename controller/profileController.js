@@ -81,8 +81,8 @@ class profileController{
         res.redirect('/login');
     }   
     backlogout(req, res){
-    res.cookie('userId','logout');
-    res.redirect('/');
+        res.cookie('userId','logout');
+        res.redirect('/');
     }       
 }
 

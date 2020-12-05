@@ -21,7 +21,6 @@ class adminController{
         res.render('insert',{title, cast:'yehh',admin:'done', name});
     }
     insertup(req, res){
-        const {name, mota, img, slug} = req.body;
         const newCourseData = req.body;
         const newCourse = new Course(newCourseData);
         newCourse.save();
