@@ -1,7 +1,7 @@
 <div class="my-4">
     <div class="container col-sm-5 col-md-7 col-lg-5 sign-up">
         <h2>Đăng ký thành viên</h2>
-        <form id="signup-form" method="POST">
+        <form id="signup-form" action="signup" method="POST">
             <div class="form-group">
                 <div class="text-right" >
                     <label style="float: left;" for="name1">Tên đăng nhập</label>
@@ -41,15 +41,6 @@
         </div>
     </div>
 <script>
-
-    var btnsignupCourse = document.getElementById('btn-signup');
-    var signupForm = document.forms['signup-form'];
-        btnsignupCourse.onclick = function(){   
-            document.getElementById('load').style.display = "block";
-            signupForm.action="/signup";
-            signupForm.submit();
-        }
-
     setInterval(function(){ 
 				document.getElementById('msg').style.display = "none";
 			}, 5000);

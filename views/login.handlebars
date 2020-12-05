@@ -1,7 +1,7 @@
 <div class="my-4">
     <div class="container col-sm-4 col-md-6 col-lg-4 sign-up">
         <h2>Đăng nhập</h2>
-        <form method="POST" id="login-form" onsubmit="validateCaptcha()">
+        <form method="POST" id="login-form">
             <div class="form-group">
                 <label for="name1">Tên đăng nhập</label>
                 <input type="text" class="form-control"  id="" name="name1" placeholder="Nhập tên đăng nhập">
@@ -44,11 +44,11 @@
 				document.getElementById('msg').style.display = "none";
 			}, 5000);
         function check(){
-        var a = Math.floor(Math.random() * 100);
-        var c = Math.floor(Math.random() * 100);
-        var d = a+c;
-        document.getElementById("demo").innerHTML = a+"+"+c ;
-        document.getElementById("c").value = d;
+            var a = Math.floor(Math.random() * 100);
+            var c = Math.floor(Math.random() * 100);
+            var d = a+c;
+            document.getElementById("demo").innerHTML = a+"+"+c ;
+            document.getElementById("c").value = d;
         }
 </script>
 </div>
