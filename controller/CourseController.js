@@ -30,10 +30,11 @@ class CourseController{
                 if(course){
                     const name = req.cookies.username;
                     const Idslug = req.params.id;
+                    const bai = req.params.bai;
                     if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
-                        res.render('show2', { course: mongooseToObject(course), title,cast:'yehh',admin: 'done', name, Idslug})
+                        res.render('show2', { course: mongooseToObject(course), title,cast:'yehh',admin: 'done', name, Idslug, bai})
                     }else{
-                        res.render('show2', { course: mongooseToObject(course), title,cast:'yehh', name, Idslug})
+                        res.render('show2', { course: mongooseToObject(course), title,cast:'yehh', name, Idslug, bai})
                     }
                 }else{
                     res.redirect('/');
@@ -49,8 +50,8 @@ class CourseController{
     backset(req, res){
         res.redirect('/profile');
     } 
-    backlogin(req, res){
-        res.redirect('/login');
+    backadmin(req, res){
+        res.redirect('/admin');
     }   
     backlogout(req, res){
     res.cookie('userId','logout');

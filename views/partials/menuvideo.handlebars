@@ -3,7 +3,7 @@
                 <div class="mt-3">
                 {{#each course.videoId1}}
                 <div  class="lesson">
-                    <a class="btn" style="text-align: left;"  href="/courses/{{../course.slug}}/{{this}}">
+                    <a class="btn" style="text-align: left;"  href="/courses/{{../course.slug}}/{{this}}/{{lookup ../course.bai @index}}">
                         <img src="http://demo637737.000webhostapp.com/img/play2.png" width="40px" alt="Play">
                          <b> Bài {{lookup ../course.bai @index}}</b>               
                     </a>
