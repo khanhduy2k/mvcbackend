@@ -104,27 +104,30 @@ class SiteController{
                             const msg = 'Email đã được sử dụng!';
                             res.render('signup',{msg});
                             return;
-                        }
-                    });
-                Post.findOne({name1: name1})
-                .then(data=>{
-                if(data){
-                    const msg = 'Tài khoản đã tồn tại!';
-                    res.render('signup',{msg});
-                    return;
+                        }else{
+                            Post.findOne({name1: name1})
+                            .then(data=>{
+                            if(data){
+                                const msg = 'Tài khoản đã tồn tại!';
+                                res.render('signup',{msg});
+                                return;
 
-                }else{
-                    let errors = [];
-                    if(!name1){
-                        errors.push({ msg: 'Nhập tên tài khoản!' });
-                    }else{
-                            const newPostData = req.body;
-                            const newPost = new Post(newPostData);
-                            newPost.save();
-                            res.redirect('/login');
-                    }
-                }
-            })
+                            }else{
+                                let errors = [];
+                                if(!name1){
+                                    errors.push({ msg: 'Nhập tên tài khoản!' });
+                                }else{
+                                    const newPostData = req.body;
+                                    const newPost = new Post(newPostData);
+                                    newPost.save();
+                                    res.redirect('/login');
+                                    }
+                                 }
+                             });
+                        }
+                        
+                    });
+                    
             }
             else{
                 const msg = 'Mật khẩu không trùng khớp!';
