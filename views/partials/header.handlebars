@@ -11,7 +11,7 @@
         <a class="nav-link" href="/">Trang chủ<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link " href="course">Khóa học</a>
+        <a class="nav-link " href="/course">Khóa học</a>
       </li>
     </ul>
     {{#if cast}}
@@ -21,21 +21,21 @@
                 </button>
                 <div class="mr-5 dropdown-menu dropdown-menu-right">
                   <p class="ml-4 logout"><b>{{name}}</b></p>
-                  <a type="button" class="dropdown-item" href="profile">
+                  <a type="button" class="dropdown-item" href="/profile">
                       <i class="fas fa-cog"></i>&nbsp;Cài đặt
                   </a>
                   {{#if admin}}
-                  <a type="button" class="dropdown-item" href="admin">
+                  <a type="button" class="dropdown-item" href="/admin">
                       <i class="fas fa-user-cog"></i>&nbsp;Quản lí
                   </a>
                   {{/if}}
-                  <a type="button" class="dropdown-item" href="logout">
+                  <a type="button" class="dropdown-item" href="/logout">
                       <i class='fas fa-sign-out-alt'></i>&nbsp;Đăng xuất
                   </a>
                 </div>
     </div>
     {{else}}
-    <a type="button" class="btn btn-outline-info" href="login">Đăng nhập</a>
+    <a type="button" class="btn btn-outline-info" href="/login">Đăng nhập</a>
     {{/if }}
 </div>
 </nav>

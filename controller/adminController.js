@@ -76,19 +76,7 @@ class adminController{
         .then(() => res.redirect('/admin'))
         .catch(next)  
     }
-    back(req, res){
-        res.redirect('/profile');
-    }
-    backadmin(req, res){
-        res.redirect('/admin');
-    }
-    backcourse(req, res){
-        res.redirect('/course');
-    }  
-    backlogout(req, res){
-    res.cookie('userId','logout');
-    res.redirect('/');
-    }       
+    
 }
 
 module.exports = new adminController();

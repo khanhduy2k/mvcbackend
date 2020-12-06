@@ -5,11 +5,7 @@ const profileController = require('../controller/profileController');
 
 
 
-router.get('/logout', profileController.backlogout);
-router.get('/login', profileController.backlogin);
-router.get('/course', profileController.backcourse);
-router.get('/admin', profileController.backadmin);
-router.get('/profile', profileController.back);
+
 router.post('/password', profileController.changepass);
 router.get('/password', profileController.password);
 

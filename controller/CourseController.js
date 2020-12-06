@@ -44,18 +44,5 @@ class CourseController{
             return;      
     }
     
-    back(req, res){
-        res.redirect('/course');
-    }
-    backset(req, res){
-        res.redirect('/profile');
-    } 
-    backadmin(req, res){
-        res.redirect('/admin');
-    }   
-    backlogout(req, res){
-    res.cookie('userId','logout');
-    res.redirect('/');
-    }
 }
 module.exports = new CourseController();

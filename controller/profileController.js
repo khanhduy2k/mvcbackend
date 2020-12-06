@@ -67,23 +67,7 @@ class profileController{
                 res.render('password',{msg,title,cast:'yehh',success:'done',name});
             }    
        }
-    }
-    back(req, res){
-        res.redirect('/profile');
-    }
-    backcourse(req, res){
-        res.redirect('/course');
-    }
-    backadmin(req, res){
-        res.redirect('/admin');
-    }
-    backlogin(req, res){
-        res.redirect('/login');
-    }   
-    backlogout(req, res){
-        res.cookie('userId','logout');
-        res.redirect('/');
-    }       
+    } 
 }
 
 module.exports = new profileController();
