@@ -3,6 +3,7 @@ const { mongooseToObject } = require('../ulti/mongoose');
 const { updateOne } = require('./model/course');
 
 const Course = require('./model/course');
+const Post = require('./model/posts');
 class adminController{
 
     admin(req, res, next){
@@ -75,6 +76,36 @@ class adminController{
         Course.deleteMany({_id: req.params.id})
         .then(() => res.redirect('/admin'))
         .catch(next)  
+    }
+    thanhvien(req, res, next){
+        const name = req.cookies.username;
+        const title = 'Quản lí thành viên';
+        Post.find({})
+        .then(user =>{
+            Post.countDocuments({})
+            .then(num=>{
+               res.render('thanhvien',{title,name, cast:'yehh',admin:'done',num, user: mutipleMongooseToObject(user)}) 
+            });
+        })
+        .catch(next);
+    }
+    deleteuser(req, res, next){
+        Post.deleteMany({_id: req.params.id})
+        .then(() => res.redirect('/admin/thanhvien'))
+        .catch(next)  
+    }
+    chitiet(req, res, next){
+        const name = req.cookies.username;
+        const title = 'Quản lí thành viên';
+        Post.findOne({name1: req.params.name})
+        .then(info=>{
+            if (info){
+                res.render('chitiet',{title,name, cast:'yehh',admin:'done',info:mongooseToObject(info)});
+            }else{
+                res.redirect('/admin/thanhvien');
+            }
+        })
+        .catch(next);       
     }
     
 }

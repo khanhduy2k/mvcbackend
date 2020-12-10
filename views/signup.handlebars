@@ -6,12 +6,11 @@
                 <div class="text-right" >
                     <label style="float: left;" for="name1">Tên đăng nhập</label>
                 </div>
-                <input type="text" class="form-control"  id="name1" name="name1" placeholder="Nhập tên đăng nhập">
+                <input type="text" class="form-control"  id="name1" name="name1" placeholder="Nhập tên đăng nhập" value="">
             </div>
             <div class="form-group">
                 <div class="text-right" >
                     <label style ="float: left;" for="name_user">Họ và tên</label>
-                    <small style ="color: red;">* Ghi đầy đủ họ tên </small>
                 </div>
                 <input type="text" class="form-control" id="name_user"   name="name_user" placeholder="Nhập đầy đủ">
             </div>
@@ -22,13 +21,23 @@
             <div class="form-group">
                 <div class="text-right" >
                     <label style="float: left;" for="Password1">Nhập lại mật khẩu</label>
-                    <small style ="color: red;">* Mật khẩu từ 5-20 kí tự </small>
                 </div>
                 <input type="password" class="form-control" id="Password1"  name="pass" placeholder="Nhập mật khẩu" >
+                <div id="check" style="display: none;">
+                    <small id="check-x"><i class="fas fa-times-circle "></i></small>
+                    <small id="check-v" style="display: none;"><i class="fas fa-check-circle "></i></small>
+                    <small  id="check-item-1"> Mật khẩu gồm 5-20 kí tự </small>
+                </div>
             </div>
             <div class="form-group">
                 <label for="Password2">Nhập lại mật khẩu</label>
                 <input type="password" class="form-control" id="Password2"  name="pass2" placeholder="Nhập lại mật khẩu">
+                <div id="check2" style="display: none;">
+                    <small id="check-x-2"><i class="fas fa-times-circle "></i></small>
+                    <small id="check-w-2"><i class="fas fa-exclamation-circle "></i></small>
+                    <small id="check-v-2"><i class="fas fa-check-circle "></i></small>
+                    <small  id="check-item-2"> Mật khẩu không trùng khớp!</small>
+                </div>
             </div>
             
             <div><button id="btn-signup" class="btn btn-danger btn-sign-footer">Đăng ký tài khoản</button></div>
@@ -36,7 +45,54 @@
     </div>
 </div>
 <script>
-    setInterval(function(){ 
+    setTimeout(function(){ 
 				document.getElementById('msg').style.display = "none";
 			}, 5000);
+    
+    var pass1 = document.getElementById('Password1');
+    var pass2 = document.getElementById('Password2');
+    var check = document.getElementById('check');
+    var check2 = document.getElementById('check2');
+    pass1.onfocus = function() {
+        check.style.display = 'block'
+    }
+    pass2.onfocus = function() {
+        check2.style.display = 'block'
+    }
+        setInterval(function(){
+            var checkpass = pass1.value;
+            var checkpass2 = pass2.value;
+            if (checkpass.length >=5 && checkpass.length <= 20){
+                document.getElementById('check').style.color = "#11ec11";
+                document.getElementById('check-x').style.display = "none";
+                document.getElementById('check-v').style.display = "";
+            } else{
+                document.getElementById('check-x').style.display = "";
+                document.getElementById('check-v').style.display = "none";
+                document.getElementById('check').style.color = "red"
+            }
+            if (checkpass === checkpass2 && checkpass!=='') {
+                document.getElementById('check-x-2').style.display = "none";
+                document.getElementById('check-w-2').style.display = "none";
+                document.getElementById('check-v-2').style.display = "";
+                document.getElementById('check2').style.color = "#11ec11";
+                document.getElementById('check-item-2').innerHTML = 'Trùng khớp!';
+            } else{
+                document.getElementById('check-x-2').style.display = "";
+                document.getElementById('check-v-2').style.display = "none";
+                document.getElementById('check-w-2').style.display = "none";
+                document.getElementById('check2').style.color = "red";
+                document.getElementById('check-item-2').innerHTML = 'Mật khẩu không trùng khớp!';
+
+            }
+            if (checkpass ===''){
+                document.getElementById('check-x-2').style.display = "none";
+                document.getElementById('check-v-2').style.display = "none";
+                document.getElementById('check-w-2').style.display = "";
+                document.getElementById('check2').style.color = "yellow";
+                document.getElementById('check-item-2').innerHTML = 'Nhập mật khẩu!';
+            }
+        }, 1)
+    
+   
 </script>

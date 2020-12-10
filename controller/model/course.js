@@ -13,7 +13,8 @@ const Course = new Schema({
     slug: { type: String, slug: 'name' },
     videoId1: { type: Array},
     bai: { type: Array},
-    date: { type: Date, default: Date.now },
+},{
+    timestamps:true,
 });
 
 module.exports = mongoose.model('courses', Course);

@@ -14,5 +14,8 @@ router.post('/:id/edit', adminController.update);
 router.get('/insert', adminController.insert);
 router.post('/insert', adminController.insertup);
 router.post('/:id/delete', adminController.delete);
+router.post('/:id/deleteuser', adminController.deleteuser);
+router.get('/:name/chitiet', adminController.chitiet);
+router.get('/thanhvien', adminController.thanhvien);
 router.get('/', adminController.admin);
 module.exports = router;

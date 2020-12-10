@@ -16,7 +16,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // handlebras&body-parser
 app.engine('handlebars', exphbs({
     helpers: {
-        
+        sum: (a, b)=>a+b,
+        admin: (name, color)=>{
+            if (name === 'Admin'){
+                let out = `<td class="text-warning">`;
+                out = out +color;
+                return out + `</td>`;
+            }else {
+                let out = `<td>`;
+                out = out +color;
+                return out+`</td>`;
+            }
+        }
     }
 }));
 app.set('view engine', 'handlebars');

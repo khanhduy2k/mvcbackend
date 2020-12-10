@@ -1,0 +1,69 @@
+<div class="mt-4 p-3 container bg-light">
+    <a class="btn btn-primary mr-5" href="/admin" style="float: left;"> Quản lí khóa học</a>
+    <h4 class="text-secondary">Tổng thành viên: <i class="fas fa-users"></i> {{num}}</h4> 
+    <table class="mt-3 table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">STT</th>
+      <th scope="col">Tên đăng nhập</th>
+      <th scope="col">Họ & tên</th>
+      <th scope="col">Email liên hệ</th>      
+      <th scope="col"></th>     
+      <th scope="col"></th>     
+    </tr>
+  </thead>
+  <tbody>
+      {{#each user}}
+    <tr>
+      <th scope="row">{{sum @key 1}}</th>
+      {{{admin this.name1 this.name1}}}
+      {{{admin this.name1 this.name_user}}}
+      {{{admin this.name1 this.email}}}
+      <td><a class="btn btn-info" href="/admin/{{this.name1}}/chitiet">Chi tiết</a></td>
+      <td><a class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-user">Xóa</a></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+<div id="delete-user" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="p-4 border-bottom text-center">
+        <h5 id="msgq" >Admin muốn xóa user này không?</h5>
+        <div class="text-danger" id="msg" style="display: none;"><h5>Đang xóa <i class="fa fa-spinner fa-pulse fa-fw"></i></h5></div>
+      </div>
+      <div class="p-4" id="btnmsg">
+        <button type="button" id="btn-delete-user" class="btn btn-danger" >Xóa bỏ</button>
+        <button type="button" class="btn btn-secondary" style="float: right;" data-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+<form name="delete-user-form" method="POST"></form>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var Userid;
+        var tablemsg = document.getElementById('msg');
+        var tablemsgq = document.getElementById('msgq');
+        var btnmsg = document.getElementById('btnmsg');
+        var deleteForm = document.forms['delete-user-form'];
+        var btnDeleteUser = document.getElementById('btn-delete-user');
+
+        $('#delete-user').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            Userid = button.data('id');
+    });
+  
+        btnDeleteUser.onclick = function(){
+            tablemsg.style.display = "block";
+            tablemsgq.style.display = "none";
+            btnmsg.style.display = "none";
+            deleteForm.action = '/admin/'+Userid+'/deleteuser';
+            deleteForm.submit();
+
+            
+            
+    }  
+});
+</script>
