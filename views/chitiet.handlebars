@@ -2,7 +2,7 @@
     <div class="col-6 bg-light m-auto p-4">
         <a class="text-info" href="/admin/thanhvien" style="font-size:20px;text-decoration:none">
                 <i class="fas fa-angle-left "></i>&nbsp;&nbsp;&nbsp;&nbsp;Quản lí thành viên
-        </a><p id="date"></p>
+        </a>
         <div class="mt-4 border-top bg-dark text-light p-4">
             <p><b class="text-info">Tên đăng nhập:</b>  {{info.name1}}.</p>
             <p><b class="text-info">Tên thành viên:</b>  {{info.name_user}}.</p>
@@ -13,10 +13,4 @@
             
     </div>
 </div>
-<script>
-    var date;
-    var msg = document.getElementById('date');
-    var months = ["1","2","3","4","5","6","7","8","9","10","11","12"];
-        date  = new Date();
-        msg.innerHTML = 'Thứ '+ date.getDay()+', Ngày '+date.getDate()+' Tháng '+months[date.getMonth()]+' Năm '+date.getFullYear();
-</script>
+
