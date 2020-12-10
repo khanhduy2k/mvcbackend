@@ -7,10 +7,18 @@
             <p><b class="text-info">Tên đăng nhập:</b>  {{info.name1}}.</p>
             <p><b class="text-info">Tên thành viên:</b>  {{info.name_user}}.</p>
             <p><b class="text-info">Email:</b>  {{info.email}}.</p>
+            <p><b class="text-info">Thời gian tham gia:</b> <span id="age"></span> ngày</p>
             <p><b class="text-success">Thời gian tạo:</b><br>{{info.createdAt}}.</p>
             <p><b class="text-warning">Lần cập nhật cuối:</b><br> {{info.updatedAt}}</p>
         </div>
             
     </div>
 </div>
+<script>
+    var date = {{info.date}};
+    var dateage = new Date(date);
+    var datenow = new Date();
+    var age = Math.round(Math.abs(datenow - dateage) /1000/60/60/24);
+    document.getElementById('age').innerHTML = age ;
+</script>
 
