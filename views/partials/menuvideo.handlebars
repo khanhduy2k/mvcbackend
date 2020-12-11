@@ -5,12 +5,23 @@
                 <div  class="lesson">
                     <a class="btn" style="text-align: left;"  href="/courses/{{../course.slug}}/{{this}}/{{lookup ../course.bai @index}}">
                         <img src="http://demo637737.000webhostapp.com/img/play2.png" width="40px" alt="Play">
-                         <b> Bài {{lookup ../course.bai @index}}</b>               
+                         <b class="name">Bài {{lookup ../course.bai @index}}</b>               
                     </a>
                 </div>
                 {{/each}}
             </div>       
         </div>
-       
+        <script>
+            var baihoc = document.getElementById('bai');
+            var namelesson = document.getElementsByClassName('name');
+            var lesson = document.getElementsByClassName('lesson');
+            for (var i = 0; i < lesson.length; i++ ){
+                if (namelesson[i].outerText == baihoc.outerText) {
+                    lesson[i].style.background = "linear-gradient(to right, #fbc603, rgb(255, 255, 255))";
+                }else{
+                    lesson[i].style.background = ""
+                }
+            }
+        </script>
         
        

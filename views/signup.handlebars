@@ -53,24 +53,15 @@
         </div>
         <script>
             var count = document.getElementById('count');
-                     setTimeout(function(){
-                         count.innerHTML = '5';
-                            setTimeout(function(){
-                            count.innerHTML = '4';
-                                setTimeout(function(){
-                                count.innerHTML = '3';
-                                    setTimeout(function(){
-                                    count.innerHTML = '2';
-                                        setTimeout(function(){
-                                        count.innerHTML = '1';
-                                            setTimeout(function(){
-                                            count.innerHTML = '0';
-                                            }, 1000)
-                                        }, 1000)
-                                    }, 1000)
-                                }, 1000)
-                            }, 1000)
-                         })
+            var secon = 5
+            var stop = document.getElementById('stop');
+            var time = setInterval(function() {
+                    secon -=1;     
+                    count.innerHTML = secon;
+                    if (secon == 0){
+                        clearInterval(time);
+                    }
+                }, 1000);       
                 setTimeout(function(){
                     window.location.href ="/login";
                 }, 6000)
