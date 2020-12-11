@@ -80,11 +80,16 @@ class adminController{
     thanhvien(req, res, next){
         const name = req.cookies.username;
         const title = 'Quản lí thành viên';
+        var page = req.query.page || 1;
+        var perpage = 10;
         Post.find({})
+        .sort({date: 1})
+        .skip((perpage*page)-perpage)
+        .limit(perpage)
         .then(user =>{
             Post.countDocuments({})
             .then(num=>{
-               res.render('thanhvien',{title,name, cast:true,admin:true,num, user: mutipleMongooseToObject(user)}) 
+               res.render('thanhvien',{title, name, cast:true, admin:true, user: mutipleMongooseToObject(user), num, page, perpage}) 
             });
         })
         .catch(next);

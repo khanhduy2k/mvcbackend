@@ -27,7 +27,33 @@ app.engine('handlebars', exphbs({
                 out = out +color;
                 return out+`</td>`;
             }
-        }
+        },
+        pagination: ( total,size,page ) =>{
+            var pages = Math.ceil(total / size); 
+            let out = `<ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="?page=`+1+`">Trang đầu</a>
+                            </li>
+            `;
+            for (var i = 1; i <= pages;i++){
+                if (i == page){
+                  out = out + `
+               <li class="page-item active">
+                    <a class="page-link" href ="?page=`+i+`">`+i+`</a>
+               </li>
+               `   }else{
+                out = out + `
+                <li class="page-item">
+                     <a class="page-link" href ="?page=`+i+`">`+i+`</a>
+                </li>
+                `
+               }
+            }
+                return out + `<li class="page-item">
+                <a class="page-link" href="?page=`+pages+`">Trang cuối</a>
+              </li>
+            </ul>`;
+        },
     }
 }));
 app.set('view engine', 'handlebars');
