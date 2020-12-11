@@ -1,5 +1,6 @@
 <div class="my-4">
     <div class="container col-sm-5 col-md-7 col-lg-5 sign-up">
+        
         <h2>Đăng ký thành viên</h2>
         <form id="signup-form" action="signup" method="POST">
             <div class="form-group">
@@ -39,9 +40,43 @@
                     <small  id="check-item-2"> Mật khẩu không trùng khớp!</small>
                 </div>
             </div>
-            
             <div><button id="btn-signup" class="btn btn-danger btn-sign-footer">Đăng ký tài khoản</button></div>
         </form><div style="text-align: center;"><h4 id="msg">{{msg}}</h4></div>
+        {{#if success}}
+        <div class="msg ">
+           <div class="col-sm-5 m-auto" style="height: 400px;">
+            <div class="bg-light text-center p-4 table-msg" style="height:100px;">
+                <h3 class="text-success"><i class="fas fa-check-circle"></i> Đăng kí thành công</h3>
+                <p class="text-center text-info"><b>Đi tới trang đăng nhập sau <b id="count">5</b></b></p>
+            </div>
+        </div> 
+        </div>
+        <script>
+            var count = document.getElementById('count');
+                     setTimeout(function(){
+                         count.innerHTML = '5';
+                            setTimeout(function(){
+                            count.innerHTML = '4';
+                                setTimeout(function(){
+                                count.innerHTML = '3';
+                                    setTimeout(function(){
+                                    count.innerHTML = '2';
+                                        setTimeout(function(){
+                                        count.innerHTML = '1';
+                                            setTimeout(function(){
+                                            count.innerHTML = '0';
+                                            }, 1000)
+                                        }, 1000)
+                                    }, 1000)
+                                }, 1000)
+                            }, 1000)
+                         })
+                setTimeout(function(){
+                    window.location.href ="/login";
+                }, 6000)
+                
+        </script>
+        {{/if}}
     </div>
 </div>
 <script>

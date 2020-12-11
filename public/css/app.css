@@ -90,6 +90,24 @@ body{
     color: black;
     background-image: url('https://i.pinimg.com/originals/b4/31/48/b43148675959cdb19d1964abe2d50254.png');
 }
+.msg {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    background-color: rgb(41, 40, 40,0.6);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 99999999999;
+}
+.table-msg {
+    margin-top: 25%;
+    border: 2px solid black;
+    border-radius: 1rem;
+}
+
 /* Show*/
 .show-info{
     background-color: #fff;

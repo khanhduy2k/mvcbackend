@@ -13,9 +13,9 @@ class SiteController{
         if (req.signedCookies.userId) {
             const name = req.cookies.username;
             if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
-                res.render('home', {title, cast:'yehh',admin: 'done',name});
+                res.render('home', {title, cast:true,admin:true,name});
             }else{
-                res.render('home', {title, cast:'yehh',name});
+                res.render('home', {title, cast:true,name});
             }
             
         }      
@@ -32,10 +32,10 @@ class SiteController{
             const name = req.cookies.username;
             if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
                 res.render('course',{ 
-                    courses: mutipleMongooseToObject(courses), title, cast:'yehh', admin:'done', name});
+                    courses: mutipleMongooseToObject(courses), title, cast:true, admin:true, name});
                 }else{
                     res.render('course',{ 
-                        courses: mutipleMongooseToObject(courses), title, cast:'yehh',name});
+                        courses: mutipleMongooseToObject(courses), title, cast:true,name});
                 }                
             }
             
@@ -120,7 +120,7 @@ class SiteController{
                                     const newPostData = req.body;
                                     const newPost = new Post(newPostData);
                                     newPost.save();
-                                    res.redirect('/login');
+                                    res.render('signup',{success: true});
                                     }
                                  }
                              });
@@ -144,9 +144,9 @@ class SiteController{
                 .then(profile =>{
                     const name = req.cookies.username;
                     if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
-                        res.render('profile', {profile: mongooseToObject(profile),title, cast:'yehh',admin: 'done', name}); 
+                        res.render('profile', {profile: mongooseToObject(profile),title, cast:true,admin: true, name}); 
                     } else{
-                        res.render('profile', {profile: mongooseToObject(profile),title, cast:'yehh',name}); 
+                        res.render('profile', {profile: mongooseToObject(profile),title, cast:true,name}); 
                     }
             })
                 .catch(next);
