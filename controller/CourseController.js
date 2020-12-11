@@ -1,5 +1,4 @@
 const { mongooseToObject } = require('../ulti/mongoose');
-const course = require('./model/course');
 const Course = require('./model/course');
 
 class CourseController{
