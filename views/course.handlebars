@@ -2,7 +2,7 @@
 <div class="mt-4">
     <div class="row col-sm-12" style="margin-right: 0;">
         {{#each courses}}
-        <div class="col-sm-4 col-lg-4 ">
+        <div class="col-sm-4 col-lg-4 " >
             <div class="card card-item">
                 <img class="card-img-top" src="{{this.img}}" alt="Card image cap">
                 <div class="reviews"></div>
@@ -12,9 +12,9 @@
                     <p id="namecourse" style="display:none;">{{this.slug}}</p>
                     <p class="card-text">{{this.mota}}</p>
                     </div> 
-                    <div class="learn text-right">
-                        <span style="float: left;"><i class="fas fa-users"></i> {{this.__v}} </span>
-                        <a href="/courses/{{this.slug}}" class="btn btn-primary">Miễn phí</a>
+                    <div class="learn text-center">
+                        <span style="float: right;"><i class="fas fa-users"></i> {{this.__v}} </span>
+                        <a href="/courses/{{this.slug}}" class="btn btn-primary" style="border-radius: 2rem;">Miễn phí</a>
                     </div>                                       
                 </div>
             </div>
@@ -33,4 +33,5 @@
             learned[i].classList.add('btn-learning');
         }
     }
+
 </script>
