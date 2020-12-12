@@ -8,13 +8,14 @@
                 <div class="reviews"></div>
                 <div class="card-body" style="height: 14rem;">
                     <div class="noidung">
-                    <h5 class="card-title">{{this.name}}
-                        <span style="float: right;">{{this.__v}} <i class="fas fa-users"></i></span>
-                    </h5>
+                    <h5 class="card-title">{{this.name}}</h5>
                     <p id="namecourse" style="display:none;">{{this.slug}}</p>
                     <p class="card-text">{{this.mota}}</p>
                     </div> 
-                    <div class="learn" style="text-align: center;"><a href="/courses/{{this.slug}}" class="btn btn-primary">Học ngay</a></div>                                       
+                    <div class="learn text-right">
+                        <span style="float: left;"><i class="fas fa-users"></i> {{this.__v}} </span>
+                        <a href="/courses/{{this.slug}}" class="btn btn-primary">Miễn phí</a>
+                    </div>                                       
                 </div>
             </div>
         </div>
