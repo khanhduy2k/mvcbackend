@@ -21,8 +21,9 @@
         {{/each}}
     </div>  
 </div>
+<p id="learning">{{data.learning}}</p>
 <script>
-    var learning ='{{data.learning}}' ;
+    var learning =document.getElementById('learning');
     var namecourse = document.querySelectorAll('#namecourse');
     var learned = document.querySelectorAll('.learn a');
     for ( var i = 0; i < learned.length; i++ ){
