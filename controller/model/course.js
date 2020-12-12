@@ -10,6 +10,7 @@ const Course = new Schema({
     img: { type: String, required: true },
     name: { type: String, required: true },
     mota:{ type: String, required: true },
+    phanloai:{ type: String, required: true },
     slug: { type: String, slug: 'name' },
     videoId1: { type: Array},
     bai: { type: Array},

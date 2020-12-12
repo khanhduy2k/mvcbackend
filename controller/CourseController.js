@@ -1,3 +1,4 @@
+const { mutipleMongooseToObject } = require('../ulti/mongoose');
 const { mongooseToObject } = require('../ulti/mongoose');
 const Course = require('./model/course');
 const Post = require('./model/posts');
@@ -33,7 +34,6 @@ class CourseController{
     }
     show2(req, res, next){
         const title = 'Khóa học '+req.cookies.khoahoc;
-        
         Course.findOne({ slug: req.cookies.khoahoc})
             .then(course =>{
                 if(course){
@@ -51,6 +51,42 @@ class CourseController{
             })
             .catch(next);   
             return;      
+    }
+    frontend(req, res, next){
+        const title = 'Frontend';
+        const name = req.cookies.username;
+        Course.find({phanloai: 'Frontend'})
+                .then(courses => {
+                    Post.findOne({_id: req.cookies.user_i})
+                    .then(data=>{
+                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                        res.render('frontend',{ 
+                            courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true, admin:true, name});
+                        }else{
+                            res.render('frontend',{ 
+                                courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true,name});
+                        }                
+                    });  
+                })
+                .catch(next);
+    }
+    backend(req, res, next){
+        const title = 'Backend';
+        const name = req.cookies.username;
+        Course.find({phanloai: 'Backend'})
+                .then(courses => {
+                    Post.findOne({_id: req.cookies.user_i})
+                    .then(data=>{
+                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                        res.render('backend',{ 
+                            courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true, admin:true, name});
+                        }else{
+                            res.render('backend',{ 
+                                courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true,name});
+                        }                
+                    });  
+                })
+                .catch(next);
     }
     
 }
