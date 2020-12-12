@@ -1,7 +1,5 @@
-
 <div class="mt-4">
     <div class="row col-sm-12" style="margin-right: 0;">
-        
         {{#each courses}}
         <div class="col-sm-4 col-lg-4 ">
             <div class="card card-item">
@@ -10,12 +8,25 @@
                 <div class="card-body" style="height: 14rem;">
                     <div class="noidung">
                     <h5 class="card-title">{{this.name}}</h5>
+                    <p id="namecourse" style="display:none;">{{this.slug}}</p>
                     <p class="card-text">{{this.mota}}</p>
                     </div> 
-                    <div style="text-align: center;"><a href="/courses/{{this.slug}}" class="btn btn-primary">Học ngay</a></div>                    
+                    <div class="learn" style="text-align: center;"><a href="/courses/{{this.slug}}" class="btn btn-primary">Học ngay</a></div>                                       
                 </div>
             </div>
         </div>
         {{/each}}
     </div>  
 </div>
+<p id="learning" style="display: none;">{{data.learning}}</p>
+<script>
+    var learning = document.getElementById('learning').innerHTML;
+    var namecourse = document.querySelectorAll('#namecourse');
+    var learned = document.querySelectorAll('.learn a');
+    for ( var i = 0; i < learned.length; i++ ){
+        if (learning.includes(namecourse[i].innerHTML)){
+            learned[i].innerHTML = 'Học tiếp';
+            learned[i].classList.add('btn-learning');
+        }
+    }
+</script>

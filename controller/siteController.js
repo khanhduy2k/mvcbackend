@@ -24,7 +24,9 @@ class SiteController{
         const title = 'Khóa học';
     Course.find({})
         .then(courses => {
-            if (!req.signedCookies.userId) {
+            Post.findOne({_id: req.cookies.user_i})
+            .then(data=>{
+              if (!req.signedCookies.userId) {
             res.render('course',{ 
                 courses: mutipleMongooseToObject(courses), title, cast:false});
             }
@@ -32,13 +34,13 @@ class SiteController{
             const name = req.cookies.username;
             if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
                 res.render('course',{ 
-                    courses: mutipleMongooseToObject(courses), title, cast:true, admin:true, name});
+                    courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true, admin:true, name});
                 }else{
                     res.render('course',{ 
-                        courses: mutipleMongooseToObject(courses), title, cast:true,name});
+                        courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true,name});
                 }                
-            }
-            
+            }  
+            });  
         })
         .catch(next);  
     }

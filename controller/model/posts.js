@@ -7,6 +7,7 @@ const postSchame = new Schema({
     name1: { type: String, required: true },
     email:{ type: String, required: true },
     pass: { type: String, required: true },
+    learning: { type: Array},
     date: {type:String, default: Date.now}
 }, {
     timestamps:true,

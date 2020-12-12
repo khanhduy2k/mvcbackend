@@ -1,9 +1,12 @@
 const { mongooseToObject } = require('../ulti/mongoose');
 const Course = require('./model/course');
+const Post = require('./model/posts');
 
 class CourseController{
     show(req, res, next){
         const title = 'Khóa học '+req.params.slug;
+        Post.update({_id: req.cookies.user_i}, {$push:{learning: req.params.slug}})
+        .then(() =>
         Course.findOne({ slug: req.params.slug })
             .then(course =>{
                 if(course){
@@ -17,7 +20,7 @@ class CourseController{
                 }else{
                     res.redirect('/');
                 }
-            })
+            }))
             .catch(next);   
             return;
     }

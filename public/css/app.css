@@ -69,6 +69,13 @@ body{
 .reviews{
  border: #616263 solid 5px;
 }
+.btn-learning{
+    border: none;
+    background-color: #da471f;
+}
+.btn-learning:hover{
+    background-color:#616263;
+}
 /* Sign up*/
 .sign-up{
     color: #fff;
