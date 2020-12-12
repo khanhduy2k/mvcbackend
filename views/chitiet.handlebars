@@ -4,11 +4,17 @@
                 <i class="fas fa-angle-left "></i>&nbsp;&nbsp;&nbsp;&nbsp;Quản lí thành viên
         </a>
         <div class="mt-4 border-top bg-dark text-light p-4">
-            <p><b class="text-info">Tên đăng nhập:</b>  {{info.name1}}.</p>
-            <p><b class="text-info">Tên thành viên:</b>  {{info.name_user}}.</p>
-            <p><b class="text-info">Email:</b>  {{info.email}}.</p>
+            <p><b class="text-info">Tên đăng nhập:</b>  {{info.name1}}</p>
+            <p><b class="text-info">Tên thành viên:</b>  {{info.name_user}}</p>
+            <p><b class="text-info">Email:</b>  {{info.email}}</p>
             <p><b class="text-info">Thời gian tham gia:</b> <span id="age"></span> ngày</p>
-            <p><b class="text-success">Thời gian tạo:</b><br>{{info.createdAt}}.</p>
+            <p><b class="text-info">Số khóa học đang tham gia:</b> <span id="count"></span></p>
+            <p><b class="text-danger">Tên khóa học: </b>
+            {{#each info.learning}}
+            <span class="num">{{this}},&nbsp;</span>
+            {{/each}}
+            </p>
+            <p><b class="text-success">Thời gian tạo:</b><br>{{info.createdAt}}</p>
             <p><b class="text-warning">Lần cập nhật cuối:</b><br> {{info.updatedAt}}</p>
         </div>
             
@@ -20,5 +26,12 @@
     var datenow = new Date();
     var age = Math.round(Math.abs(datenow - dateage) /1000/60/60/24);
     document.getElementById('age').innerHTML = age;
+
+    var num = document.getElementsByClassName('num');
+    var count = document.getElementById('count');
+    for (var i = 0; i < num.length; ){
+            i++;
+    }
+    count.innerHTML = i;
 </script>
 

@@ -1,3 +1,4 @@
+
 <div class="mt-4">
     <div class="row col-sm-12" style="margin-right: 0;">
         {{#each courses}}
@@ -7,7 +8,9 @@
                 <div class="reviews"></div>
                 <div class="card-body" style="height: 14rem;">
                     <div class="noidung">
-                    <h5 class="card-title">{{this.name}}</h5>
+                    <h5 class="card-title">{{this.name}}
+                        <span style="float: right;">{{this.__v}} <i class="fas fa-users"></i></span>
+                    </h5>
                     <p id="namecourse" style="display:none;">{{this.slug}}</p>
                     <p class="card-text">{{this.mota}}</p>
                     </div> 
@@ -18,9 +21,8 @@
         {{/each}}
     </div>  
 </div>
-<p id="learning" style="display: none;">{{data.learning}}</p>
 <script>
-    var learning = document.getElementById('learning').innerHTML;
+    var learning ='{{data.learning}}' ;
     var namecourse = document.querySelectorAll('#namecourse');
     var learned = document.querySelectorAll('.learn a');
     for ( var i = 0; i < learned.length; i++ ){
@@ -29,4 +31,5 @@
             learned[i].classList.add('btn-learning');
         }
     }
+    console.log(learning)
 </script>

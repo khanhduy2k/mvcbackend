@@ -12,6 +12,7 @@
         <div class="row ml-3">
             {{#each courses}}
             <div class="mt-2 border border-secondary col-sm-3">
+                    <p class="text-secondary"><i class="fas fa-users"></i><b> {{this.__v}}</b></p>
                     <h5 class="text-center"><b>{{this.name}}</b></h5>
                     <div class="mb-2 mt-3">
                         <a class="btn btn-danger text-light" href="" style="width:32%"  data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course">

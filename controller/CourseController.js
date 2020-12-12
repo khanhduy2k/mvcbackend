@@ -5,11 +5,18 @@ const Post = require('./model/posts');
 class CourseController{
     show(req, res, next){
         const title = 'Khóa học '+req.params.slug;
-        Post.update({_id: req.cookies.user_i}, {$push:{learning: req.params.slug}})
-        .then(() =>
         Course.findOne({ slug: req.params.slug })
             .then(course =>{
                 if(course){
+                    Post.findOne({_id: req.cookies.user_i})
+                    .then(data=>{
+                        if (data.learning.includes(req.params.slug) == false){
+                            Post.update({_id: req.cookies.user_i}, {$push:{learning: req.params.slug}})
+                            .then()
+                            Course.updateOne({slug: req.params.slug}, {__v: course.__v+1})
+                            .then()                            
+                        }
+                    });
                     res.cookie('khoahoc',course.slug)
                     const name = req.cookies.username;
                     if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
@@ -20,7 +27,7 @@ class CourseController{
                 }else{
                     res.redirect('/');
                 }
-            }))
+            })
             .catch(next);   
             return;
     }
