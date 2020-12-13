@@ -112,6 +112,21 @@ class adminController{
         })
         .catch(next);       
     }
+    timkiem(req, res, next){
+        const name = req.cookies.username;
+        const title = 'Quản lí thành viên';
+        const tukhoa = req.query.tukhoa;
+        if (tukhoa === ''){
+            var warning = "Nhập tên thành viên muốn tìm kiếm!";
+            res.render('timkiem',{title,name, cast:true, admin:true, warning})
+        }else{
+            Post.find({ name_user:{ $regex: tukhoa , $options : 'i'}})
+            .then(user =>{
+                res.render('timkiem',{title,name, cast:true, admin:true, user: mutipleMongooseToObject(user)}) 
+            })
+            .catch(next);
+        }
+    }
     
 }
 
