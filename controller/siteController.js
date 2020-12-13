@@ -89,6 +89,11 @@ class SiteController{
                 res.render('signup',{msg});
                 return;
             }
+            if (name1.includes(" ")){
+                const msg = 'Tên đăng nhập phải viết liền';
+                res.render('signup',{msg});
+                return;
+            }
             if (name1.length < 4){
                 const msg = 'Tên đăng nhập từ 4 kí tự trở lên';
                 res.render('signup',{msg});
