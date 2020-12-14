@@ -4,7 +4,10 @@ const router = express.Router();
 const siteController = require('../controller/siteController');
 const authMiddlewares = require('../middlewares/authmiddlewares');
 
+
 router.get('/profile',authMiddlewares.requireAuth,siteController.profile);
+router.get('/backend', siteController.backend);
+router.get('/frontend', siteController.frontend);
 router.get('/logout', siteController.logout);
 router.post('/login', siteController.checklogin);
 router.post('/signup', siteController.checksignup);
