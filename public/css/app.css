@@ -204,7 +204,7 @@ li, ul{
 /* table */
 
 @media (min-width: 740px) and (max-width: 1023px) {
-    #main{
+    .main{
         display: none;
     }
 
@@ -222,7 +222,7 @@ li, ul{
     
 }
 @media (max-width: 739px){
-    #main{
+    .main{
         display: none;
     }
 
