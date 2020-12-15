@@ -9,11 +9,20 @@
     <title id="title">{{title}}</title>
 </head>
 <body onload="check()" >
-    {{> header}}
-    <div class="content">
-    {{{body}}}
+    <div id="main">
+        {{> header}}
+        <div class="content">
+        {{{body}}}
+        </div>
+        {{> footer}}
     </div>
-    {{> footer}}
+    <div id="table">
+            <h3>Ứng dụng chưa hỗ trợ cho thiết bị này</h3>
+            <p>Sử dụng pc để có trải nhiệm tốt nhất</p>
+        </div>
+        <div id="mobile">
+            <h5>Ứng dụng chưa hỗ trợ cho mobile</h5>
+            <p>Sử dụng pc để có trải nhiệm tốt nhất</p>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

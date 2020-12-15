@@ -2,6 +2,9 @@
 body{
     background-image: url('https://hinhanhdepmoi.files.wordpress.com/2020/04/mau-background-dep.jpg?w=2000&h=1281&crop=1');
 }
+#table, #mobile{
+    display: none;
+}
 .bottom-navbar{
     background-color: #f8f9fa;
     padding-bottom: 2%;
@@ -196,4 +199,42 @@ li, ul{
     font-size: 20px;
     font-weight:800;
     color: red;
+}
+
+/* table */
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    #main{
+        display: none;
+    }
+
+    #table{
+        display: block;
+        color: #fff;
+        text-align: center;
+        padding-top: 40%;
+    }
+
+    #mobile{
+        display: none;
+    }
+
+    
+}
+@media (max-width: 739px){
+    #main{
+        display: none;
+    }
+
+    #table{
+        display: none;
+    }
+
+    #mobile{
+        display: block;
+        color: #fff;
+        text-align: center;
+        padding-top: 50%;
+    }
+
 }
