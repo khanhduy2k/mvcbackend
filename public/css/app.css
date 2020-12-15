@@ -2,7 +2,7 @@
 body{
     background-image: url('https://hinhanhdepmoi.files.wordpress.com/2020/04/mau-background-dep.jpg?w=2000&h=1281&crop=1');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
 }
 #table, #mobile{
     display: none;
