@@ -22,8 +22,9 @@ class adminController{
         res.render('admin/insert',{title, cast:true,admin:true, name});
     }
     insertup(req, res){
-        const newCourseData = req.body;
-        const newCourse = new Course(newCourseData);
+        const img = 'img/'+req.file.filename;
+        const {name, phanloai, mota} = req.body;
+        const newCourse = new Course({name:name, phanloai:phanloai, mota:mota, img:img});
         newCourse.save();
         res.redirect('/admin');
     }

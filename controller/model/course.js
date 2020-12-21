@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 
 //Tao model
 const Course = new Schema({
-    img: { type: String, required: true },
+    img: { type: String},
     name: { type: String, required: true },
     mota:{ type: String, required: true },
     phanloai:{ type: String, required: true },

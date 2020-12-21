@@ -1,7 +1,7 @@
 <div class="container bg-light pt-4 mt-3">
     <div class="col-sm-8 m-auto">
         <h2 class="text-danger">Thêm khóa học</h2>
-        <form class="mt-4" action="insert" method="POST" id="insert-course-form" >
+        <form class="mt-4" action="insert" method="POST" id="insert-course-form" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name"><h5>Tên khóa học</h5></label>
                 <input type="text" id="name" class="form-control" name="name">
@@ -18,8 +18,8 @@
                 <textarea class="form-control" id="mota" style="height: 150px;resize:none" name="mota"></textarea>
             </div>
             <div class="form-group">
-                <label for="img"><h5>Link ảnh</h5></label>
-                <input type="text" id="img" class="form-control" name="img">
+                <label for="img"><h5>Ảnh khóa học</h5></label>
+                <input type="file" id="img" class="form-control" name="img">
             </div>
             <div class="form-group text-right">
                 <a class="btn btn-secondary mb-4 text-light" href="/admin" style="float: left;">Về trang quản lí</a>

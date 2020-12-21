@@ -2,9 +2,20 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controller/adminController');
 
+const multer  = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/img')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+  })
+
+const upload = multer({ storage: storage })
 
 router.get('/insert', adminController.insert);
-router.post('/insert', adminController.insertup);
+router.post('/insert', upload.single('img'), adminController.insertup);
 router.get('/:id/delete', adminController.deletevideo);
 router.get('/:id/addvideo', adminController.addvideo);
 router.post('/:id/addvideo', adminController.postvideo);
