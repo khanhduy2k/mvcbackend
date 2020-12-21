@@ -133,7 +133,7 @@ class SiteController{
         res.render('signup', {title});
     }
     checksignup(req, res){ 
-            const { name1, name_user, email, pass, pass2 } = req.body;
+            const { name_user, name, email, addr, phone,  pass, passcheck, check} = req.body;
             if (name1 === ''|| name_user === ''||email=== ''||pass=== ''){
                 const msg = 'Vui lòng nhập đầy đủ thông tin!';
                 res.render('signup',{msg});

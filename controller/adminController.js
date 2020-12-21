@@ -11,7 +11,7 @@ class adminController{
         const name = req.cookies.username;
         Course.find({})
         .then(courses =>{
-            res.render('admin', {
+            res.render('admin/admin', {
                 courses: mutipleMongooseToObject(courses), title, cast:true,admin:true, name});
         })
         .catch(next);     
@@ -19,7 +19,7 @@ class adminController{
     insert(req, res, next){
         const title = 'Insert Course';
         const name = req.cookies.username;
-        res.render('insert',{title, cast:true,admin:true, name});
+        res.render('admin/insert',{title, cast:true,admin:true, name});
     }
     insertup(req, res){
         const newCourseData = req.body;
@@ -32,7 +32,7 @@ class adminController{
         const name = req.cookies.username;
         Course.findOne({ _id: req.params.id})
         .then(courses =>{
-            res.render('edit', {
+            res.render('admin/edit', {
                 courses: mongooseToObject(courses), title, cast:true,admin:true, name});
         })
         .catch(next);      
@@ -47,7 +47,7 @@ class adminController{
         const name = req.cookies.username;
         Course.findOne({ _id: req.params.id})
         .then(courses =>{
-            res.render('addvideo', {
+            res.render('admin/addvideo', {
                 courses: mongooseToObject(courses), title, cast:true,admin:true, name});
         })
         .catch(next);
@@ -56,7 +56,7 @@ class adminController{
         const title = 'Thêm video khóa học';
         const name = req.cookies.username;
         Course.update({_id: req.params.id}, { $pop:{videoId1: 1, bai: 1} })
-        .then(() => res.redirect('/admin/'+req.params.id+'/addvideo'))
+        .then(() => res.redirect('/admin'+req.params.id+'/addvideo'))
         .catch(next)
     }
     postvideo(req, res, next){
@@ -67,7 +67,7 @@ class adminController{
         .then(() => 
         Course.findOne({ _id: req.params.id})
         .then(courses =>{
-            res.render('addvideo', {
+            res.render('admin/addvideo', {
                 courses: mongooseToObject(courses), title, cast:true,admin:true, name});
         }))
         .catch(next)
@@ -89,7 +89,7 @@ class adminController{
         .then(user =>{
             Post.countDocuments({})
             .then(num=>{
-               res.render('thanhvien',{title, name, cast:true, admin:true, user: mutipleMongooseToObject(user), num, page, perpage}) 
+               res.render('admin/thanhvien',{title, name, cast:true, admin:true, user: mutipleMongooseToObject(user), num, page, perpage}) 
             });
         })
         .catch(next);
@@ -105,7 +105,7 @@ class adminController{
         Post.findOne({name1: req.params.name})
         .then(info=>{
             if (info){
-                res.render('chitiet',{title,name, cast:true,admin:true,info:mongooseToObject(info)});
+                res.render('admin/chitiet',{title,name, cast:true,admin:true,info:mongooseToObject(info)});
             }else{
                 res.redirect('/admin/thanhvien');
             }
@@ -118,11 +118,11 @@ class adminController{
         const tukhoa = req.query.tukhoa;
         if (tukhoa === ''){
             var warning = "Nhập tên thành viên muốn tìm kiếm!";
-            res.render('timkiem',{title,name, cast:true, admin:true, warning})
+            res.render('admin/timkiem',{title,name, cast:true, admin:true, warning})
         }else{
             Post.find({ name_user:{ $regex: tukhoa , $options : 'i'}})
             .then(user =>{
-                res.render('timkiem',{title,name, cast:true, admin:true, user: mutipleMongooseToObject(user)}) 
+                res.render('admin/timkiem',{title,name, cast:true, admin:true, user: mutipleMongooseToObject(user)}) 
             })
             .catch(next);
         }
