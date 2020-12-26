@@ -47,14 +47,21 @@
         setInterval(function(){ 
 				document.getElementById('msg').style.display = "none";
 			}, 5000);
+        document.body.onload = function (){
+            var a = Math.floor(Math.random() * 50);
+            var c = Math.floor(Math.random() * 50);
+            var d = a+c;
+            document.getElementById("demo").innerHTML = a+"+"+c ;
+            document.getElementById("c").value = d;
+        } 
+
         function check(){
             var a = Math.floor(Math.random() * 50);
             var c = Math.floor(Math.random() * 50);
             var d = a+c;
             document.getElementById("demo").innerHTML = a+"+"+c ;
             document.getElementById("c").value = d;
-        }
-
+        } 
 
     var passText = document.getElementById('Password1');
     var btnEye = document.getElementsByClassName('btneye');
