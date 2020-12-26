@@ -127,6 +127,17 @@ li, ul{
     border-radius: 1rem;
 }
 
+.pass {
+    position: relative;
+}
+
+.showpass {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #000000;
+}
+
 /* Show*/
 .show-info{
     background-color: #fff;
