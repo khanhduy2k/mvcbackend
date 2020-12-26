@@ -5,5 +5,7 @@ const CourseController = require('../controller/CourseController');
 
 // newsController.indexs
 router.get('/:slug/:id/:bai', CourseController.show2);
+router.get('/feedback', CourseController.feedback);
+router.post('/feedback', CourseController.send);
 router.get('/:slug', CourseController.show);
 module.exports = router;

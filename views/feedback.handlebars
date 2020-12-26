@@ -1,0 +1,85 @@
+<div class="container pt-3 pb-5">
+    <div class="mt-5 mb-5 formfeedback">
+        <div>
+            <h3 class="text-danger">Góp ý với Course Online!</h3>
+            <small>Mọi góp ý của bạn sẽ giúp cho đều giúp cho cộng đồng phát triển hơn!</small> <br>
+            <small><span class="text-danger"><b> Course Online </b></span> cảm ơn những góp ý của bạn!</small>
+        </div>
+        <div id="count-time" class="text-right text-secondary" ><p>Góp ý gần nhất: <span id="time"></span></p></div>
+        <div class="text-center text-danger"><p id="msg"><b>{{msg}}</b></p></div>
+        {{#if success}}
+        <div class="text-center text-success"><p><b>Đã gửi <i class="fas fa-check-circle"></i></b></p></div>
+        <script>
+            setTimeout(function(){
+                    window.location.href ="/courses/feedback";
+                }, 1000)
+        </script>
+        {{/if}}
+        <form class="mt-2" action="/courses/feedback" method="POST">
+        <div class="text-right text-secondary"><span id="count-text"></span><span>/600</span></div>
+            <div class="form-group">
+                <textarea 
+                id="text-content" 
+                name="feedback" 
+                class="form-control" 
+                style="resize: none; height: 200px; overflow: auto" 
+                placeholder="Nội dung góp ý ..."
+                ></textarea>
+                <small>* Lưu ý: Nội dung không vượt quá 600 ký tự</small>
+                <div class="text-right pt-3">
+                    <button class="btn btn-primary" style="width:100px">Gửi</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <p id="date2" style="display: none;">{{info.date2}}</p>
+    <script>
+    setTimeout(function(){ 
+		document.getElementById('msg').style.display = "none";
+	}, 5000);
+
+    var date2 = document.getElementById('date2').innerHTML;
+    if (date2 == '') {
+        document.getElementById('count-time').innerHTML = "";
+    }
+    else {
+        setInterval(function(){
+            var date = Number(date2);
+            var datenow = new Date();
+            var age = Math.abs(datenow - date);
+            var unti;
+            if (age < 60000) {
+                document.getElementById('time').innerHTML = "Vừa xong";
+            }
+            else {
+                if (age >=60000 && age <3600000) {
+                age = Math.round(age/1000/60);
+                unti = 'phút';
+                }
+                else if (age >= 3600000 && age <= 86400000) {
+                    age = Math.round(age/1000/60/60);
+                    unti = 'giờ';
+                }
+                else{
+                    age = Math.round(age/1000/60/60/24);
+                    unti = 'ngày';
+                }
+                document.getElementById('time').innerHTML = age + " " + unti + " trước";
+            }
+        }, 1000)
+    }
+    setInterval(function(){
+        var textcontent = document.getElementById('text-content').value;
+            document.getElementById('count-text').innerHTML = textcontent.length;
+        if (textcontent.length > 600) {
+            document.getElementById('count-text').style.color = 'red';
+            document.getElementById('count-text').style.textShadow = '0 0 3px red';
+        }
+        else {
+            document.getElementById('count-text').style.color = '';
+            document.getElementById('count-text').style.textShadow = '';
+
+        }
+    }, 1)
+</script>
+</div>

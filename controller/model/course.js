@@ -5,7 +5,6 @@ mongoose.plugin(slug);
 
 const Schema = mongoose.Schema;
 
-//Tao model
 const Course = new Schema({
     img: { type: String},
     name: { type: String, required: true },

@@ -1,4 +1,7 @@
 /* CSS header*/
+html {
+    font-size: 16px;
+}
 body{
     background-image: url('https://hinhanhdepmoi.files.wordpress.com/2020/04/mau-background-dep.jpg?w=2000&h=1281&crop=1');
     background-repeat: no-repeat;
@@ -254,4 +257,13 @@ li, ul{
         padding-top: 50%;
     }
 
+}
+
+/* feedback */
+
+.formfeedback {
+    background-color: #fff;
+    width: 600px;
+    margin: auto;
+    padding: 20px;
 }
