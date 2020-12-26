@@ -9,8 +9,8 @@
             <div class="form-group">
                 <label for="Password1">Nhập mật khẩu</label>
                 <input type="password" class="form-control" id="Password1" name="pass" placeholder="Nhập mật khẩu">
-                <span class="btneye btn text-warning"><i class="fas fa-eye"></i><small> Hiện mật khẩu</small></span>
-                <span class="btneye btn text-warning" style="display:none"><i class="fas fa-eye-slash"></i><small> Ẩn mật khẩu</small></span>
+                <span class="btneye btn text-warning" style="display:none"><i class="fas fa-eye"></i><small> Hiện mật khẩu</small></span>
+                <span class="btneye btn text-warning"><i class="fas fa-eye-slash"></i><small> Ẩn mật khẩu</small></span>
             </div>
             <div class="form-group">
                 <label for="mact">Kết quả</label>
@@ -56,13 +56,13 @@
     var passText = document.getElementById('Password1');
     var btnEye = document.getElementsByClassName('btneye');
     btnEye[0].onclick = function(){
-        btnEye[1].style.display = "";
-        btnEye[0].style.display = "none";
+        btnEye[0].style.display = "";
+        btnEye[1].style.display = "none";
         passText.type = "text";
     }
     btnEye[1].onclick = function(){
-        btnEye[0].style.display = "";
-        btnEye[1].style.display = "none";
+        btnEye[1].style.display = "";
+        btnEye[0].style.display = "none";
         passText.type = "password";
     }
 </script>
