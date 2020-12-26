@@ -109,6 +109,11 @@ li, ul{
     color: black;
     background-image: url('https://i.pinimg.com/originals/b4/31/48/b43148675959cdb19d1964abe2d50254.png');
 }
+
+.captcha>b::selection {
+    background-color: rgba(0, 0, 0, 0);
+}
+
 .msg {
     height: 100%;
     width: 100%;
@@ -119,7 +124,7 @@ li, ul{
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 99999999999;
+    z-index: 99999;
 }
 .table-msg {
     margin-top: 25%;
