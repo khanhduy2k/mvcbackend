@@ -55,6 +55,31 @@ app.engine('handlebars', exphbs({
               </li>
             </ul>`;
         },
+        time: (timesta) => {
+            var time = Number(timesta);
+            var datenow = new Date();
+            var age = Math.abs(datenow - time);
+            var unti ='';
+            var out = '';
+                if (age < 60000) {
+                    return out = "Vừa xong";
+                }
+                else {
+                    if (age >=60000 && age <3600000) {
+                    age = Math.round(age/1000/60);
+                    unti = 'phút';
+                    }
+                    else if (age >= 3600000 && age <= 86400000) {
+                        age = Math.round(age/1000/60/60);
+                        unti = 'giờ';
+                    }
+                    else{
+                        age = Math.round(age/1000/60/60/24);
+                        unti = 'ngày';
+                    }
+                    return out = age +" "+ unti + " trước";
+                }
+        }
         
     }
 }));

@@ -1,6 +1,6 @@
 /* CSS header*/
 html {
-    font-size: 16px;
+    font-size: 17px;
 }
 body{
     background-image: url('https://hinhanhdepmoi.files.wordpress.com/2020/04/mau-background-dep.jpg?w=2000&h=1281&crop=1');
@@ -32,13 +32,21 @@ body{
 }
 
 .dot-onti {
-    right: -4px;
-    top: -2px;
+    right: -10px;
+    top: -5px;
     position: absolute;
     border-radius: 50%;
-    height: 10px;
-    width: 10px;
-    background-color: red;
+    height: 15px;
+    width: 15px;
+    background-color: rgb(248, 47, 47);
+}
+
+.new-num {
+    font-size: 11px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -53%);
 }
 /* sidemenu */
 
@@ -282,6 +290,7 @@ li, ul{
 
 .thongbao-new {
     width: 600px;
+    height: 600px;
     background-color:rgba(255, 255, 255, 0.6);
     margin: auto;
     padding: 50px 20px;
@@ -292,6 +301,7 @@ li, ul{
     width: 80%;
     margin: auto;
     position: relative;
+    border-left: 5px solid rgb(231, 46, 61) ;
 }
 
 .tinnhan + .tinnhan {
@@ -311,5 +321,54 @@ li, ul{
     position: absolute;
     top: 0;
     right: 20px;
-    color: rgb(255, 51, 0);
+    color: #ffffff;    
+}
+
+.timeshow {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    color: rgb(148, 145, 145);
+}
+
+.table-letters {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+}
+
+.show-letter {
+    margin: auto;
+    width: 520px;
+    height: 620px;
+    background-color: #fff;
+    padding: 30px;
+    position: relative;
+}
+
+.letter {
+    position: relative;
+    padding: 30px 20px 15px;
+    border: 2px solid #ccc;
+}
+
+.letter + .letter {
+    margin-top: 20px;
+}
+
+.close-letter {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+}
+
+.icon-letter {
+    position: absolute;
+    top: 0;
+    left: 5px;
 }
