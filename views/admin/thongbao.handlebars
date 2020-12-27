@@ -5,7 +5,6 @@
         <div class="tinnhan">
           <a href="/admin/{{this.name}}/read"><b>{{this.name}}</b> góp ý với <b class="text-danger">Course Online</b></a>
           <small class="read"><i class="fab fa-pinterest"></i> <b class="new-read">{{this.new}}</b></small>
-          <div class="time" style="display: none;">{{this.date2}}</div>
           <small class="timeshow">{{{time this.date2}}}</small>
         </div>
         {{/each}}
@@ -19,9 +18,8 @@
       {{#each readin.feedback}}
       <div class="letter">
       <span class="icon-letter"><i class="fas fa-envelope"></i> <span>{{{time (lookup ../readin.date @index)}}}</span></span>
-        {{this}}
+      {{this}}
       </div>
-      <div class="time-letter" style="display: none;">{{lookup ../readin.date @index}}</div>
       {{/each}}
     </div>
   </div>
