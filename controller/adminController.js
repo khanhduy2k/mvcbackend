@@ -143,7 +143,13 @@ class adminController{
         const name = req.cookies.username;
         Feed.find({})
         .then(news =>{
-            res.render('admin/thongbao',{title, name, cast:true, admin:true, news: mutipleMongooseToObject(news)}) 
+            Feed.countDocuments({})
+            .then(num =>{
+                Feed.countDocuments({new: 'chưa đọc'})
+                .then(newnum => {
+                    res.render('admin/thongbao',{title, newnum, name, cast:true, admin:true, num, news: mutipleMongooseToObject(news)})
+                })
+            }) 
         }) 
         .catch(next);
     }
@@ -161,6 +167,21 @@ class adminController{
             })
         }) 
         .catch(next);
+    }
+
+    delletter(req, res, next) {
+        const title = 'Thông báo';
+        const name = req.cookies.username;
+        Feed.deleteOne({_id: req.params.id})
+        .then()
+        res.redirect('/admin/thongbao')
+        .catch(next);
+    }
+
+    pinread( req, res, next){
+        Feed.updateMany({new: 'chưa đọc'}, {new: 'đã đọc'})
+        .then()
+        res.redirect('/admin/thongbao')
     }
     
 }

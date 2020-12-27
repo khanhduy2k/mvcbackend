@@ -1,11 +1,17 @@
 <div class="container pt-2">
     <div class="thongbao-new">
         <div class="mb-3">
-          <h3 class="text-danger" style="display: inline-block;"><i class="fas fa-envelope-open-text"></i> Hòm thư</h3>
-          <h5 style="display: inline-block; margin-left: 20%">Số thành viên phản hồi: <span id="count"></span></h5>
+          <h3 class="text-danger" style="display: inline-block;"><i class="fas fa-envelope-open-text">
+          </i> Hòm thư <span id="count"> {{num}}</span>
+          </h3>
+          <h5 style="display: inline-block; margin-left: 30%">Chưa đọc: {{newnum}}</h5>
         </div>
-        {{#each news}} 
+        <div><b>{{{count num}}}</b></div>
+        {{#each news}}
         <div class="tinnhan">
+          <div class="del-tinnhan">
+            <a data-id="{{this._id}}" data-toggle="modal" data-target="#delete-user"><i class="fas fa-trash-alt"></i></a>
+          </div>
           <a href="/admin/{{this.name}}/read"><b>{{this.name}}</b> góp ý với <b class="text-danger">Course Online</b></a>
           <small class="read"><i class="fab fa-pinterest"></i> <b class="new-read">{{this.new}}</b></small>
           <small class="timeshow">{{{time this.date2}}}</small>
@@ -13,6 +19,46 @@
         {{/each}}
     </div>
 </div>
+
+<div id="delete-user" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="p-4 border-bottom text-center">
+        <h5 id="msgq" >Admin muốn xóa góp ý này?</h5>
+        <div class="text-danger" id="msg" style="display: none;"><h5>Đang xóa <i class="fa fa-spinner fa-pulse fa-fw"></i></h5></div>
+      </div>
+      <div class="p-4" id="btnmsg">
+        <button type="button" id="btn-delete-user" class="btn btn-danger" >Xóa bỏ</button>
+        <button type="button" class="btn btn-secondary" style="float: right;" data-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+<form name="delete-user-form" method="POST"></form>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var Userid;
+        var tablemsg = document.getElementById('msg');
+        var tablemsgq = document.getElementById('msgq');
+        var btnmsg = document.getElementById('btnmsg');
+        var deleteForm = document.forms['delete-user-form'];
+        var btnDeleteUser = document.getElementById('btn-delete-user');
+
+        $('#delete-user').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            Userid = button.data('id');
+    });
+        btnDeleteUser.onclick = function(){
+            tablemsg.style.display = "block";
+            tablemsgq.style.display = "none";
+            btnmsg.style.display = "none";
+            deleteForm.action = '/admin/'+Userid+'/deleteletter';
+            deleteForm.submit();           
+            
+    }  
+});
+</script>
+
 {{#if read}}
 <div class="table-letters">
   <div class="show-letter">

@@ -14,6 +14,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
+router.get('/pinread', adminController.pinread);
+router.post('/:id/deleteletter', adminController.delletter);
 router.get('/:name/read', adminController.read);
 router.get('/thongbao', adminController.thongbao);
 router.get('/insert', adminController.insert);

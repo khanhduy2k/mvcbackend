@@ -79,6 +79,14 @@ app.engine('handlebars', exphbs({
                     }
                     return out = age +" "+ unti + " trước";
                 }
+        },
+
+        count: (num) => {
+            if (num == 0) {
+                return `<p class ="text-center">Không có góp ý nào trong hòm thư <a href="/"> Quay về trang chủ </a></p>`
+            }else {
+                return `<p class ="text-right"><a href="/admin/pinread" class ="text-danger">Đánh dấu tất cả là đã đọc</a></p>`
+            }
         }
         
     }

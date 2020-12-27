@@ -295,13 +295,33 @@ li, ul{
     margin: auto;
     padding: 30px 20px;
     overflow-y: scroll;
+    position: relative;
 }
 
 .tinnhan {
     width: 80%;
     margin: auto;
     position: relative;
-    border-left: 5px solid rgb(231, 46, 61) ;
+}
+
+.del-tinnhan {
+    position: absolute;
+    left: -12px;
+    transition: .2s;
+}
+
+.del-tinnhan > a {
+    text-decoration: none;
+    background-color: rgb(187, 59, 59);
+    padding: 10px 15px;
+    line-height: 46px;
+    display: inline-block;
+}
+
+.del-tinnhan:hover {
+    cursor: pointer;
+    left: -45px;
+    color: #fff;
 }
 
 .tinnhan + .tinnhan {
@@ -315,19 +335,25 @@ li, ul{
     padding: 10px;
     line-height: 46px;
     display: inline-block;
+    position: relative;
+    z-index: 100;
 }
 
 .read {
     position: absolute;
     top: 0;
     right: 20px;
-    color: #ffffff;    
+    z-index: 110;
+    color: #ffffff; 
+    cursor: pointer;   
 }
 
 .timeshow {
+    cursor: pointer;
     position: absolute;
     bottom: 5px;
     right: 5px;
+    z-index: 110;
     color: rgb(148, 145, 145);
 }
 
