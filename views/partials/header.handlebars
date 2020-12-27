@@ -15,26 +15,26 @@
     </ul>
     {{#if cast}}
     <div class=" btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle mr-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Tài khoản
-                </button>
-                <div class="mr-5 dropdown-menu dropdown-menu-right">
-                  <p class="ml-4 logout"><b>{{name}}</b></p>
-                  <a type="button" class="dropdown-item" href="/profile">
-                      <i class="fas fa-cog"></i>&nbsp;Cài đặt
-                  </a>
-                  <a type="button" class="dropdown-item" href="/courses/feedback">
-                      <i class="fas fa-envelope"></i>&nbsp;Góp ý
-                  </a>
-                  {{#if admin}}
-                  <a type="button" class="dropdown-item" href="/admin">
-                      <i class="fas fa-user-cog"></i>&nbsp;Quản lí
-                  </a>
-                  {{/if}}
-                  <a type="button" class="dropdown-item" href="/logout">
-                      <i class='fas fa-sign-out-alt'></i>&nbsp;Đăng xuất
-                  </a>
-                </div>
+      <button style="background-color: #f05123; border:none;" type="button" class="btn btn-secondary dropdown-toggle mr-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Tài khoản
+      </button>
+      <div class="mr-5 dropdown-menu dropdown-menu-right">
+        <p class="ml-4 logout"><b>{{name}}</b></p>
+        <a type="button" class="dropdown-item" href="/profile">
+            <i class="fas fa-cog"></i>&nbsp;Cài đặt
+        </a>
+        <a type="button" class="dropdown-item" href="/courses/feedback">
+            <i class="fas fa-envelope"></i>&nbsp;Góp ý
+        </a>
+        {{#if admin}}
+        <a type="button" class="dropdown-item" href="/admin">
+            <i class="fas fa-user-cog"></i>&nbsp;Quản lí
+        </a>
+        {{/if}}
+        <a type="button" class="dropdown-item" href="/logout">
+            <i class='fas fa-sign-out-alt'></i>&nbsp;Đăng xuất
+        </a>
+      </div>
     </div>
     {{else}}
     <a type="button" class="btn btn-info" href="/login">Đăng nhập</a>

@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
+router.get('/thongbao', adminController.thongbao);
 router.get('/insert', adminController.insert);
 router.post('/insert', upload.single('img'), adminController.insertup);
 router.get('/:id/delete', adminController.deletevideo);

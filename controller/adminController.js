@@ -4,6 +4,7 @@ const { updateOne } = require('./model/course');
 
 const Course = require('./model/course');
 const Post = require('./model/posts');
+const Feed = require('./model/feedback')
 class adminController{
 
     admin(req, res, next){
@@ -11,8 +12,17 @@ class adminController{
         const name = req.cookies.username;
         Course.find({})
         .then(courses =>{
-            res.render('admin/admin', {
-                courses: mutipleMongooseToObject(courses), title, cast:true,admin:true, name});
+            Feed.findOne({new:'new'})
+            .then(news =>{
+                if (news) {
+                    res.render('admin/admin', {
+                    courses: mutipleMongooseToObject(courses), title, cast:true,admin:true, name, yesnew: true});
+                }
+                else {
+                    res.render('admin/admin', {
+                    courses: mutipleMongooseToObject(courses), title, cast:true,admin:true, name});
+                }
+            })
         })
         .catch(next);     
     }
@@ -119,14 +129,25 @@ class adminController{
         const tukhoa = req.query.tukhoa;
         if (tukhoa === ''){
             var warning = "Nhập tên thành viên muốn tìm kiếm!";
-            res.render('admin/timkiem',{title,name, cast:true, admin:true, warning})
+            res.render('admin/timkiem',{title, name, cast:true, admin:true, warning})
         }else{
             Post.find({ name_user:{ $regex: tukhoa , $options : 'i'}})
             .then(user =>{
-                res.render('admin/timkiem',{title,name, cast:true, admin:true, user: mutipleMongooseToObject(user)}) 
+                res.render('admin/timkiem',{title, name, cast:true, admin:true, user: mutipleMongooseToObject(user)}) 
             })
             .catch(next);
         }
+    }
+    thongbao(req, res, next) {
+        const title = 'Thông báo';
+        const name = req.cookies.username;
+        Feed.updateMany({new:'new'}, {new: 'old'})
+        .then()
+        Feed.find({})
+        .then(news =>{
+            res.render('admin/thongbao',{title, name, cast:true, admin:true, news: mutipleMongooseToObject(news)}) 
+        }) 
+        .catch(next);
     }
     
 }

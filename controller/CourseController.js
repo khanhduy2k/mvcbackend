@@ -116,7 +116,7 @@ class CourseController{
                                     } 
                                 }
                                 else {
-                                    Feed.updateMany({name: name}, { $push:{feedback: feedback, date: date}, date2: date })
+                                    Feed.updateMany({name: name}, { $push:{feedback: feedback, date: date}, date2: date, new: 'new' })
                                     .then()
                                     if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
                                         res.render('feedback', {title, info: mongooseToObject(info), cast:true,admin:true,name, success: true});

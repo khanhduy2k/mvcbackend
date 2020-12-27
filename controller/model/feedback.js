@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const feedback = new Schema({
     name: { type: String, required: true },
     feedback: { type: Array, required: true },
+    new: {type: String, default: 'new'},
     date: {type: Array, default: Date.now},
     date2: {type: String, default: Date.now}
 }, {
