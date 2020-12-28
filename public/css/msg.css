@@ -15,10 +15,10 @@
     bottom: 30px;
     height: 90px;
     width: 90px;
-    background-color:rgba(0, 88, 252, 0.7);
+    background-color:rgba(0, 252, 55, 0.863);
     color: #ffffff;
     border-radius: 50%;
-    border: 4px solid royalblue;
+    border: 4px solid rgb(66, 184, 55);
     text-align: center;
     transition: .3s;
     z-index: 1000;
@@ -166,7 +166,7 @@
 .body-screen-msg::-webkit-scrollbar-thumb {
     background: rgb(255, 102, 0); 
     border-radius: 2rem;
-  }
+}
 
 .user-chat {
     border-radius: 1rem;
