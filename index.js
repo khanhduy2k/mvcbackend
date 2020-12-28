@@ -87,8 +87,7 @@ app.engine('handlebars', exphbs({
             }else {
                 return `<p class ="text-right"><a href="/admin/pinread" class ="text-danger">Đánh dấu tất cả là đã đọc</a></p>`
             }
-        }
-        
+        },
     }
 }));
 app.set('view engine', 'handlebars');

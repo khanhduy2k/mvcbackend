@@ -2,19 +2,23 @@
 html {
     font-size: 17px;
 }
+
 body{
     background-image: url('https://hinhanhdepmoi.files.wordpress.com/2020/04/mau-background-dep.jpg?w=2000&h=1281&crop=1');
     background-repeat: no-repeat;
 }
+
 #table, #mobile{
     display: none;
 }
+
 .bottom-navbar{
     background-color: #f8f9fa;
     padding-bottom: 2%;
     border-bottom:rgb(255, 255, 255) solid 2px;
     box-shadow: black 0 0 8px 2px;
 }
+
 .logo{
     color: #f05123;
     cursor:no-drop;
@@ -27,6 +31,7 @@ body{
     height: 20px;
     text-align: center;
 }
+
 .logout{
     color:  #f05123;
 }
@@ -60,10 +65,11 @@ li, ul{
 .email-footer{
     float: right;
 }
+
 .btn-sign-footer{
-    
     border-radius: 3rem;
 }
+
 /*HOME CSS*/
 .btn-course-home{
     color: #fff;
@@ -72,40 +78,49 @@ li, ul{
     width: 220px;
     margin-top: 5%;
 }
+
 .btn-course-home:hover{
     color: #fff;
     background-color:  #da471f;
 }
+
 .background-home{
     color: #fff;
     padding-left: 15%;
     padding-top: 10%;
     height: 700px;
 }
+
 .info-home{
     padding-top: 9%;
     text-align: center;
 }
+
 /*COURSE CSS*/
 .card-item{
     margin-left: 7%;
     margin-top: 5%;
     margin-bottom: 2%;
 }
+
 .noidung{
     height: 80%;
     margin-bottom: 4%;
 }
+
 .row{
     margin-right:0;
 }
+
 .reviews{
  border: #868686 solid 2px;
 }
+
 .btn-learning{
     border: none;
     background-color: #da471f;
 }
+
 .btn-learning:hover{
     background-color: #be3f1c;
 }
@@ -114,13 +129,16 @@ li, ul{
     color: #fff;
     margin-bottom: 10%;
 }
+
 .sign-up h2{
     text-align: center;
 }
+
 /* Sign in*/
 .login a{
     float: right;
 }
+
 .captcha{
     font-size: 30px;
     margin-left: 35%;
@@ -147,6 +165,7 @@ li, ul{
     left: 0;
     z-index: 99999;
 }
+
 .table-msg {
     margin-top: 25%;
     border: 2px solid black;
@@ -169,9 +188,11 @@ li, ul{
     background-color: #fff;
     border-radius: 1rem;
 }
+
 .show-info li{
     color: #da471f;
 }
+
 .show-video{
     overflow-y:scroll;
     background:rgba(0, 0, 0, 0.3);
@@ -179,12 +200,23 @@ li, ul{
     color:#fff;
     border-radius: 1rem;
 }
+
+.show-video::-webkit-scrollbar {
+    width: 5px;
+}
+
+.show-video::-webkit-scrollbar-thumb {
+    background: rgba(94, 93, 93, 0.842); 
+    border-radius: 3rem;
+}
+
 .lesson{
     margin-top: 5%;
     margin-bottom: 5%;
     height: 60px;
     background-color: #fff;
 }
+
 .lesson a{
     height: 100%;
     width: 100%;
@@ -206,12 +238,14 @@ li, ul{
     z-index: 99999999999;
     display: none;
 }
+
 .preload-icon {
     font-size: 66px;
     color: #fff;
     margin-top: 15%;
     margin-left: 45%;
 }
+
 /* Member */
 .search input{
     border-radius: 1rem 0 0 1rem  ;
@@ -220,6 +254,7 @@ li, ul{
     width: 300px;
     outline: none;
 }
+
 .search button{
     background-color: #32383e;
     border: 2px solid #32383e;
@@ -229,10 +264,12 @@ li, ul{
     padding: 5px;
     outline: none;
 }
+
 .search button:hover{
     background-color: #252a2e;
     cursor: pointer;
 }
+
 .warning::placeholder{
     font-size: 20px;
     font-weight:800;

@@ -1,0 +1,70 @@
+{{#if cast}}
+<div class="msg-admin-main">
+    <div id="msg-admin" class="msg-admin">
+        <p class="icon"><i class="far fa-envelope"></i></p>
+        <h4 id="title-admin" class="title-admin">Liên hệ Admin</h4>
+    </div>
+    <div id="screen-msg" class="screen-msg screen-msg-none">
+        <div class="header-screen-msg">
+            <span class="text-light" id="tags-title"><b>Liên hệ admin</b></span>
+            <span class="text-light" title="Đónng cửa sổ chat" id="close-msg-admin"><h1>&times;</h1></span>
+        </div>
+        <div id="body-screen-msg" class="body-screen-msg">
+            <div class="admin-feed">
+                <img src="/img/admin.jpg" alt="Admin">
+                <span></span>
+                Chào mừng <b>{{name}}</b> đã tới với <b class="text-danger">Course Online</b>
+                nếu có thắc mắc hãy liên hệ với chúng tôi để được gải đáp hoặc góp ý với chúng tôi tại phần góp ý.
+                <small id="time__now"></small>
+            </div>
+        </div>
+        <div class="foot-screen-msg">
+            <input id="enter-msg" type="text" placeholder="Nhập nội dung..." autocomplete = "off">
+        </div>
+    </div>
+</div>
+<script>
+    var screenMsg = document.getElementById('screen-msg');
+    var bodyMsg = document.getElementById('body-screen-msg');
+    var enterMsg = document.getElementById('enter-msg');
+    var Admin = document.getElementById('msg-admin');
+    var closeScreen = document.getElementById('close-msg-admin');
+    var Datenew = new Date(); 
+    document.getElementById('time__now').innerHTML = Datenew.getHours() + ":" + Datenew.getMinutes();
+    enterMsg.addEventListener ("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            const timenow = Datenew.getHours() + ":" + Datenew.getMinutes();
+            function newMsg(){
+                const main = document.getElementById('body-screen-msg');
+                if (main) {
+                    const newMsg = document.createElement('div');
+                        newMsg.classList.add('user-chat');
+                        newMsg.innerHTML = `
+                        <img src="/img/userchat.png" alt="User">
+                        <span></span> <p>`+enterMsg.value +` </p>
+                        <small>`+timenow+`</small>
+                        `;
+                    main.appendChild(newMsg);
+                }
+            }
+            newMsg();
+            enterMsg.value = "";
+            bodyMsg.scrollTo(0,10000000000000);  
+        }
+    })
+    Admin.onclick = function (){
+        screenMsg.classList.remove('screen-msg-none');
+        Admin.classList.add('msg-admin-2');
+    }
+
+    closeScreen.onclick = function (){
+        screenMsg.classList.add('screen-msg-none');
+        Admin.classList.remove('msg-admin-2');
+        Admin.classList.add('msg-admin-3');
+        setTimeout(()=>{
+            Admin.classList.remove('msg-admin-3');
+        }, 400)
+    }
+</script>
+{{/if}}

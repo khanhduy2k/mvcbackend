@@ -175,7 +175,6 @@ class adminController{
         Feed.deleteOne({_id: req.params.id})
         .then()
         res.redirect('/admin/thongbao')
-        .catch(next);
     }
 
     pinread( req, res, next){
