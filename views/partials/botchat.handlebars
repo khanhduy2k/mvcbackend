@@ -33,11 +33,14 @@
     var enterMsg = document.getElementById('enter-msg');
     var Admin = document.getElementById('msg-admin');
     var closeScreen = document.getElementById('close-msg-admin');
-    var Datenew = new Date(); 
+    var Datenew = new Date();
+    var countEnter = 0; 
     document.getElementById('time__now').innerHTML = Datenew.getHours() + ":" + Datenew.getMinutes();
     enterMsg.addEventListener ("keyup", function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
+            countEnter ++;
+            console.log(countEnter)
             const Daten = new Date();
             const timenow = Daten.getHours() + ":" + Daten.getMinutes();
                 function newMsg(){
@@ -62,7 +65,7 @@
                 const botfeed = enterMsg.value.toLowerCase();
                 const Hour = Daten.getHours();
                 
-                if (botfeed.includes('hi')||botfeed.includes('hello')||botfeed.includes('chào')){
+                if (botfeed.includes('hello')||botfeed.includes('chào')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -138,7 +141,34 @@
                     }, Steptime)
                 }
 
-                if (botfeed.includes('khóa học')){
+                else if (enterMsg.value === '!help'){
+                    function newMsg() {
+                        if (mainadmin) {
+                            const newMsg2 = document.createElement('div');
+                                newMsg2.classList.add('admin-feed');
+                                newMsg2.innerHTML = `
+                                <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <div class="loading"></div>
+                                `;
+                                setTimeout(()=>{
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    Để xem giờ gõ lệnh: !time <br>
+                                    Để xem ngày gõ lệnh: !date <br>
+                                    Tôi cũng có thể trả lời bạn một số câu cơ bản về trang 
+                                    <b class="text-danger"> Course Online </b> như: khóa học, học phí, tác giả,...
+                                    <small>`+timenow+`</small>
+                                    `;
+                                }, Steptime)
+                            mainadmin.appendChild(newMsg2);
+                        }
+                    }
+                    newMsg();
+                }
+
+                else if (botfeed.includes('khóa học')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -163,7 +193,7 @@
                     newMsg();
                 }
 
-                if (botfeed.includes('cuối kì')){
+                else if (botfeed.includes('cuối kì')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -187,7 +217,7 @@
                     newMsg();
                 }
 
-                if (botfeed.includes('học phí')){
+                else if (botfeed.includes('học phí')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -212,7 +242,7 @@
                     newMsg();
                 }
                 
-                if (botfeed.includes('course online') || botfeed.includes('Course Online')){
+                else if (botfeed.includes('course online') || botfeed.includes('Course Online')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -237,7 +267,7 @@
                     newMsg();
                 } 
 
-                if (botfeed.includes('nodejs')){
+                else if (botfeed.includes('nodejs')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -264,7 +294,7 @@
                     newMsg();
                 }
 
-                if (botfeed.includes('ngày sinh')&&botfeed.includes('bạn')||botfeed.includes('sinh nhật')){
+                else if (botfeed.includes('ngày sinh')&&botfeed.includes('bạn')||botfeed.includes('sinh nhật')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -289,7 +319,7 @@
                     newMsg();
                 } 
 
-                if (botfeed.includes('người tạo ra hehe')||botfeed.includes('ai')&&botfeed.includes('tạo ra bạn')||enterMsg.value=='tác giả') {
+                else if (botfeed.includes('người tạo ra hehe')||botfeed.includes('ai')&&botfeed.includes('tạo ra bạn')||enterMsg.value=='tác giả') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -313,7 +343,7 @@
                     newMsg();
                 }
 
-                if (botfeed.includes('mấy giờ')||enterMsg.value==='time') {
+                else if (botfeed.includes('mấy giờ')||enterMsg.value==='!time') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -337,7 +367,7 @@
                     newMsg();
                 }
 
-                if (botfeed.includes('hôm nay')&&botfeed.includes('ngày')||enterMsg.value==='date') {
+                else if (botfeed.includes('nay')&&botfeed.includes('ngày')||enterMsg.value==='!date') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -361,7 +391,7 @@
                     newMsg();
                 }
 
-                if (botfeed.includes('i love you')||botfeed.includes('yêu bạn')) {
+                else if (botfeed.includes('i love you')||botfeed.includes('yêu bạn')) {
                     function newMsg() {
                         if (mainadmin) {
                             var randomAnw =  Math.round(Math.random()*2);
@@ -407,6 +437,31 @@
                         }
                     }
                     newMsg();
+                }
+                else {
+                    if (countEnter == 1) {
+                        function newMsg() {
+                        if (mainadmin) {
+                            const newMsg2 = document.createElement('div');
+                                newMsg2.classList.add('admin-feed');
+                                newMsg2.innerHTML = `
+                                <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <div class="loading"></div>
+                                `;
+                                setTimeout(()=>{
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    Sử dụng lệnh !help để hiển thị danh sách các lệnh và cách giao tiếp với tôi!
+                                    <small>`+timenow+`</small>
+                                    `;
+                                }, Steptime)
+                            mainadmin.appendChild(newMsg2);
+                        }
+                    }
+                    newMsg();
+                    }
                 }
             setTimeout(()=>{
                 bodyMsg.scrollTo(0,10000000000000);
