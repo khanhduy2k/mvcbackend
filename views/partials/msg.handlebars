@@ -1,8 +1,7 @@
 {{#if cast}}
 <div class="msg-admin-main">
     <div id="msg-admin" class="msg-admin">
-        <p class="icon"><i class="far fa-envelope"></i></p>
-        <h4 id="title-admin" class="title-admin">Liên hệ Admin</h4>
+        <h4 id="title-admin" class="title-admin">I'm HeHe!</h4>
     </div>
     <div id="screen-msg" class="screen-msg screen-msg-none">
         <div class="header-screen-msg">
@@ -22,8 +21,8 @@
         <div class="foot-screen-msg">
             <input id="enter-msg" type="text" placeholder="Nhập nội dung..." autocomplete = "off">
             <div class="laugh">
-                <span><i class="fas fa-paperclip"></i></span>
-                <span><i class="far fa-laugh"></i></span>
+                <span><i class="fas fa-paperclip"></i><span>Tệp đính kèm</span></span>
+                <span><i class="far fa-laugh"></i><span>Biểu cảm</span></span>
             </div>
         </div>
     </div>
@@ -59,79 +58,107 @@
             }
             newMsg();
 
-            const mainadmin = document.getElementById('body-screen-msg');
-            if (enterMsg.value.includes('khóa học')){
-                function newMsg() {
-                    if (mainadmin) {
-                        const newMsg2 = document.createElement('div');
-                            newMsg2.classList.add('admin-feed');
-                            newMsg2.innerHTML = `
-                            <img src="/img/bot.jpg" alt="HeHe">
-                            <span></span>
-                            Hiện tại trên <b class="text-danger">Course Online</b>
-                            có <b>{{num}} khóa học</b> vào phần <a href="/course"> Khóa học</a> để bắt đầu học tập.
-                            <small>`+timenow+`</small>
-                            `;
-                        mainadmin.appendChild(newMsg2);
+                const mainadmin = document.getElementById('body-screen-msg');
+                if (enterMsg.value.includes('khóa học')){
+                    function newMsg() {
+                        if (mainadmin) {
+                            const newMsg2 = document.createElement('div');
+                                newMsg2.classList.add('admin-feed');
+                                newMsg2.innerHTML = `
+                                <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <div class="loading"></div>
+                                `;
+                                setTimeout(()=>{
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    Hiện tại trên <b class="text-danger">Course Online</b>
+                                    có <b>{{num}} khóa học</b> vào phần <a href="/course"> Khóa học</a> để bắt đầu học tập.
+                                    <small>`+timenow+`</small>
+                                    `;
+                                }, 1500)
+                            mainadmin.appendChild(newMsg2);
+                        }
                     }
+                    newMsg();
                 }
-                newMsg();
-            }
 
-            if (enterMsg.value.includes('cuối kì')){
-                function newMsg() {
-                    if (mainadmin) {
-                        const newMsg2 = document.createElement('div');
-                            newMsg2.classList.add('admin-feed');
-                            newMsg2.innerHTML = `
-                            <img src="/img/bot.jpg" alt="HeHe">
-                            <span></span>
-                            Ngày kiểm tra cuối kì <b>backend</b> 22/02/2021!
-                            <small>`+timenow+`</small>
-                            `;
-                        mainadmin.appendChild(newMsg2);
+                if (enterMsg.value.includes('cuối kì')){
+                    function newMsg() {
+                        if (mainadmin) {
+                            const newMsg2 = document.createElement('div');
+                                newMsg2.classList.add('admin-feed');
+                                newMsg2.innerHTML = `
+                                <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <div class="loading"></div>
+                                `;
+                                setTimeout(()=>{
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    Ngày kiểm tra cuối kì <b>backend</b> 22/02/2021!
+                                    <small>`+timenow+`</small>
+                                    `;
+                                }, 1500)
+                            mainadmin.appendChild(newMsg2);
+                        }
                     }
+                    newMsg();
                 }
-                newMsg();
-            }
 
-            if (enterMsg.value.includes('học phí')){
-                function newMsg() {
-                    if (mainadmin) {
-                        const newMsg2 = document.createElement('div');
-                            newMsg2.classList.add('admin-feed');
-                            newMsg2.innerHTML = `
-                            <img src="/img/bot.jpg" alt="HeHe">
-                            <span></span>
-                            Tất cả các khóa học trên <b class="text-danger">Course Online</b> đều 
-                            <b class="text-primary">MIỄN PHÍ</b> hãy cùng nhau tiến bộ hơn!
-                            <small>`+timenow+`</small>
-                            `;
-                        mainadmin.appendChild(newMsg2);
+                if (enterMsg.value.includes('học phí')){
+                    function newMsg() {
+                        if (mainadmin) {
+                            const newMsg2 = document.createElement('div');
+                                newMsg2.classList.add('admin-feed');
+                                newMsg2.innerHTML = `
+                                <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <div class="loading"></div>
+                                `;
+                                setTimeout(()=>{
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    Tất cả các khóa học trên <b class="text-danger">Course Online</b> đều 
+                                    <b class="text-primary">MIỄN PHÍ</b> hãy cùng nhau tiến bộ hơn!
+                                    <small>`+timenow+`</small>
+                                    `;
+                                }, 1500)
+                            mainadmin.appendChild(newMsg2);
+                        }
                     }
+                    newMsg();
                 }
-                newMsg();
-            }
-            
-            if (enterMsg.value.includes('course online') || enterMsg.value.includes('Course Online')){
-                function newMsg() {
-                    if (mainadmin) {
-                        const newMsg2 = document.createElement('div');
-                            newMsg2.classList.add('admin-feed');
-                            newMsg2.innerHTML = `
-                            <img src="/img/bot.jpg" alt="HeHe">
-                            <span></span>
-                            <b class="text-danger">Course Online</b> viết nên bằng HTML-CSS, Javascript - phía front-end và 
-                            với nodejs - phía back-end.
-                            <small>`+timenow+`</small>
-                            `;
-                        mainadmin.appendChild(newMsg2);
+                
+                if (enterMsg.value.includes('course online') || enterMsg.value.includes('Course Online')){
+                    function newMsg() {
+                        if (mainadmin) {
+                            const newMsg2 = document.createElement('div');
+                                newMsg2.classList.add('admin-feed');
+                                newMsg2.innerHTML = `
+                                <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <div class="loading"></div>
+                                `;
+                                setTimeout(()=>{
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <b class="text-danger">Course Online</b> viết nên bằng HTML-CSS, Javascript - phía front-end và 
+                                    với nodejs - phía back-end.
+                                    <small>`+timenow+`</small>
+                                    `;
+                                }, 1500)
+                            mainadmin.appendChild(newMsg2);
+                        }
                     }
-                }
-                newMsg();
-            }
-            enterMsg.value = "";
-            bodyMsg.scrollTo(0,10000000000000);  
+                    newMsg();
+                } 
+            bodyMsg.scrollTo(0,10000000000000);
+            enterMsg.value = ""; 
         }
     })
     Admin.onclick = function (){
