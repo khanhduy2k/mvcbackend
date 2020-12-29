@@ -47,7 +47,7 @@
 }
 
 .msg-admin-3 {
-    right: 100px;
+    right: 400px;
     height: 40px;
     width: 42px;
     font-size: 18px;
@@ -70,7 +70,7 @@
 @keyframes moveMsg-2 {
     to {
         bottom: 40px;
-        right: 100px;
+        right: 400px;
         height: 40px;
         width: 42px;
         font-size: 18px;
@@ -223,9 +223,10 @@
 
 .admin-feed {
     border-radius: 1rem;
-    margin: 20px 60px;
+    margin: 30px 60px;
     padding: 18px;
     width: 280px;
+    float: left;
     color: rgb(0, 0, 0);
     background-color:#ccc;
     position: relative;
@@ -244,6 +245,7 @@
 
 .admin-feed > img {
     width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 1px solid #ccc;
     position: absolute;
@@ -251,7 +253,7 @@
     left: -55px;
 }
 
-.admin-feed > #time__now {
+.admin-feed > small {
     color: rgb(177, 175, 175);
     position: absolute;
     bottom: -20px;
@@ -259,7 +261,7 @@
     display: none;
 }
 
-.admin-feed:hover > #time__now {
+.admin-feed:hover > small{
     display: block;
 }
 
@@ -269,6 +271,18 @@
     border: 1px solid #cccccc;
     display: flex;
     align-items: center;
+}
+
+.laugh {
+    position: absolute;
+    right: 30px;
+    font-size: 26px;
+    color: rgb(173, 172, 172);
+}
+
+.laugh> span:hover {
+    cursor: pointer;  
+    color: rgb(131, 130, 130);
 }
 
 #enter-msg {

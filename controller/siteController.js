@@ -12,12 +12,14 @@ class SiteController{
         }
         if (req.signedCookies.userId) {
             const name = req.cookies.username;
-            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
-                res.render('home', {title, cast:true,admin:true,name});
-            }else{
-                res.render('home', {title, cast:true,name});
-            }
-            
+            Course.countDocuments({})
+            .then(num =>{
+                if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                    res.render('home', {title, num, cast:true,admin:true,name});
+                }else{
+                    res.render('home', {title, num, cast:true,name});
+                }
+            })            
         }      
     }
     course(req, res, next){
