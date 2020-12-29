@@ -34,7 +34,11 @@
     enterMsg.addEventListener ("keyup", function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
-            const timenow = Datenew.getHours() + ":" + Datenew.getMinutes();
+            if (enterMsg.value===''){
+                enterMsg.value = '. . .'
+            }
+            const Daten = new Date();
+            const timenow = Daten.getHours() + ":" + Daten.getMinutes();
             function newMsg(){
                 const main = document.getElementById('body-screen-msg');
                 if (main) {

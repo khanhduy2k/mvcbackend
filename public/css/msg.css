@@ -201,6 +201,7 @@
 
 .user-chat > img {
     width: 40px;
+    background-color: rgb(71, 71, 71);
     border-radius: 50%;
     border: 1px solid #ccc;
     position: absolute;
