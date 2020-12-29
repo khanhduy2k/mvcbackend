@@ -40,23 +40,105 @@
             event.preventDefault();
             const Daten = new Date();
             const timenow = Daten.getHours() + ":" + Daten.getMinutes();
-            function newMsg(){
-                const main = document.getElementById('body-screen-msg');
-                if (main) {
-                    const newMsg = document.createElement('div');
-                        newMsg.classList.add('user-chat');
-                        newMsg.innerHTML = `
-                        <img src="/img/userchat.png" alt="User">
-                        <span></span> <p>`+enterMsg.value +` </p>
-                        <small>`+timenow+`</small>
-                        `;
-                    main.appendChild(newMsg);
+                function newMsg(){
+                    const main = document.getElementById('body-screen-msg');
+                    if (main) {
+                        const newMsg = document.createElement('div');
+                            newMsg.classList.add('user-chat');
+                            newMsg.innerHTML = `
+                            <img src="/img/userchat.png" alt="User">
+                            <span></span>`+enterMsg.value +`
+                            <small>`+timenow+`</small>
+                            `;
+                        main.appendChild(newMsg);
+                    }
                 }
-            }
-            newMsg();
+                newMsg();
 
+
+{{!-- Feedback --}}
                 const mainadmin = document.getElementById('body-screen-msg');
-                if (enterMsg.value.includes('khóa học')){
+                const Steptime = 1000;
+                const botfeed = enterMsg.value.toLowerCase();
+                const Hour = Daten.getHours();
+                
+                if (botfeed.includes('hi')||botfeed.includes('hello')||botfeed.includes('chào')){
+                    function newMsg() {
+                        if (mainadmin) {
+                            const newMsg2 = document.createElement('div');
+                                newMsg2.classList.add('admin-feed');
+                                newMsg2.innerHTML = `
+                                <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <div class="loading"></div>
+                                `;
+                                if (Hour >=0 && Hour < 10) {
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Chào buổi sáng {{name}}!
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                } else if (Hour >=10 && Hour < 15) {
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Chào buổi trưa {{name}}!
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                } else if (Hour >=15 && Hour < 19) {
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Chào buổi chiều {{name}}!
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                } else {
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Chào buổi tối {{name}}!
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                }
+                            mainadmin.appendChild(newMsg2);
+                        }
+                    }
+                    newMsg();
+                    setTimeout(()=>{
+                        function newMsg() {
+                            if (mainadmin) {
+                                const newMsg2 = document.createElement('div');
+                                    newMsg2.classList.add('admin-feed');
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        <div class="loading"></div>
+                                    `;
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Bạn muốn tôi giúp gì không?
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                mainadmin.appendChild(newMsg2);
+                            }
+                        }
+                        newMsg();
+                    }, Steptime)
+                }
+
+                if (botfeed.includes('khóa học')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -74,14 +156,14 @@
                                     có <b>{{num}} khóa học</b> vào phần <a href="/course"> Khóa học</a> để bắt đầu học tập.
                                     <small>`+timenow+`</small>
                                     `;
-                                }, 1500)
+                                }, Steptime)
                             mainadmin.appendChild(newMsg2);
                         }
                     }
                     newMsg();
                 }
 
-                if (enterMsg.value.includes('cuối kì')){
+                if (botfeed.includes('cuối kì')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -98,14 +180,14 @@
                                     Ngày kiểm tra cuối kì <b>backend</b> 22/02/2021!
                                     <small>`+timenow+`</small>
                                     `;
-                                }, 1500)
+                                }, Steptime)
                             mainadmin.appendChild(newMsg2);
                         }
                     }
                     newMsg();
                 }
 
-                if (enterMsg.value.includes('học phí')){
+                if (botfeed.includes('học phí')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -123,14 +205,14 @@
                                     <b class="text-primary">MIỄN PHÍ</b> hãy cùng nhau tiến bộ hơn!
                                     <small>`+timenow+`</small>
                                     `;
-                                }, 1500)
+                                }, Steptime)
                             mainadmin.appendChild(newMsg2);
                         }
                     }
                     newMsg();
                 }
                 
-                if (enterMsg.value.includes('course online') || enterMsg.value.includes('Course Online')){
+                if (botfeed.includes('course online') || botfeed.includes('Course Online')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -148,14 +230,14 @@
                                     với nodejs - phía back-end.
                                     <small>`+timenow+`</small>
                                     `;
-                                }, 1500)
+                                }, Steptime)
                             mainadmin.appendChild(newMsg2);
                         }
                     }
                     newMsg();
                 } 
 
-                if (enterMsg.value.includes('nodejs')){
+                if (botfeed.includes('nodejs')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -175,14 +257,14 @@
                                     tham gia khóa <a href="/courses/nodejs">Nodejs</a> ngay nào!
                                     <small>`+timenow+`</small>
                                     `;
-                                }, 1500)
+                                }, Steptime)
                             mainadmin.appendChild(newMsg2);
                         }
                     }
                     newMsg();
                 }
 
-                if (enterMsg.value.includes('ngày sinh')&&enterMsg.value.includes('bạn')||enterMsg.value.includes('sinh nhật')){
+                if (botfeed.includes('ngày sinh')&&botfeed.includes('bạn')||botfeed.includes('sinh nhật')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -200,14 +282,14 @@
                                     Tôi ở đây với nhiệm vụ trả lời những câu hỏi của bạn! 
                                     <small>`+timenow+`</small>
                                     `;
-                                }, 1500)
+                                }, Steptime)
                             mainadmin.appendChild(newMsg2);
                         }
                     }
                     newMsg();
                 } 
 
-                if (enterMsg.value.includes('người tạo ra hehe')||enterMsg.value.includes('ai')&&enterMsg.value.includes('tạo ra bạn')||enterMsg.value=='tác giả') {
+                if (botfeed.includes('người tạo ra hehe')||botfeed.includes('ai')&&botfeed.includes('tạo ra bạn')||enterMsg.value=='tác giả') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -224,14 +306,14 @@
                                     Người tạo ra tôi cũng như <b class="text-danger">Course Online</b> là Trần Duy Khánh!
                                     <small>`+timenow+`</small>
                                     `;
-                                }, 1500)
+                                }, Steptime)
                             mainadmin.appendChild(newMsg2);
                         }
                     }
                     newMsg();
                 }
 
-                if (enterMsg.value.includes('mấy giờ')||enterMsg.value==='time') {
+                if (botfeed.includes('mấy giờ')||enterMsg.value==='time') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -248,14 +330,14 @@
                                     Bây giờ là `+Daten.getHours()+` giờ `+ Daten.getMinutes()+` phút.
                                     <small>`+timenow+`</small>
                                     `;
-                                }, 1500)
+                                }, Steptime)
                             mainadmin.appendChild(newMsg2);
                         }
                     }
                     newMsg();
                 }
 
-                if (enterMsg.value.includes('hôm nay')&&enterMsg.value.includes('ngày')||enterMsg.value==='date') {
+                if (botfeed.includes('hôm nay')&&botfeed.includes('ngày')||enterMsg.value==='date') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -272,14 +354,14 @@
                                     Hôm nay là ngày `+ Daten.getDate() +` tháng `+ n +` năm `+ Daten.getFullYear() +`.
                                     <small>`+timenow+`</small>
                                     `;
-                                }, 1500)
+                                }, Steptime)
                             mainadmin.appendChild(newMsg2);
                         }
                     }
                     newMsg();
                 }
 
-                if (enterMsg.value.includes('i love you')||enterMsg.value.includes('yêu bạn')) {
+                if (botfeed.includes('i love you')||botfeed.includes('yêu bạn')) {
                     function newMsg() {
                         if (mainadmin) {
                             var randomAnw =  Math.round(Math.random()*2);
@@ -298,7 +380,7 @@
                                         Me too! Hihi!
                                         <small>`+timenow+`</small>
                                         `;
-                                    }, 1500)
+                                    }, Steptime)
                                 }
                                 else if (randomAnw == 1){
                                     setTimeout(()=>{
@@ -308,7 +390,7 @@
                                         Ối trời ơi xạo hoài!
                                         <small>`+timenow+`</small>
                                         `;
-                                    }, 1500)
+                                    }, Steptime)
                                 }
                                 else {
                                     setTimeout(()=>{
@@ -318,7 +400,7 @@
                                         Tình yêu là gì? Có ăn được không?
                                         <small>`+timenow+`</small>
                                         `;
-                                    }, 1500)
+                                    }, Steptime)
                                 }
                                 
                             mainadmin.appendChild(newMsg2);
@@ -328,7 +410,7 @@
                 }
             setTimeout(()=>{
                 bodyMsg.scrollTo(0,10000000000000);
-            }, 1500)
+            }, Steptime)
             bodyMsg.scrollTo(0,10000000000000);
             enterMsg.value = ""; 
         }
