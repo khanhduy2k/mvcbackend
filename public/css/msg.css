@@ -49,7 +49,7 @@
     animation: moveMsg-3 .4s linear forwards;
 }
 
-.msg-admin-2:hover {
+.msg-admin-main:hover > .msg-admin-2 {
     cursor: default;
 }
 

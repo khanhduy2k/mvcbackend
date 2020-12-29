@@ -26,23 +26,26 @@ class SiteController{
         const title = 'Khóa học';
     Course.find({})
         .then(courses => {
-            Post.findOne({_id: req.cookies.user_i})
-            .then(data=>{
-              if (!req.signedCookies.userId) {
-            res.render('course',{ 
-                courses: mutipleMongooseToObject(courses), title, cast:false});
-            }
-            if (req.signedCookies.userId) {
-            const name = req.cookies.username;
-            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                Post.findOne({_id: req.cookies.user_i})
+                .then(data=>{
+                if (!req.signedCookies.userId) {
                 res.render('course',{ 
-                    courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true, admin:true, name});
-                }else{
+                    courses: mutipleMongooseToObject(courses), title, cast:false});
+                }
+                if (req.signedCookies.userId) {
+                const name = req.cookies.username;
+                Course.countDocuments({})
+                .then(num =>{
+                if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
                     res.render('course',{ 
-                        courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true,name});
-                }                
-            }  
-            });  
+                        courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title, cast:true, admin:true, name});
+                    }else{
+                        res.render('course',{ 
+                            courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title, cast:true,name});
+                    }   
+                })             
+                }  
+            })  
         })
         .catch(next);  
     }
