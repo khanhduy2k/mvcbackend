@@ -276,6 +276,51 @@
                     newMsg();
                 }
 
+                else if (botfeed.includes('haha')||botfeed.includes('hihi')){
+                    function newMsg() {
+                        if (mainadmin) {
+                            var randomAnw =  Math.round(Math.random()*2);
+                            const newMsg2 = document.createElement('div');
+                                newMsg2.classList.add('admin-feed');
+                                newMsg2.innerHTML = `
+                                <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <div class="loading"></div>
+                                `;
+                                if (randomAnw == 0){
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Tôi buồn cười đến thế à? 
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                } else if (randomAnw == 1) {
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Hahaha!!!
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                } else {
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Nghiêm túc nào!
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                }
+                            mainadmin.appendChild(newMsg2);
+                        }
+                    }
+                    newMsg();
+                }
+
                 else if (botfeed.includes('học phí')){
                     function newMsg() {
                         if (mainadmin) {
