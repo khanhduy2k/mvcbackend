@@ -22,7 +22,7 @@
             <div class="admin-feed">
                 <img src="/img/bot.jpg" alt="HeHe">
                 <span></span>
-                    Chào bạn tôi là <b>HeHe</b> tôi được lập trình để trả lời 1 số câu hỏi của bạn. <br>
+                    Chào bạn tôi là <b id="hehe" style="cursor: pointer;">HeHe</b> tôi được lập trình để trả lời 1 số câu hỏi của bạn. <br>
                     Hãy <a href="/login"> ĐĂNG NHẬP </a>để bắt đầu học tập tại <b class="text-danger">Course Online</b> <br>
                 <small id="time__now"></small>
             </div>
@@ -46,6 +46,39 @@
     var Datenew = new Date();
     var countEnter = 0; 
     document.getElementById('time__now').innerHTML = Datenew.getHours() + ":" + Datenew.getMinutes();
+
+    document.getElementById('hehe').onclick = function(){
+                var Datenew = new Date();
+                const mainadmin = document.getElementById('body-screen-msg');
+                const timenow = Datenew.getHours() + ":" + Datenew.getMinutes();
+                    function newMsg() {
+                        if (mainadmin) {
+                            const newMsg2 = document.createElement('div');
+                                newMsg2.classList.add('admin-feed');
+                                newMsg2.innerHTML = `
+                                <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <div class="loading"></div>
+                                `;
+                                setTimeout(()=>{
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                    <span></span>
+                                    <b>HeHe</b> ra đời vào ngày 28 tháng 12 năm 2020.
+                                    Tôi ở đây với nhiệm vụ trả lời những câu hỏi của bạn! 
+                                    <small>`+timenow+`</small>
+                                    `;
+                                }, 1000)
+                            mainadmin.appendChild(newMsg2);
+                        }
+                    }
+                    newMsg();
+                    bodyMsg.scrollTo(0,10000000000000);
+                    setTimeout(()=>{
+                        bodyMsg.scrollTo(0,10000000000000);
+                    }, 1000)
+                }
+
     enterMsg.addEventListener ("keyup", function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
@@ -74,6 +107,7 @@
                 const Steptime = 1000;
                 const botfeed = enterMsg.value.toLowerCase();
                 const Hour = Daten.getHours();
+
                 if (botfeed.includes('hello')||botfeed.includes('chào')){
                     function newMsg() {
                         if (mainadmin) {
