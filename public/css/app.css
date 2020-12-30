@@ -369,6 +369,7 @@ li, ul{
 }
 
 .letter {
+    word-break: break-all;
     position: relative;
     padding: 30px 20px 15px;
     border: 2px solid #ccc;
