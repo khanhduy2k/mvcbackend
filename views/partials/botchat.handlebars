@@ -64,7 +64,6 @@
                 const Steptime = 1000;
                 const botfeed = enterMsg.value.toLowerCase();
                 const Hour = Daten.getHours();
-                
                 if (botfeed.includes('hello')||botfeed.includes('chào')){
                     function newMsg() {
                         if (mainadmin) {
@@ -444,26 +443,95 @@
                 else {
                     if (countEnter == 1) {
                         function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
+                            if (mainadmin) {
+                                const newMsg2 = document.createElement('div');
+                                    newMsg2.classList.add('admin-feed');
                                     newMsg2.innerHTML = `
                                     <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    Sử dụng lệnh !help để hiển thị danh sách các lệnh và cách giao tiếp với tôi!
-                                    <small>`+timenow+`</small>
+                                        <span></span>
+                                        <div class="loading"></div>
                                     `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Sử dụng lệnh !help để hiển thị danh sách các lệnh và cách giao tiếp với tôi!
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                mainadmin.appendChild(newMsg2);
+                            }
                         }
+                        newMsg();
                     }
-                    newMsg();
+                    else if (countEnter > 10) {
+                        function newMsg() {
+                            if (mainadmin) {
+                                const newMsg2 = document.createElement('div');
+                                    newMsg2.classList.add('admin-feed');
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        <div class="loading"></div>
+                                    `;
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Bạn có thể sử dụng lệnh !help để biết 1 số câu hỏi mà tôi có thể trả lời được!
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                mainadmin.appendChild(newMsg2);
+                            }
+                        }
+                        newMsg();
+                    }
+                    else {
+                        var randomAnw =  Math.round(Math.random()*2);
+                        function newMsg() {
+                            if (mainadmin) {
+                                const newMsg2 = document.createElement('div');
+                                    newMsg2.classList.add('admin-feed');
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        <div class="loading"></div>
+                                    `;
+                                    if (randomAnw == 0) {
+                                        setTimeout(()=>{
+                                            newMsg2.innerHTML = `
+                                            <img src="/img/bot.jpg" alt="HeHe">
+                                            <span></span>
+                                                Xin lỗi tôi không hiểu yêu cầu của bạn!
+                                            <small>`+timenow+`</small>
+                                            `;
+                                        }, Steptime)
+                                    } 
+                                    else if (randomAnw == 1) {
+                                        setTimeout(()=>{
+                                            newMsg2.innerHTML = `
+                                            <img src="/img/bot.jpg" alt="HeHe">
+                                            <span></span>
+                                                Nhỏ không học lớn làm Bot<br> :(
+                                            <small>`+timenow+`</small>
+                                            `;
+                                        }, Steptime)
+                                    }
+                                    else {
+                                        setTimeout(()=>{
+                                            newMsg2.innerHTML = `
+                                            <img src="/img/bot.jpg" alt="HeHe">
+                                            <span></span>
+                                                Xin lỗi tôi vẫn đang học, có thể tôi không hiểu những gì bạn vừa hỏi tôi!
+                                            <small>`+timenow+`</small>
+                                            `;
+                                        }, Steptime)
+                                    }
+                                mainadmin.appendChild(newMsg2);
+                            }
+                        }
+                        newMsg();
                     }
                 }
             bodyMsg.scrollTo(0,10000000000000);
