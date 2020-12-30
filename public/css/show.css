@@ -69,15 +69,17 @@ html {
 }
 
 .lesson{
-    padding: 8px;
+    padding: 10px;
     word-break: keep-all;
     max-width: 100%;
     background-color: #fff;
     box-shadow: 0 0 8px #000000;
+    transition: .4s;
 }
 
 .lesson:hover {
     cursor: pointer;
+    padding-left: 20px;
     background-color: rgb(230, 230, 230);
 }
 
@@ -91,4 +93,8 @@ html {
     height: 100%;
     width: 100%;
     display: inline-block;
+}
+
+.lesson a:hover{
+    color: #007bff;
 }
