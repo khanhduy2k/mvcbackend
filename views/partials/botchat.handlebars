@@ -139,6 +139,9 @@
                         }
                         newMsg();
                     }, Steptime)
+                    setTimeout(()=>{
+                        bodyMsg.scrollTo(0,10000000000000);
+                    }, 2050)
                 }
 
                 else if (enterMsg.value === '!help'){
@@ -463,10 +466,10 @@
                     newMsg();
                     }
                 }
+            bodyMsg.scrollTo(0,10000000000000);
             setTimeout(()=>{
                 bodyMsg.scrollTo(0,10000000000000);
             }, Steptime)
-            bodyMsg.scrollTo(0,10000000000000);
             enterMsg.value = ""; 
         }
     });
