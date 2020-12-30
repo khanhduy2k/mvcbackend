@@ -46,7 +46,8 @@
     var Datenew = new Date();
     var countEnter = 0; 
     document.getElementById('time__now').innerHTML = Datenew.getHours() + ":" + Datenew.getMinutes();
-
+    {{#if cast}}
+    {{else}}
     document.getElementById('hehe').onclick = function(){
                 var Datenew = new Date();
                 const mainadmin = document.getElementById('body-screen-msg');
@@ -78,7 +79,7 @@
                         bodyMsg.scrollTo(0,10000000000000);
                     }, 1000)
                 }
-
+    {{/if}}
     enterMsg.addEventListener ("keyup", function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
