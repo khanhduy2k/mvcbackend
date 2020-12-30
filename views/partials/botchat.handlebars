@@ -108,7 +108,7 @@
                 const botfeed = enterMsg.value.toLowerCase();
                 const Hour = Daten.getHours();
 
-                if (botfeed.includes('hello')||botfeed.includes('chào')){
+                if (botfeed.includes('hello')||botfeed.includes('chào')||enterMsg.value==='hi'){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -169,6 +169,7 @@
                                         <span></span>
                                         <div class="loading"></div>
                                     `;
+                                    {{#if cast}}
                                     setTimeout(()=>{
                                         newMsg2.innerHTML = `
                                         <img src="/img/bot.jpg" alt="HeHe">
@@ -177,6 +178,17 @@
                                         <small>`+timenow+`</small>
                                         `;
                                     }, Steptime)
+                                    {{else}}
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        <b>HeHe</b> thấy bạn chưa đăng nhập vào hệ thống <br>
+                                        <a href="/login">ĐĂNG NHẬP NGAY</a> để trải nghiệm!
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                    {{/if}}
                                 mainadmin.appendChild(newMsg2);
                             }
                         }
