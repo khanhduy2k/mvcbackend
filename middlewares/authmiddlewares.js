@@ -14,7 +14,7 @@ module.exports.requireAuth = function(req, res, next){
     next();
 };
 module.exports.requireadmin = function(req, res, next){
-    if (req.cookies.user_i !== '5fc8f00e4ea1953d84276696'){
+    if (req.cookies.user_i !== '5fec63433abf7b3828ae4bae'){
         res.redirect('/');
     }
     next();

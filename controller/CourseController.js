@@ -22,7 +22,7 @@ class CourseController{
                     });
                     res.cookie('khoahoc',course.slug)
                     const name = req.cookies.username;
-                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                    if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                         res.render('show', { course: mongooseToObject(course), title,cast:true,admin:true, name})
                     }else{
                         res.render('show', { course: mongooseToObject(course), title,cast:true, name})
@@ -42,7 +42,7 @@ class CourseController{
                     const name = req.cookies.username;
                     const Idslug = req.params.id;
                     const bai = req.params.bai;
-                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                    if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                         res.render('show2', { course: mongooseToObject(course), title,cast:true,admin: true, name, Idslug, bai})
                     }else{
                         res.render('show2', { course: mongooseToObject(course), title,cast:true, name, Idslug, bai})
@@ -59,7 +59,7 @@ class CourseController{
                 const name = req.cookies.username;
                 Feed.findOne({_id: req.cookies.user_i})
                 .then(info =>{
-                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                    if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                         res.render('feedback', {title, info: mongooseToObject(info), cast:true,admin:true,name});
                     }else{
                         res.render('feedback', {title, info: mongooseToObject(info), cast:true,name});  
@@ -81,7 +81,7 @@ class CourseController{
                     .then(info =>{
                         if (lengthfeed == 0) {
                             const msg = 'Nội dung góp ý không được để trống!'
-                                if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                                if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                                     res.render('feedback', {title, msg, info: mongooseToObject(info), cast:true,admin:true,name});
                                 }else{
                                     res.render('feedback', {title, msg, info: mongooseToObject(info), cast:true,name});  
@@ -89,7 +89,7 @@ class CourseController{
                         }
                         else if (lengthfeed > 600) {
                             const msg = 'Nội dung góp ý không vượt quá 600 kí tự!'
-                                if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                                if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                                     res.render('feedback', {title, msg, info: mongooseToObject(info), cast:true,admin:true,name});
                                 }else{
                                     res.render('feedback', {title, msg, info: mongooseToObject(info), cast:true,name});  
@@ -98,7 +98,7 @@ class CourseController{
                         else {
                             if (!info){
                                 newPost.save();
-                                if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                                if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                                     res.render('feedback', {title, info: mongooseToObject(info), cast:true,admin:true,name, success: true});
                                 }else{
                                     res.render('feedback', {title, info: mongooseToObject(info), cast:true,name, success: true});  
@@ -109,7 +109,7 @@ class CourseController{
                                 const counttime = date - time;
                                 if (counttime < 1800000) {
                                     const msg = 'Mỗi lần góp ý cách nhau 30 phút!'
-                                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                                    if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                                         res.render('feedback', {title, msg, info: mongooseToObject(info), cast:true,admin:true,name});
                                     }else{
                                         res.render('feedback', {title, msg, info: mongooseToObject(info), cast:true,name});  
@@ -118,7 +118,7 @@ class CourseController{
                                 else {
                                     Feed.updateMany({name: name}, { $push:{feedback: feedback, date: date}, date2: date, new: 'chưa đọc' })
                                     .then()
-                                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                                    if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                                         res.render('feedback', {title, info: mongooseToObject(info), cast:true,admin:true,name, success: true});
                                     }else{
                                         res.render('feedback', {title, info: mongooseToObject(info), cast:true,name, success: true});  

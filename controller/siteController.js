@@ -2,6 +2,7 @@ const { mutipleMongooseToObject } = require('../ulti/mongoose');
 const { mongooseToObject } = require('../ulti/mongoose');
 const Course = require('./model/course');
 const Post = require('./model/posts');
+const md5 = require('md5');
 class SiteController{
 
     index(req, res){
@@ -14,7 +15,7 @@ class SiteController{
             const name = req.cookies.username;
             Course.countDocuments({})
             .then(num =>{
-                if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                     res.render('home', {title, num, cast:true,admin:true,name});
                 }else{
                     res.render('home', {title, num, cast:true,name});
@@ -36,7 +37,7 @@ class SiteController{
                 const name = req.cookies.username;
                 Course.countDocuments({})
                 .then(num =>{
-                if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                     res.render('course',{ 
                         courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title, cast:true, admin:true, name});
                     }else{
@@ -62,7 +63,7 @@ class SiteController{
                             }
                             if (req.signedCookies.userId) {
                             const name = req.cookies.username;
-                            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                                 res.render('course',{ 
                                     courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true, admin:true, name});
                                 }else{
@@ -87,7 +88,7 @@ class SiteController{
                             }
                             if (req.signedCookies.userId) {
                             const name = req.cookies.username;
-                            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                                 res.render('course',{ 
                                     courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true, admin:true, name});
                                 }else{
@@ -105,7 +106,7 @@ class SiteController{
     }
     checklogin(req, res){
     const name1 = req.body.name1;
-    const pass = req.body.pass;
+    const pass = md5(req.body.pass);
     const check = req.body.mact;
     const check2 = req.body.mact2;
     if (name1 ===''||pass===''){
@@ -179,8 +180,8 @@ class SiteController{
                                 if(!name1){
                                     errors.push({ msg: 'Nhập tên tài khoản!' });
                                 }else{
-                                    const newPostData = req.body;
-                                    const newPost = new Post(newPostData);
+                                    const md5pass = md5(pass);
+                                    const newPost = new Post({name1: name1, name_user: name_user, email: email, pass: md5pass});
                                     newPost.save();
                                     res.render('signup',{success: true});
                                     }
@@ -205,7 +206,7 @@ class SiteController{
             Post.findOne({_id: req.cookies.user_i})
                 .then(profile =>{
                     const name = req.cookies.username;
-                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                    if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                         res.render('profile', {profile: mongooseToObject(profile),title, cast:true,admin: true, name}); 
                     } else{
                         res.render('profile', {profile: mongooseToObject(profile),title, cast:true,name}); 

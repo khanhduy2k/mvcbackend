@@ -1,5 +1,6 @@
 const { mongooseToObject } = require('../ulti/mongoose');
 const { exists, remove } = require('./model/posts');
+const md5 = require('md5');
 const Post = require('./model/posts');
 class profileController{
     password(req, res, next){
@@ -7,7 +8,7 @@ class profileController{
             Post.findOne({_id: req.cookies.user_i})
                 .then(profile =>{
                     const name = req.cookies.username;
-                    if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+                    if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                         res.render('password', {profile: mongooseToObject(profile),title, cast:true,success:true,admin:true, name});
                     } else{
                         res.render('password', {profile: mongooseToObject(profile),title, cast:true,success:true,name});
@@ -23,7 +24,7 @@ class profileController{
        .then(data =>{
            if (data.pass === pass2){
             const msg = 'Sử dụng mật khẩu khác với mật khẩu hiện tại!';
-            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                 res.render('password',{msg,title,cast:true,success:true, admin:true, name});
                 return;
             }else{
@@ -34,7 +35,7 @@ class profileController{
        })
        if (pass === ''){
             const msg = 'Vui lòng nhập mật khẩu mới!';
-            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                 res.render('password',{msg,title,cast:true,success:true,admin:true, name});
             }else{
                 res.render('password',{msg,title,cast:true,success:true,name});
@@ -43,7 +44,7 @@ class profileController{
        }
        if (pass.length < 5 || pass.length >20 ){
             const msg = 'Mật khẩu gồm 5-20 kí tự!';
-            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                 res.render('password',{msg,title,cast:true,success:true,admin:true, name});
             }else{
                 res.render('password',{msg,title,cast:true,success:true,name});
@@ -51,17 +52,18 @@ class profileController{
             return;
        }
        if (pass === pass2){
+            const md5pass = md5(pass);
             const msg2 = 'Đổi mật khẩu thành công!';
-            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
-                Post.updateOne({_id: req.cookies.user_i}, {pass: pass})
+            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
+                Post.updateOne({_id: req.cookies.user_i}, {pass: md5pass})
             .then(() => res.render('password',{msg2,title,cast:true,success:false,admin:true, name}))
             }else{
-               Post.updateOne({_id: req.cookies.user_i}, {pass: pass})
+               Post.updateOne({_id: req.cookies.user_i}, {pass: md5pass})
             .then(() => res.render('password',{msg2,title,cast:true,success:false,name})) 
             }
        }else{
             const msg = 'Mật khẩu không trùng khớp!';
-            if (req.cookies.user_i === '5fc8f00e4ea1953d84276696'){
+            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                 res.render('password',{msg,title,cast:true,success:true, admin:true, name});
             }else{
                 res.render('password',{msg,title,cast:true,success:true,name});
