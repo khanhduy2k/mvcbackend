@@ -1,0 +1,94 @@
+html {
+    scroll-behavior: smooth;
+}
+.main__show {
+    margin-top: 50px;
+    color: #000;
+}
+
+.tag__video_show {
+    width: 95%;
+    margin: auto;
+    display: flex;
+    border-radius: 1rem;
+    box-shadow: 0 0 8px #000;
+    background-color: #ffffffe1;
+    padding: 50px 30px;
+}
+
+.show__video {
+    display: inline-block;
+    width: 70%;
+}
+
+.info__video {
+    border: 2px solid #000;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.menu__video {
+    background-color: rgb(238, 98, 17);
+    display: inline-block;
+    height: 100%;
+    margin-left: 1.5%;
+    width: 28%;
+    height: 640px;
+    border-radius: 1rem;
+    box-shadow: 0 0 8px #000;
+}
+
+.title_menu {
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 25px;
+    color: #fff;
+}
+
+.menu__video_list{
+    background-color: rgb(255, 255, 255);
+    padding-top: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 500px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.menu__video_list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.menu__video_list::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+.menu__video_list::-webkit-scrollbar-thumb {
+    background: rgba(94, 93, 93, 0.842); 
+    border-radius: 3rem;
+}
+
+.lesson{
+    padding: 8px;
+    word-break: keep-all;
+    max-width: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 8px #000000;
+}
+
+.lesson:hover {
+    cursor: pointer;
+    background-color: rgb(230, 230, 230);
+}
+
+.lesson + .lesson {
+    margin-top: 10px;
+
+}
+.lesson a{
+    text-decoration: none;
+    margin-left: 10px;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+}

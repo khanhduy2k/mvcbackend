@@ -1,16 +1,15 @@
-        <div class="col-sm-3 show-video mt-5">
-            <div><h3>Video bài học</h3></div>
-                <div class="mt-3">
-                {{#each course.videoId1}}
-                <div  class="lesson">
-                    <a class="btn" style="text-align: left;"  href="/courses/{{../course.slug}}/{{this}}/{{lookup ../course.bai @index}}">
-                        <img src="/img/play.png" width="40px" alt="Play">
-                         <b class="name">Bài {{lookup ../course.bai @index}}</b>               
-                    </a>
-                </div>
-                {{/each}}
-            </div>       
+
+    <div class="title_menu"><b>Danh sách video</b></div>
+    <div class="menu__video_list">
+    {{#each course.videoId1}}
+        <div  class="lesson">
+            <a href="/courses/{{../course.slug}}/{{this}}/{{lookup ../course.bai @index}}">
+                <img src="/img/play.png" width="40px" alt="Play">
+                    <b class="name">Bài {{lookup ../course.bai @index}}</b>               
+            </a>
         </div>
+    {{/each}}
+</div>
         <script>
             var baihoc = document.getElementById('bai');
             var namelesson = document.getElementsByClassName('name');
@@ -23,5 +22,4 @@
                 }
             }
         </script>
-        
        

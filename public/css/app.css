@@ -193,34 +193,6 @@ li, ul{
     color: #da471f;
 }
 
-.show-video{
-    overflow-y:scroll;
-    background:rgba(0, 0, 0, 0.3);
-    height: 500px;
-    color:#fff;
-    border-radius: 1rem;
-}
-
-.show-video::-webkit-scrollbar {
-    width: 5px;
-}
-
-.show-video::-webkit-scrollbar-thumb {
-    background: rgba(94, 93, 93, 0.842); 
-    border-radius: 3rem;
-}
-
-.lesson{
-    margin-top: 5%;
-    margin-bottom: 5%;
-    height: 60px;
-    background-color: #fff;
-}
-
-.lesson a{
-    height: 100%;
-    width: 100%;
-}
 /* css profile */
 
 

@@ -1,11 +1,17 @@
-    
-    <div class="mt-4 mb-5">
-        <div class="row">
-                <div class="col-sm-9 pl-4">
-                    <h2 class="ml-5" style="color: #fff;">Khóa học {{course.name}}</h2>
-                    <h5 id="bai" class="ml-5" style="color: #fff;">Bài {{bai}}</h5>
-                    <iframe  width="100%" height="500"  src="https://www.youtube.com/embed/{{Idslug}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>           
-                </div>
-                {{> menuvideo}}      
-        </div>   
-    </div>
+<div class="main__show">
+    <div class="tag__video_show">
+            <div id="go__video" class="show__video">
+                <h2 class="ml-5">Khóa học {{course.name}} </h2>
+                <h5 id="bai" class="ml-5">Bài {{bai}}</h5>                 
+                <iframe  width="100%" height="500" src="https://www.youtube.com/embed/{{Idslug}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>           
+            </div> 
+            <div class="menu__video">
+                {{> menuvideo}}
+            </div>
+    </div>   
+</div>
+<script>
+    window.onload = function () {
+        location.replace('#go__video')
+    }
+</script>
