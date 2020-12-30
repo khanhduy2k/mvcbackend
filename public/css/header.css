@@ -1,0 +1,228 @@
+.header {
+    height: 60px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 4px #000;
+    z-index: 1000000;
+}
+
+.header__link {
+    display: inline-block;
+}
+
+.logo__link {
+    display: inline-block;
+    margin-right: 5%;
+}
+
+.logo__link > a {
+    text-decoration: none;
+    color: rgb(255, 94, 0);
+}
+
+.items__link {
+    display: inline-block;
+}
+
+.items__link > a {
+    text-decoration: none;
+    color: #000;
+    display: inline-block;
+    line-height: 60px;
+    padding: 0 20px;
+}
+
+.header__auth {
+    float: right;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    position: relative;
+}
+
+.avatar {
+    margin-right: 10px;
+}
+
+.avatar > img {
+    box-shadow: 0 0 6px rgb(0, 0, 0);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.avatar > span {
+    display: inline-block;
+    margin-left: 6px;
+    font-weight: 500;
+}
+
+.line__ {
+    display: inline-block;
+    padding: 18px 0px;
+    border-left: 1px solid black;
+}
+
+.__auth__login {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 50px;
+}
+
+.__auth_items {
+    display: inline-block;
+}
+
+.__auth_items + .__auth_items {
+    margin-left: 10px;
+}
+
+.__auth_items > span {
+    color: rgb(29, 29, 29);
+    font-size: 25px;
+    display: inline-block;
+}
+
+.__auth_items > span:hover {
+    cursor: pointer;
+}
+
+.__auth_items > a {
+    text-decoration: none;
+    color: rgb(255, 88, 28);
+}
+
+.__auth_items > a:hover {
+    color: rgb(216, 78, 27);
+
+}
+
+.__auth_items_menu {
+    margin-left: 50px;
+    display: inline-block;
+    position: relative;
+}
+
+.__check_menu > span {
+    cursor: pointer;
+    color: rgb(29, 29, 29);
+    font-size: 25px;
+}
+
+.nav__input_check:checked ~ .show___menu {
+    right: 0;
+}
+
+.show___menu {
+    transition: .25s;
+    position: fixed;
+    right: -200px;
+    top: 63px;
+    z-index: 1000;
+}
+
+.close__menu {
+    cursor: pointer;
+    box-shadow: 0 0 6px #000;
+    border-radius: 1rem 0 0 1rem;
+    border: 2px solid #ccc;
+    position: absolute;
+    top: 50%;
+    padding: 20px 7px;
+    transform: translateY(-50%);
+    left: -23px;
+    z-index: -10;
+    background-color: #ffffff;
+}
+
+.main__menu_show {
+    box-shadow: 0 0 6px #000;
+    border: 2px solid #ccc;
+    border-radius: 1rem 0 0 1rem;
+    min-width: 200px;
+    min-height: 150px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px 0;
+}
+
+.items__menu_auth {
+    border-bottom: 2px solid rgb(131, 131, 131);
+}
+
+.items__menu_auth:hover {
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.items__menu_auth > a > i {
+    transition: .4s;
+}
+
+.items__menu_auth:hover > a > i {
+    margin-left: 45px;
+}
+
+.items__menu_auth > a {
+    width: 100%;
+    display: inline-block;
+    line-height: 40px;
+    padding: 0px 15px;
+    font-weight: 600;
+    color: rgb(44, 44, 44);
+    text-decoration: none;
+}
+
+.nav__input_check:checked ~ .layout__menu {
+    display: block;
+}
+
+.layout__menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: none;
+}
+
+.___log_out {
+    display: none;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100000;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.table__log_out {
+    margin: auto;
+    padding: 30px 30px 90px;
+    width: 400px;
+    background-color: #ffffff;
+    position: relative;
+}
+
+.__yes_logout {
+    position: absolute;
+    left: 20px;
+    bottom: 15px;  
+}
+
+.___no_logout {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+}
+
+.navbar-fixed-top {
+    top: 0;
+}
+
+
+
+

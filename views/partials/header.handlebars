@@ -1,44 +1,109 @@
-<div class="bottom-navbar">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand " href="/"><b style="color: #df461c;">Course Online</b></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Trang chủ<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link " href="/course">Khóa học</a>
-      </li>
-    </ul>
-    {{#if cast}}
-    <div class=" btn-group">
-      <button style="background-color: #f05123; border:none;" type="button" class="btn btn-secondary dropdown-toggle mr-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Tài khoản
-      </button>
-      <div class="mr-5 dropdown-menu dropdown-menu-right">
-        <p class="ml-4 logout"><b>{{name}}</b></p>
-        <a type="button" class="dropdown-item" href="/profile">
-            <i class="fas fa-cog"></i>&nbsp;Cài đặt
-        </a>
-        <a type="button" class="dropdown-item" href="/courses/feedback">
-            <i class="fas fa-envelope"></i>&nbsp;Góp ý
-        </a>
-        {{#if admin}}
-        <a type="button" class="dropdown-item" href="/admin">
-            <i class="fas fa-user-cog"></i>&nbsp;Quản lí
-        </a>
-        {{/if}}
-        <a type="button" class="dropdown-item" href="/logout">
-            <i class='fas fa-sign-out-alt'></i>&nbsp;Đăng xuất
-        </a>
-      </div>
+<div class="header">
+        <div class="logo__link ml-4">
+            <a href="/"><h3><b>Course Online</b></h3></a>
+        </div>
+      <div class="header__link">
+        <div class="items__link">
+            <a href="/"><b>Trang chủ</b></a>
+        </div>
+        <div class="items__link">
+            <a href="/course"><b>Khóa học</b></a>
+        </div>
     </div>
-    {{else}}
-    <a type="button" class="btn btn-info" href="/login">Đăng nhập</a>
-    {{/if }}
-</div>
-</nav>
+    <div class="header__auth">
+      {{#if cast}}
+      <div class="avatar">
+        {{#if admin}}
+        <img src="/img/admin.jpg" alt="">
+        <span class="text-danger"><b>{{name}}</b></span>
+        {{else}}
+        <img src="/img/userchat.png" alt="">
+        <span>{{name}}</span>
+        {{/if}}
+      </div>
+      <div class="line__"></div>
+      <div class="__auth__login">
+          <div class="__auth_items">
+              <span><i class="fas fa-bookmark"></i></span>
+          </div>
+          <div class="__auth_items">
+              <span><i class="fas fa-bell"></i></span>
+          </div>
+          <div class="__auth_items_menu">
+              <div class="__check_menu" >
+                    <span id="show__logout__btn"><i class="fas fa-sign-out-alt"></i></span>
+                    <div class="___log_out">
+                        <div class="table__log_out">
+                            <h5 class="text-center">Bạn chắc chắn muốn đăng xuất?</h5>
+                            <div class="btn__log__out">
+                              <div class="__yes_logout">
+                                <a class="btn btn-info" href="/logout">Đăng xuất</a>
+                              </div >
+                              <div class="___no_logout">
+                                <span id="back__logout" class="btn btn-secondary">Trở về</span>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+              <input hidden class="nav__input_check" type="checkbox" id="checkmenu">
+              <label for="checkmenu" class="layout__menu"></label>
+              <div id="nav" class="show___menu">
+                <label for="checkmenu" class="close__menu" >
+                  <i class="fas fa-ellipsis-v"></i>
+                </label>
+                <div class="main__menu_show">
+                  {{#if admin}}
+                  <div class="items__menu_auth">
+                    <a href="/admin"><i class="fas fa-user-cog"></i> Quản lí</a>
+                  </div>
+                  {{/if}}
+                  <div class="items__menu_auth">
+                    <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook"></i> Fanpage</a>
+                  </div>
+                  <div class="items__menu_auth">
+                    <a href="/courses/feedback"><i class="fas fa-envelope"></i> Góp ý</a>
+                  </div>
+                  <div class="items__menu_auth">
+                    <a href="/profile"><i class="fas fa-cog"></i> Cài đặt</a>
+                  </div>
+                </div>                  
+              </div>
+          </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-1.12.1.min.js" type="text/javascript"></script>
+      <script>
+        var backLogout = document.getElementById('back__logout');
+        var showLogout = document.getElementById('show__logout__btn');
+        backLogout.onclick = function() {
+         document.getElementsByClassName('___log_out')[0].style.display = 'none'
+        }
+        showLogout.onclick = function() {
+         document.getElementsByClassName('___log_out')[0].style.display = 'flex'
+        }
+
+        $(window).scroll(function () {
+              if ($(window).scrollTop() >= 61) {
+                  $('#nav').addClass('navbar-fixed-top');
+              }
+
+
+              if ($(window).scrollTop() >= 100) {
+                  $('#nav').addClass('show');
+              } else {
+                  $('#nav').removeClass('show navbar-fixed-top');
+              }
+          });
+      </script>
+      {{else}}
+      <div class="__auth__login">
+        <div class="__auth_items">
+          <a href="/login"><b>Đăng nhập</b></a>
+        </div>
+        <div class="__auth_items">
+          <a href="/signup"><b>Đăng ký</b></a>
+        </div>
+      </div>
+      {{/if}}
+    </div>
 </div>
