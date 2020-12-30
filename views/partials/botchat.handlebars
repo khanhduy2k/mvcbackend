@@ -345,7 +345,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.includes('mấy giờ')||enterMsg.value==='!time') {
+                else if (botfeed.includes('mấy giờ')||enterMsg.value==='!time'||enterMsg.value==='có') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -464,6 +464,31 @@
                         }
                         newMsg();
                     }
+
+                    else if (enterMsg.value==='không') {
+                        function newMsg() {
+                            if (mainadmin) {
+                                const newMsg2 = document.createElement('div');
+                                    newMsg2.classList.add('admin-feed');
+                                    newMsg2.innerHTML = `
+                                    <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        <div class="loading"></div>
+                                    `;
+                                    setTimeout(()=>{
+                                        newMsg2.innerHTML = `
+                                        <img src="/img/bot.jpg" alt="HeHe">
+                                        <span></span>
+                                        Không thì vô đây làm gì???
+                                        <small>`+timenow+`</small>
+                                        `;
+                                    }, Steptime)
+                                mainadmin.appendChild(newMsg2);
+                            }
+                        }
+                        newMsg();
+                    }
+
                     else if (countEnter > 10) {
                         function newMsg() {
                             if (mainadmin) {
@@ -487,6 +512,7 @@
                         }
                         newMsg();
                     }
+
                     else {
                         var randomAnw =  Math.round(Math.random()*2);
                         function newMsg() {
