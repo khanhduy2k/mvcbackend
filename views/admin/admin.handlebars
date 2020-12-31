@@ -1,4 +1,4 @@
-<div class="container bg-light mt-4 pt-2">
+<div class="admin___size bg-light mt-4 pt-2">
     <div>
         <a class="btn btn-primary" href="/admin/insert" style="float: left;">Thêm khóa học
             <i class="fas fa-plus"></i>
@@ -12,22 +12,28 @@
         </a>
         <h2 class="text-secondary text-right">Quản lí&nbsp;&nbsp;<i class=" fas fa-user-cog"></i></h2>
     </div>
-    <div style="height:500px;overflow:auto">
-        <div class="row ml-3">
+    <div class="admin__table">
             {{#each courses}}
-            <div class="mt-2 border border-secondary col-sm-3">
+              <div class="admin__course">
+                <div class="admin__name_course">
                     <p class="text-secondary"><i class="fas fa-users"></i><b> {{this.__v}}</b></p>
                     <h5 class="text-center"><b>{{this.name}}</b></h5>
-                    <div class="mb-2 mt-3">
-                        <a class="btn btn-danger text-light" href="" style="width:32%"  data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course">
-                            <i class="fas fa-trash"></i>
+                </div>
+                <div class="admin__action_course">
+                  <div class="btn__admin_action bg-danger">
+                        <a href=""  data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course">
+                              <i class="fas fa-trash"></i>
                         </a>
-                        <a class="btn btn-success text-light" href="admin/{{this._id}}/edit" style="width:32%;"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-secondary text-light" href="admin/{{this._id}}/addvideo" style="width:32%;"><i class="fas fa-plus"></i></a>
-                    </div>
-            </div>
+                  </div>
+                  <div class="btn__admin_action bg-success">
+                        <a href="admin/{{this._id}}/edit"><i class="fas fa-edit"></i></a>
+                  </div>
+                  <div class="btn__admin_action bg-secondary">
+                        <a href="admin/{{this._id}}/addvideo"><i class="fas fa-plus"></i></a>
+                  </div>
+                </div>
+              </div>
             {{/each}}
-        </div>
     </div>
 </div>
 <div id="delete-course" class="modal" tabindex="-1" role="dialog">
