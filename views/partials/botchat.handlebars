@@ -109,7 +109,7 @@
                 const botfeed = enterMsg.value;
                 const Hour = Daten.getHours();
 
-                if (botfeed.indexOf('hello') !== -1||botfeed.indexOf('chào') !== -1||enterMsg.value==='hi'){
+                if (botfeed.indexOf('hello',0) !== -1||botfeed.indexOf('chào',0) !== -1||enterMsg.value==='hi'){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
