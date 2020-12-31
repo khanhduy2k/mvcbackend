@@ -291,4 +291,49 @@
         left: 0;
         top: 50px
     }
+
+    /* botchathehe */
+    
+    .screen-msg {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .header-screen-msg {
+        border-radius: 0;
+    }
+
+    .body-screen-msg {
+        height: 75%;
+    }
+
+    .foot-screen-msg {
+        height: 12%;
+    }
+
+    .msg-admin-3 {
+        right: 350px;
+        height: 40px;
+        width: 42px;
+        border-radius: 2rem;
+        position: fixed;
+        bottom: 65px;
+        animation: moveMsg-3 .4s linear forwards;
+    }
+
+    @keyframes moveMsg-2 {
+        to {
+            bottom: 65px;
+            right: 350px;
+            height: 40px;
+            width: 42px;
+            border: 2px solid #ccc;
+            color: #ccc;
+        }
+    }
 }
