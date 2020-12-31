@@ -327,6 +327,7 @@
 
     @keyframes moveMsg-2 {
         to {
+            opacity: 0;
             bottom: 65px;
             right: 350px;
             height: 40px;
