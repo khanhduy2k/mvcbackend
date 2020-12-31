@@ -27,7 +27,6 @@
     }
 
 }
-
 @media (min-width: 740px) and (max-width: 1023px) {
     #table{
         display: block;
@@ -44,7 +43,7 @@
     }
     
 }
-@media (min-width: 375px) and (max-width: 739px){
+@media (max-width: 739px){
     .header {
         display: none;
     }
