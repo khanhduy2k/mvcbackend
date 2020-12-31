@@ -1,0 +1,86 @@
+.main__show_courses {
+    width: 100%;
+    padding: 20px 15px;
+    min-height: 500px;
+}
+.__show__courses {
+    width: 90%;
+    margin: auto;
+}
+
+.__course {
+    margin-top: 10px;
+    margin-left: 2%;
+    width: 30%;
+    display: inline-block;
+}
+
+.img__course {
+    width: 100%;
+}
+
+.img__course > img {
+    width: 100%;
+    border-top-left-radius: .4rem;
+    border-top-right-radius: .4rem;
+}
+
+.info__course {
+    border-top: 4px solid #cccccc;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom-left-radius: .4rem;
+    border-bottom-right-radius: .4rem;
+    padding: 10px;
+}
+
+.name__course {
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.content__course {
+    width: 100%;
+    min-height: 150px;
+    background-color: #ffffff;
+    word-break: keep-all;
+}
+
+.go_to__course {
+    display: flex;
+    padding: 5px;
+    position: relative;
+}
+
+.btn__go_course {
+    margin: auto;
+    width: 100px;
+    border-radius: 1rem;
+    background-color: rgb(0, 119, 255);
+    text-align: center;
+    
+}
+
+.btn__go_course > a {
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+}
+
+.btn-learning{
+    border: none;
+    border-radius: 1rem;
+    background-color: #da471f;
+}
+
+.btn-learning:hover{
+    background-color: #be3f1c;
+}
+
+.num__member {
+    right: 0;
+    position: absolute;
+}

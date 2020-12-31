@@ -19,6 +19,12 @@ html {
 .show__video {
     display: inline-block;
     width: 70%;
+    height: 700px;
+}
+
+.show__video > iframe {
+    height: 70%;
+    width: 100%;
 }
 
 .info__video {

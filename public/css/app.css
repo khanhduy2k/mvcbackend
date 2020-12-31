@@ -6,6 +6,7 @@ html {
 body{
     background-image: url('https://hinhanhdepmoi.files.wordpress.com/2020/04/mau-background-dep.jpg?w=2000&h=1281&crop=1');
     background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #table, #mobile{
@@ -79,35 +80,6 @@ li, ul{
 .info-home{
     padding-top: 9%;
     text-align: center;
-}
-
-/*COURSE CSS*/
-.card-item{
-    margin-left: 7%;
-    margin-top: 5%;
-    margin-bottom: 2%;
-}
-
-.noidung{
-    height: 80%;
-    margin-bottom: 4%;
-}
-
-.row{
-    margin-right:0;
-}
-
-.reviews{
- border: #868686 solid 2px;
-}
-
-.btn-learning{
-    border: none;
-    background-color: #da471f;
-}
-
-.btn-learning:hover{
-    background-color: #be3f1c;
 }
 /* Sign up*/
 .sign-up{
@@ -228,44 +200,6 @@ li, ul{
     font-size: 20px;
     font-weight:800;
     color: red;
-}
-
-/* table */
-
-@media (min-width: 740px) and (max-width: 1023px) {
-    .main{
-        display: none;
-    }
-
-    #table{
-        display: block;
-        color: #fff;
-        text-align: center;
-        padding-top: 40%;
-    }
-
-    #mobile{
-        display: none;
-    }
-
-    
-}
-@media (max-width: 739px){
-    .main{
-        display: none;
-    }
-
-    #table{
-        display: none;
-    }
-
-    #mobile{
-        display: block;
-        color: #fff;
-        text-align: center;
-        padding-top: 50%;
-    }
-
 }
 
 /* feedback */

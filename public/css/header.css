@@ -161,6 +161,10 @@
     margin-left: 45px;
 }
 
+.items__menu_auth:hover > a {
+    color: rgb(0, 89, 255);
+}
+
 .items__menu_auth > a {
     width: 100%;
     display: inline-block;
