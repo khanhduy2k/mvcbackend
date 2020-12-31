@@ -5,6 +5,10 @@
     z-index: 1000000;
 }
 
+.header__modile {
+    display: none;
+}
+
 .header__link {
     display: inline-block;
 }

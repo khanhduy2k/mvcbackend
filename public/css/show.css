@@ -19,7 +19,6 @@ html {
 .show__video {
     display: inline-block;
     width: 70%;
-    height: 700px;
 }
 
 .show__video > iframe {
@@ -54,8 +53,7 @@ html {
 .menu__video_list{
     background-color: rgb(255, 255, 255);
     padding-top: 15px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
     height: 500px;
     width: 100%;
     margin-top: 15px;

@@ -4,7 +4,7 @@
     bottom: 30px;
     height: 90px;
     width: 90px;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .msg-admin {

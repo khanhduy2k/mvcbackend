@@ -2,14 +2,14 @@
         <div class="logo__link ml-4">
             <a href="/"><h3><b>Course Online</b></h3></a>
         </div>
-      <div class="header__link">
-        <div class="items__link">
-            <a href="/"><b>Trang chủ</b></a>
+        <div class="header__link">
+          <div class="items__link">
+              <a href="/"><b>Trang chủ</b></a>
+          </div>
+          <div class="items__link">
+              <a href="/course"><b>Khóa học</b></a>
+          </div>
         </div>
-        <div class="items__link">
-            <a href="/course"><b>Khóa học</b></a>
-        </div>
-    </div>
     <div class="header__auth">
       {{#if cast}}
       <div class="avatar">
@@ -85,13 +85,8 @@
         $(window).scroll(function () {
               if ($(window).scrollTop() >= 61) {
                   $('#nav').addClass('navbar-fixed-top');
-              }
-
-
-              if ($(window).scrollTop() >= 100) {
-                  $('#nav').addClass('show');
               } else {
-                  $('#nav').removeClass('show navbar-fixed-top');
+                  $('#nav').removeClass('navbar-fixed-top');
               }
           });
       </script>
@@ -107,3 +102,67 @@
       {{/if}}
     </div>
 </div>
+<div class="header__modile">
+    <div class="logo__link ml-2">
+            <a href="/"><h3><b>Course Online</b></h3></a>
+    </div>
+    <div class="header__auth">
+        <div class="__auth__login">
+          <div class="__auth_items">
+              <span><i class="fas fa-bookmark"></i></span>
+          </div>
+          <div class="__auth_items">
+              <span><i class="fas fa-bell"></i></span>
+          </div>
+          <label for="checkmenu_mobile" class="__auth_items">
+              <span><i class="fas fa-bars"></i></span>
+          </label>
+          <input hidden class="nav__input_check_mobile" type="checkbox" id="checkmenu_mobile">
+          <div class="menu__header_mobile">
+              <label for="checkmenu_mobile" class="colse__mobile">
+                &times;                
+              </label>
+              {{#if cast}}
+              <div class="avatar">
+                {{#if admin}}
+                <img src="/img/admin.jpg" alt="">
+                <span class="text-danger"><b>{{name}}</b></span>
+                {{else}}
+                <img src="/img/userchat.png" alt="">
+                <span>{{name}}</span>
+                {{/if}}
+              </div>
+              {{/if}}
+              <div class="list__menu__mobile">
+                  <div class="items__mobile">
+                    <a href="/"><i class="fas fa-home"></i>Trang chủ</a>
+                  </div>
+                  <div class="items__mobile">
+                    <a href="/course"><i class="fas fa-book"></i>Khóa học</a>
+                  </div>
+                  <div class="items__mobile">
+                    <a href="facebook.com"><i class="fab fa-facebook"></i>Fanpage</a>
+                  </div>
+                  </div>
+                  {{#if cast}}
+                  <div class="items__mobile">
+                    <a href="/courses/feedback"><i class="fas fa-envelope"></i>Góp ý</a>
+                  </div>
+                  <div class="items__mobile">
+                    <a href="/admin"><i class="fas fa-user-cog"></i>Quản lí</a>
+                  </div>
+                  <div class="items__mobile">
+                    <a href="/profile"><i class="fas fa-cog"></i>Cài đặt</a>
+                  </div>
+                  <div class="items__mobile">
+                    <a href="/logout"><i class="fas fa-sign-out-alt"></i>Đăng xuất</a>
+                  </div>
+                  {{else}}
+                  <div class="items__mobile">
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i>Đăng nhập</a>
+                  </div>
+                  {{/if}}
+              </div>
+          </div>
+        </div>
+    </div>

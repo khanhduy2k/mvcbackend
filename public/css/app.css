@@ -5,13 +5,17 @@ html {
 
 body{
     background-image: url('https://hinhanhdepmoi.files.wordpress.com/2020/04/mau-background-dep.jpg?w=2000&h=1281&crop=1');
-    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment:fixed
 }
 
 #table, #mobile{
     display: none;
 }
 
+.profile__ {
+    padding: 5%;
+}
 
 .thong-bao{
     color: rgb(255, 196, 1);
@@ -40,10 +44,31 @@ body{
 }
 /* sidemenu */
 
+.side__menu a {
+    padding: 10px;
+}
 
-li, ul{
+.side__menu ul {
+    width: 440px; 
+    margin-top: 30px;
+    padding: 10px;
+    border-radius: 0 4rem 0 0;
+    background-color: #fff;
+}
+
+.side__menu a {
+    text-decoration: none;
+    border-radius: 0 2rem;
+    display: inline-block;
+}
+
+.side__menu span {
+    display: none;
+}
+
+li{
     list-style: none;
-    display: inline;
+    display: inline-block;
 }
 
 /*Footer*/
@@ -56,12 +81,26 @@ li, ul{
 }
 
 /*HOME CSS*/
+.btn_home {
+    display: inline-block;
+}
+
 .btn-course-home{
     color: #fff;
     background-color: #f05123;
     border-radius: 3rem;
-    width: 220px;
+    min-width: 120px;
+    padding-left: 15px;
+    padding-right: 15px;
     margin-top: 5%;
+}
+
+.btn_home + .btn_home{
+    margin-left: 20px;
+}
+
+.btn__course__go {
+    min-width: 220px;
 }
 
 .btn-course-home:hover{
@@ -71,15 +110,31 @@ li, ul{
 
 .background-home{
     color: #fff;
-    padding-left: 15%;
+    margin-left: 10%;
+    margin-right: 10%;
     padding-top: 10%;
-    height: 700px;
 }
 
-.info-home{
-    padding-top: 9%;
-    text-align: center;
+.text__home_1 {
+    font-size: 20px;
 }
+
+.text__home_2 {
+    font-size: 45px;
+}
+
+.img__home {
+    margin-top: 10%;
+    margin-bottom: 5%; 
+    width: 100%; 
+}
+
+.img__home_items {
+    display: inline-block;
+    text-align: center;
+    width: 33%;
+}
+
 /* Sign up*/
 .sign-up{
     color: #fff;
@@ -202,10 +257,15 @@ li, ul{
 }
 
 /* feedback */
+.main___feedback {
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
 
 .formfeedback {
+    box-shadow: 0 0 4px #000;
     background-color: #fff;
-    width: 600px;
+    width: 60%;
     margin: auto;
     padding: 20px;
 }

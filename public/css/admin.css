@@ -2,12 +2,14 @@
     width: 90%;
     margin:auto;
     padding: 10px;
+    margin-top: 30px;
 }
 
 .admin__table {
     display: inline-block;
     width: 100%;
     min-height: 400px;
+    max-height: 500px;
     overflow-y: scroll;
     padding-bottom: 20px;
 }
