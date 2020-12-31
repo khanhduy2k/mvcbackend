@@ -109,7 +109,7 @@
                 const botfeed = enterMsg.value.toLowerCase();
                 const Hour = Daten.getHours();
 
-                if (botfeed.includes('hello') ||botfeed.includes('chao') ||enterMsg.value==='hi'){
+                if (botfeed('hello')||botfeed.includes('chào')||enterMsg.value==='hi'){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -200,7 +200,7 @@
                     }, 2100)
                 }
 
-                else if (enterMsg.value === '!help'||enterMsg.value==='co'||enterMsg.value==='có'){
+                else if (enterMsg.value === '!help'||enterMsg.value==='có'){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -227,7 +227,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.includes('khoa hoc') ){
+                else if (botfeed.includes('khóa học')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -252,7 +252,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.includes('cuoi ki')){
+                else if (botfeed.includes('cuối kì')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -321,7 +321,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.includes('hoc phi')){
+                else if (botfeed.includes('học phí')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -398,7 +398,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.includes('ngay sinh')&&botfeed.includes('ban')||botfeed.includes('sinh nhat')){
+                else if (botfeed.includes('ngày sinh')&&botfeed.includes('bạn')||botfeed.includes('sinh nhật')){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -423,7 +423,7 @@
                     newMsg();
                 } 
 
-                else if (botfeed.includes('nguoi tao ra hehe')||botfeed.includes('ai')&&botfeed.includes('tao ra ban')||enterMsg.value=='tac gia') {
+                else if (botfeed.includes('người tạo ra hehe')||botfeed.includes('ai')&&botfeed.includes('tạo ra bạn')||enterMsg.value=='tác giả') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -447,7 +447,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.includes('may gio')||enterMsg.value==='!time') {
+                else if (botfeed.includes('mấy giờ')||enterMsg.value==='!time') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -471,7 +471,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.includes('nay')&&botfeed.includes('ngay')||enterMsg.value==='!date') {
+                else if (botfeed.includes('nay')&&botfeed.includes('ngày')||enterMsg.value==='!date') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -495,7 +495,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.includes('i love you')||botfeed.includes('yeu ban')) {
+                else if (botfeed.includes('i love you')||botfeed.includes('yêu bạn')) {
                     function newMsg() {
                         if (mainadmin) {
                             var randomAnw =  Math.round(Math.random()*2);
@@ -567,7 +567,7 @@
                         newMsg();
                     }
 
-                    else if (enterMsg.value==='khong'||enterMsg.value==='không') {
+                    else if (enterMsg.value==='không') {
                         function newMsg() {
                             if (mainadmin) {
                                 const newMsg2 = document.createElement('div');
