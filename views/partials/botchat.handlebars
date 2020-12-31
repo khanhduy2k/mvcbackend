@@ -106,10 +106,10 @@
 {{!-- Feedback --}}
                 const mainadmin = document.getElementById('body-screen-msg');
                 const Steptime = 1000;
-                const botfeed = enterMsg.value;
+                const botfeed = enterMsg.value.toLowerCase();
                 const Hour = Daten.getHours();
 
-                if (botfeed.indexOf('hello',0) !== -1||botfeed.indexOf('chào',0) !== -1||enterMsg.value==='hi'){
+                if (botfeed.indexOf('hello',0) !== -1||botfeed.indexOf('chao',0) !== -1||enterMsg.value==='hi'){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -200,7 +200,7 @@
                     }, 2100)
                 }
 
-                else if (enterMsg.value === '!help'||enterMsg.value==='có'){
+                else if (enterMsg.value === '!help'||enterMsg.value==='co'||enterMsg.value==='có'){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -227,7 +227,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.indexOf('khóa học') !== -1){
+                else if (botfeed.indexOf('khoa hoc') !== -1){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -252,7 +252,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.indexOf('cuối kì')!== -1){
+                else if (botfeed.indexOf('cuoi ki')!== -1){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -321,7 +321,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.indexOf('học phí')!== -1){
+                else if (botfeed.indexOf('hoc phi')!== -1){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -398,7 +398,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.indexOf('ngày sinh')!== -1&&botfeed.indexOf('bạn')!== -1||botfeed.indexOf('sinh nhật')!== -1){
+                else if (botfeed.indexOf('ngay sinh')!== -1&&botfeed.indexOf('ban')!== -1||botfeed.indexOf('sinh nhat')!== -1){
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -423,7 +423,7 @@
                     newMsg();
                 } 
 
-                else if (botfeed.indexOf('người tạo ra hehe')!== -1||botfeed.indexOf('ai')!== -1&&botfeed.indexOf('tạo ra bạn')!== -1||enterMsg.value=='tác giả') {
+                else if (botfeed.indexOf('nguoi tao ra hehe')!== -1||botfeed.indexOf('ai')!== -1&&botfeed.indexOf('tao ra ban')!== -1||enterMsg.value=='tac gia') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -447,7 +447,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.indexOf('mấy giờ')!== -1||enterMsg.value==='!time') {
+                else if (botfeed.indexOf('may gio')!== -1||enterMsg.value==='!time') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -471,7 +471,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.indexOf('nay')!== -1&&botfeed.indexOf('ngày')!== -1||enterMsg.value==='!date') {
+                else if (botfeed.indexOf('nay')!== -1&&botfeed.indexOf('ngay')!== -1||enterMsg.value==='!date') {
                     function newMsg() {
                         if (mainadmin) {
                             const newMsg2 = document.createElement('div');
@@ -495,7 +495,7 @@
                     newMsg();
                 }
 
-                else if (botfeed.indexOf('i love you')!== -1||botfeed.indexOf('yêu bạn')!== -1) {
+                else if (botfeed.indexOf('i love you')!== -1||botfeed.indexOf('yeu ban')!== -1) {
                     function newMsg() {
                         if (mainadmin) {
                             var randomAnw =  Math.round(Math.random()*2);
@@ -567,7 +567,7 @@
                         newMsg();
                     }
 
-                    else if (enterMsg.value==='không') {
+                    else if (enterMsg.value==='khong'||enterMsg.value==='không') {
                         function newMsg() {
                             if (mainadmin) {
                                 const newMsg2 = document.createElement('div');
