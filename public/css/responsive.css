@@ -331,8 +331,13 @@
     }
 
     .main__login {
-        padding-top: 20vh;
-        height: 100vh;
+        padding-top: 30%;
+        height: 90%;
+    }
+
+    .main__signup {
+        padding-top: 30%;
+        height: 90%;
     }
 
     .captcha {
