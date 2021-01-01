@@ -360,8 +360,7 @@
     }
 
     .main_table__member {
-        padding: 0;
-        padding-top: 20px;
+        padding: 5px 20px;
         width: 100%;
         margin: 0;
     }
