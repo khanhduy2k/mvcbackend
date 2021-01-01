@@ -27,7 +27,7 @@
     }
 
 }
-@media (min-width: 740px) and (max-width: 1023px) {
+@media (min-width: 540px) and (max-width: 1023px) {
     #table{
         display: block;
         color: #fff;
@@ -43,7 +43,7 @@
     }
     
 }
-@media (min-width: 321px) and (max-width: 739px){
+@media (min-width: 321px) and (max-width: 539px){
     .header {
         display: none;
     }
