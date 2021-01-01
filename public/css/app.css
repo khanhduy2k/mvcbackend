@@ -243,6 +243,14 @@ li{
 /* Member */
 .main__manage_member {
     height: 90vh;
+    padding-top: 5vh;
+}
+
+.main_table__member {
+    width: 80%;
+    background-color: #fff;
+    padding: 20px;
+    margin: auto;
 }
 
 .search input{
@@ -251,6 +259,36 @@ li{
     padding: 5px;
     width: 300px;
     outline: none;
+}
+
+.mobile__show_member__ {
+    display: none;
+}
+
+.body__table__member > table {
+    width: 100%;
+    margin: 10px;
+}
+
+.body__table__member thead th {
+    background-color:  #32383e;
+    border-bottom: 2px solid rgb(39, 39, 39);
+    padding: 10px;
+    color: #fff;
+}
+
+.body__table__member tbody td {
+    background-color:  #32383e;
+    padding: 10px;
+    color: #fff;
+    border-bottom: 2px solid rgb(211, 209, 209);
+}
+
+.body__table__member tbody th {
+    background-color:  #32383e;
+    padding: 10px;
+    color: #fff;
+    border-bottom: 2px solid rgb(255, 253, 253);
 }
 
 .search button{
@@ -268,11 +306,6 @@ li{
     cursor: pointer;
 }
 
-.warning::placeholder{
-    font-size: 20px;
-    font-weight:800;
-    color: red;
-}
 
 /* feedback */
 .main___feedback {

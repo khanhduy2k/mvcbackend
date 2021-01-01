@@ -1,3 +1,4 @@
+<div class="main__manage_member">
 <div class="mt-4 p-3 container bg-light">
     <a class="btn btn-primary mb-2 mr-2" href="/admin" style="float: left;"> Quản lí khóa học</a>
     <a class="btn btn-primary mb-2 mr-5" href="/admin/thanhvien" style="float: left;">Hiển thị tất cả</a> 
@@ -10,7 +11,7 @@
           </li>
       </form>
     </div>
-<table class="mt-2 col-sm-12 table table-dark">
+<table class="mt-2 col-sm-12 table table-dark mobile__show_member">
   <thead>
     <tr>
       <th scope="col">STT</th>
@@ -34,6 +35,26 @@
     {{/each}}
   </tbody>
 </table>
+<table class="mt-2 col-sm-12 table table-dark mobile__show_member__">
+  <thead>
+    <tr>
+      <th scope="col">STT</th>
+      <th scope="col">Tên đăng nhập</th>     
+      <th scope="col"></th>     
+      <th scope="col"></th>     
+    </tr>
+  </thead>
+  <tbody>
+      {{#each user}}
+    <tr class="num">
+      <th scope="row">{{sum @key 1}}</th>
+      {{{admin this.name1 this.name1}}}
+      <td><a class="btn btn-info" href="/admin/{{this.name1}}/chitiet">Chi tiết</a></td>
+      <td><a class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-user">Xóa</a></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
 <div class="text-center text-secondary"><h4><b id="msg"></b></h4></div>  
 </div>
 <div id="delete-user" class="modal" tabindex="-1" role="dialog">
@@ -49,6 +70,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 <form name="delete-user-form" method="POST"></form>
 <script>

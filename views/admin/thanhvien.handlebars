@@ -1,6 +1,6 @@
 <div class="main__manage_member">
-<div class="mt-4 p-3 container bg-light">
-    <a class="btn btn-primary mr-5" href="/admin" style="float: left;"> Quản lí khóa học</a>
+<div class="main_table__member">
+    <a class="btn btn-primary mr-5" href="/admin"> Quản lí khóa học</a>
     <h4 class="text-secondary">Tổng thành viên: <i class="fas fa-users"></i> {{num}}</h4> 
     <div class="search text-right">
       <form  action="/admin/thanhvien/timkiem">
@@ -10,30 +10,54 @@
           </li>
       </form>
     </div>
-    <table class="mt-3 col-sm-12 table table-dark">
-  <thead>
-    <tr>
-      <th scope="col">STT</th>
-      <th scope="col">Tên đăng nhập</th>
-      <th scope="col">Họ & tên</th>
-      <th scope="col">Email liên hệ</th>      
-      <th scope="col"></th>     
-      <th scope="col"></th>     
-    </tr>
-  </thead>
-  <tbody>
-      {{#each user}}
-    <tr>
-      <th scope="row">{{sum @key 1}}</th>
-      {{{admin this.name1 this.name1}}}
-      {{{admin this.name1 this.name_user}}}
-      {{{admin this.name1 this.email}}}
-      <td><a class="btn btn-info" href="/admin/{{this.name1}}/chitiet">Chi tiết</a></td>
-      <td><a class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-user">Xóa</a></td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>   
+<div class="body__table__member mobile__show_member">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Tên đăng nhập</th>
+        <th scope="col">Họ & tên</th>
+        <th scope="col">Email liên hệ</th>    
+        <th scope="col"></th>     
+        <th scope="col"></th>     
+      </tr>
+    </thead>
+    <tbody>
+        {{#each user}}
+      <tr>
+        <th scope="row">{{sum @key 1}}</th>
+        {{{admin this.name1 this.name1}}}
+        {{{admin this.name1 this.name_user}}}
+        {{{admin this.name1 this.email}}}
+        <td><a class="btn btn-info" href="/admin/{{this.name1}}/chitiet">Chi tiết</a></td>
+        <td><a class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-user">Xóa</a></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table> 
+</div>  
+<div class="body__table__member mobile__show_member__">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Tên đăng nhập</th>   
+        <th scope="col"></th>     
+        <th scope="col"></th>     
+      </tr>
+    </thead>
+    <tbody>
+        {{#each user}}
+      <tr>
+        <th scope="row">{{sum @key 1}}</th>
+        {{{admin this.name1 this.name1}}}
+        <td><a class="btn btn-info" href="/admin/{{this.name1}}/chitiet">Chi tiết</a></td>
+        <td><a class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-user">Xóa</a></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table> 
+</div>  
 {{{pagination num perpage page}}}
 </div>
 <div id="delete-user" class="modal" tabindex="-1" role="dialog">

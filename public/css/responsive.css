@@ -353,6 +353,36 @@
         margin-top: 2vh;
     }
 
+    /* manage member */
+
+    .main__manage_member {
+        padding-top: 60px;
+    }
+
+    .main_table__member {
+        padding: 0;
+        padding-top: 20px;
+        width: 100%;
+        margin: 0;
+    }
+
+    .mobile__show_member__ {
+        display: block;
+    }
+
+    .body__table__member {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .body__table__member > table {
+        margin: 0;
+    }
+
+    .mobile__show_member {
+        display: none;
+    }
+
 }
 
 @media (max-width: 320px) {
