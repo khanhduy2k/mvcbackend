@@ -1,6 +1,7 @@
+<div class="main__admin_action">
 <div class="container">
-    <div class="row">
-        <div class=" mt-1 col-3 bg-light" style="overflow:auto;height:300px">
+    <div class="main__add_video">
+        <div class="bg-light video__table_mobile" style="overflow:auto;height:300px">
         {{#each courses.videoId1}}
             <div class="">
                 <p class="text-info">{{lookup ../courses.bai @index}}</p>
@@ -8,7 +9,7 @@
             </div>
         {{/each}} 
         </div>
-        <div class="col-4 m-auto bg-light" style="float:right;height:300px">
+        <div class="video__table_in_mobile" style="height:300px">
             <div class="form-group">
                     <a href="/admin">Về trang quản lí</a>
                 </div>
@@ -28,4 +29,5 @@
             </form>
         </div>        
     </div>
+</div>
 </div>

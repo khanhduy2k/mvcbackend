@@ -13,6 +13,19 @@ body{
     display: none;
 }
 
+.main__add_video {
+    width: 60%;
+    margin: auto;
+    margin-top: 5vh;
+    padding: 10vh;
+    background-color: #fff;
+}
+
+.video__table_mobile {
+    border: 2px solid #000;
+    padding: 5%;
+}
+
 .profile__ {
     padding: 5%;
 }
@@ -215,15 +228,16 @@ li{
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 99999999999;
+    z-index: 999999;
     display: none;
+    align-items: center;
+    justify-content: center;
 }
 
 .preload-icon {
+    text-align: center;
     font-size: 66px;
     color: #fff;
-    margin-top: 15%;
-    margin-left: 45%;
 }
 
 /* Member */

@@ -285,10 +285,7 @@
     }
     
     .btn-dark {
-        position: absolute;
-        margin-top: 10px;
-        left: 0;
-        top: 50px
+        margin-top: 2vh;
     }
 
     /* botchathehe */
@@ -335,5 +332,30 @@
             border: 2px solid #ccc;
             color: #ccc;
         }
+        
     }
+
+    .main__login {
+        padding-top: 20vh;
+        height: 100vh;
+    }
+
+    .captcha {
+        margin-left: 30%;
+    }
+
+    /* insert course */
+
+    .main__admin_action {
+        padding-top: 70px;
+    }
+
+    /* add video */
+
+    .main__add_video {
+        width: 100%;
+        padding: 10px;
+        margin-top: 2vh;
+    }
+
 }

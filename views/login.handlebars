@@ -1,4 +1,4 @@
-<div class="my-4">
+<div class="main__login">
     <div class="container col-sm-4 col-md-6 col-lg-4 sign-up">
         <h2>Đăng nhập</h2>
         <form method="POST" id="login-form">
@@ -32,15 +32,15 @@
     </div>
     <div class="load" id="load">
         <div class="preload-icon">
-            <i class=" ml-5 fa fa-spinner fa-spin text-light" style="font-size: 60px;"></i>
-            <h4 class="mr-5">đang đăng nhập</h4>
+            <i class="fa fa-spinner fa-spin text-light" style="font-size: 60px;"></i>
+            <h4>đang đăng nhập</h4>
         </div>
     </div>
 <script>
     var btnInsertCourse = document.getElementById('btn-login');
     var loginForm = document.forms['login-form'];
         btnInsertCourse.onclick = function(){   
-            document.getElementById('load').style.display = "block";
+            document.getElementById('load').style.display = "flex";
             loginForm.action="/login";
             loginForm.submit();
         }  
