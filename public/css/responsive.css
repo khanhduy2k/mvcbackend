@@ -43,7 +43,7 @@
     }
     
 }
-@media (max-width: 739px){
+@media (min-width: 321px) and (max-width: 739px){
     .header {
         display: none;
     }
@@ -353,4 +353,17 @@
         margin-top: 2vh;
     }
 
+}
+
+@media (max-width: 320px) {
+    .main {
+        display: none;
+    }
+
+    #mobile {
+        display: block;
+        color: #fff;
+        text-align: center;
+        padding-top: 40vh;
+    }
 }
