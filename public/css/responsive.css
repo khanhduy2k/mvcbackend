@@ -387,6 +387,31 @@
         display: none;
     }
 
+    /* thongbao */
+
+    .mobile__thongbao__ {
+        padding-top: 20%;
+    }
+
+    .thongbao-new {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .del-tinnhan {
+        left: -44px;
+    }
+
+    .show-letter {
+        width: 98vW;
+        margin: auto;
+    }
+
+    .show__letter {
+        width: 95%;
+        margin: auto;
+    }
 }
 
 @media (max-width: 320px) {

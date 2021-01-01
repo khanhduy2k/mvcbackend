@@ -322,6 +322,9 @@ li{
 }
 
 /* thongbao */
+.mobile__thongbao__ {
+    padding-top: 20px;
+}
 
 .thongbao-new {
     width: 600px;
@@ -421,6 +424,10 @@ li{
 
 .letter + .letter {
     margin-top: 20px;
+}
+
+.show__letter {
+   width: 80%; 
 }
 
 .close-letter {
