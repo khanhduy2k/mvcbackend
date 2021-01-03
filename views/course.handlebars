@@ -30,7 +30,6 @@
     var learning = '{{data.learning}}';
     var namecourse = document.querySelectorAll('#namecourse');
     var learned = document.querySelectorAll('.learn a');
-    console.log(namecourse)
     for ( var i = 0; i < learned.length; i++ ){
         if (learning.includes(namecourse[i].innerHTML)){
             learned[i].innerHTML = 'Học tiếp';

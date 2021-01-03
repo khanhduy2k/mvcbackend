@@ -46,7 +46,7 @@
   </thead>
   <tbody>
       {{#each user}}
-    <tr class="num">
+    <tr>
       <th scope="row">{{sum @key 1}}</th>
       {{{admin this.name1 this.name1}}}
       <td><a class="btn btn-info" href="/admin/{{this.name1}}/chitiet">Chi tiết</a></td>
@@ -98,7 +98,6 @@
 
 var tukhoa = document.getElementById('tukhoa');
 var btnSub = document.getElementById('submit');
-console.log(btnSub)
 var count = document.getElementsByClassName('num');
 var numMember = count.length;
 document.getElementById('nummember').innerHTML = numMember;
