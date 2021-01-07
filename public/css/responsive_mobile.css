@@ -138,6 +138,10 @@
         font-size: 25px;
     }
 
+    .img__home {
+        display: block;
+    }
+
     .img__home_items {
         display: block;
         width: 100%;

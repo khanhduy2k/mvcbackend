@@ -24,10 +24,21 @@
       <div class="line__"></div>
       <div class="__auth__login">
           <div class="__auth_items">
-              <span><i class="fas fa-bookmark"></i></span>
+              <span class="bookmark__header">
+                <i class="fas fa-bookmark"></i>
+              </span>
           </div>
           <div class="__auth_items">
-              <span><i class="fas fa-bell"></i></span>
+              <span id="bell_check" class="bell__header">
+                <i class="fas fa-bell"></i>
+              </span>
+              <div id="msg__bell_haeder" class="msg__bell_haeder">
+                <header><small><b>Thông báo</b></small></header>
+                <div class="body_bell_show">
+                  <p>Chào mừng <b>{{name}}</b> đã tới với <b class="text-danger">Course Online</b> !</p> 
+                </div>
+                <span></span>
+              </div>
           </div>
           <div class="__auth_items_menu">
               <div class="__check_menu" >
@@ -102,6 +113,8 @@
       {{/if}}
     </div>
 </div>
+
+{{!-- mobile responsive --}}
 <div class="header__modile">
     <div class="logo__link ml-2">
             <a href="/"><h3><b>Course Online</b></h3></a>

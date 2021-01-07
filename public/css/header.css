@@ -74,20 +74,65 @@
 
 .__auth_items {
     display: inline-block;
+    position: relative;
 }
 
 .__auth_items + .__auth_items {
     margin-left: 10px;
 }
 
-.__auth_items > span {
+.__auth_items > span{
     color: rgb(29, 29, 29);
     font-size: 25px;
     display: inline-block;
 }
 
-.__auth_items > span:hover {
-    cursor: pointer;
+.__auth_items:hover > .msg__bell_haeder {
+    display: block;
+}
+
+.msg__bell_haeder {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: -350px;
+    background-color:#ffffff;
+    box-shadow: 0 0 4px #000000;
+    width: 400px;
+    min-height: 100px;
+}
+
+.msg__bell_haeder > header {
+    background-color: rgb(233, 233, 233);
+    padding: 5px 30px;
+    color: #494848;
+}
+
+.body_bell_show {
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+    padding: 5px 10px;
+}
+
+.body_bell_show > p {
+    word-break: keep-all;
+}
+
+.body_bell_show:hover {
+    cursor: default;
+    background-color: rgb(212, 211, 211);
+}
+
+.msg__bell_haeder > span {
+    position: absolute;
+    top: -15px;
+    right: 25px;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 15px solid rgb(233, 233, 233);
 }
 
 .__auth_items > a {

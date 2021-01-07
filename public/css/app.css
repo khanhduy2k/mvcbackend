@@ -139,13 +139,13 @@ li{
 .img__home {
     margin-top: 10%;
     margin-bottom: 5%; 
+    display: flex;
+    justify-content: space-around;
     width: 100%; 
 }
 
 .img__home_items {
-    display: inline-block;
-    text-align: center;
-    width: 33%;
+   text-align: center;
 }
 
 /* Sign up*/
