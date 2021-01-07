@@ -168,23 +168,36 @@ li{
 
 .main__login {
     min-height: 100vh;
-    padding-top: 10%;
+    padding-top: 5%;
 }
 
 .login {
-    margin-top: 60px;
+    margin-top: 30px;
 }
 
 .login a{
     float: right;
 }
 
+.check__captcha {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input__check {
+    width: 120px;
+}
+
+.random__check {
+    display: flex;
+    align-items: flex-end;
+}
+
 .captcha{
     font-size: 30px;
-    margin-left: 35%;
     cursor: default;
     width: 120px;
-    padding:  5px 0 0 20px;
+    text-align: center;
     color: black;
     background-image: url('https://i.pinimg.com/originals/b4/31/48/b43148675959cdb19d1964abe2d50254.png');
 }

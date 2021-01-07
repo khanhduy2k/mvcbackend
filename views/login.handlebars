@@ -24,11 +24,21 @@
                 <input type="hidden" class="form-control col-4 mb-2" id="c" maxlength="6" id="cpatchaTextBox" name="mact2" readonly="false" required="true"> 
             </div>
             </div> --}}
+            <div class="check__captcha">
+                <div class="input__check">
+                    <label for="mact">Kết quả</label>
+                    <input type="text" class="form-control" maxlength="6" id="cpatchaTextBox" name="mact">
+                </div>
+                <div class="random__check">
+                    <div class="captcha" onclick="check()"><b id="demo"></b></div>
+                    <input type="hidden" id="c" maxlength="6" id="cpatchaTextBox" name="mact2">
+                </div>
+            </div>
             <div class="login">
                <button id="btn-login" class="btn btn-danger btn-sign-footer">Đăng nhập</button>
                <a href="/signup" class="btn btn-danger btn-sign-footer">Chưa có tài khoản</a>
             </div>             
-        </form><div class="thong-bao mt-4" ><p id="msg">{{msg}}</p></div>
+        </form><div class="thong-bao mt-4" ><b><p id="msg">{{msg}}</p></b></div>
     </div>
     <div class="load" id="load">
         <div class="preload-icon">
@@ -36,8 +46,7 @@
             <h4>đang đăng nhập</h4>
         </div>
     </div>
-    <div class="g-recaptcha brochure__form__captcha" data-sitekey="6Ld0dCQaAAAAAJORBBpS71NH_NePzXNZDxe7cnoN"></div>
-<script src="https://www.google.com/recaptcha/api.js"></script>
+
 <script>
     var btnInsertCourse = document.getElementById('btn-login');
     var loginForm = document.forms['login-form'];
