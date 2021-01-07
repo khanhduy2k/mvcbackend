@@ -153,6 +153,7 @@ li{
 .main__signup {
     min-height: 100vh;
     padding-top: 5%;
+    padding-bottom: 10px;
 }
 
 .sign-up{
