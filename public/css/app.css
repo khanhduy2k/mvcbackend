@@ -171,6 +171,10 @@ li{
     padding-top: 10%;
 }
 
+.login {
+    margin-top: 60px;
+}
+
 .login a{
     float: right;
 }
