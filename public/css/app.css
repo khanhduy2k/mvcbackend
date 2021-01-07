@@ -123,6 +123,7 @@ li{
 
 .background-home{
     color: #fff;
+    min-height: 100vh;
     margin-left: 10%;
     margin-right: 10%;
     padding-top: 10%;
@@ -149,6 +150,11 @@ li{
 }
 
 /* Sign up*/
+.main__signup {
+    min-height: 100vh;
+    padding-top: 5%;
+}
+
 .sign-up{
     color: #fff;
     margin-bottom: 10%;
@@ -159,6 +165,12 @@ li{
 }
 
 /* Sign in*/
+
+.main__login {
+    min-height: 100vh;
+    padding-top: 10%;
+}
+
 .login a{
     float: right;
 }
