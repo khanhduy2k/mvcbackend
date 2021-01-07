@@ -164,6 +164,32 @@ li{
     text-align: center;
 }
 
+.msg__check_signup {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top:0;
+    background-color: #0000003d;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.msg__check_signup_table {
+    width: 400px;
+    min-height: 150px;
+    background-color: #fff;
+    box-shadow: 0 0 8px #000000;
+    border-radius: .6rem;
+    color: #f32828;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Sign in*/
 
 .main__login {

@@ -139,25 +139,26 @@ class SiteController{
         res.render('signup', {title});
     }
     checksignup(req, res){ 
-            const { name_user, name1, email, pass, pass2} = req.body;
+        const title='Đăng ký';
+        const { name_user, name1, email, pass, pass2} = req.body;
             if (name1 === ''|| name_user === ''||email=== ''||pass=== ''){
                 const msg = 'Vui lòng nhập đầy đủ thông tin!';
-                res.render('signup',{msg});
+                res.render('signup',{msg, title , name_user, name1, email, erro_up: true});
                 return;
             }
             if (name1.includes(" ")){
                 const msg = 'Tên đăng nhập phải viết liền';
-                res.render('signup',{msg});
+                res.render('signup',{msg, title , name_user, email, erro_up: true});
                 return;
             }
             if (name1.length < 4){
                 const msg = 'Tên đăng nhập từ 4 kí tự trở lên';
-                res.render('signup',{msg});
+                res.render('signup',{msg, title , name_user, email, erro_up: true});
                 return;
             }
             if (pass.length < 5 || pass.length >20 ){
                 const msg = 'Mật khẩu gồm 5-20 kí tự';
-                res.render('signup',{msg});
+                res.render('signup',{msg, title , name_user, name1, email, erro_up: true});
                 return;
            }
             if(pass == pass2){
@@ -165,14 +166,14 @@ class SiteController{
                     .then(dataemail =>{
                         if(dataemail){
                             const msg = 'Email đã được sử dụng!';
-                            res.render('signup',{msg});
+                            res.render('signup',{msg, title , name_user, name1, erro_up: true});
                             return;
                         }else{
                             Post.findOne({name1: name1})
                             .then(data=>{
                             if(data){
                                 const msg = 'Tài khoản đã tồn tại!';
-                                res.render('signup',{msg});
+                                res.render('signup',{msg, title , name_user, email, erro_up: true});
                                 return;
 
                             }else{
@@ -194,7 +195,7 @@ class SiteController{
             }
             else{
                 const msg = 'Mật khẩu không trùng khớp!';
-                res.render('signup',{msg});
+                res.render('signup',{msg, name_user, name1, email, erro_up: true});
             }
     }
     logout(req, res){
