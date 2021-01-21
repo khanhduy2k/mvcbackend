@@ -20,19 +20,6 @@ class profileController{
        const  {pass, pass2} = req.body; 
        const title = 'Đổi mật khẩu';
        const name = req.cookies.username;
-       Post.findOne({_id: req.cookies.user_i})
-       .then(data =>{
-           if (data.pass === pass2){
-            const msg = 'Sử dụng mật khẩu khác với mật khẩu hiện tại!';
-            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
-                res.render('password',{msg,title,cast:true,success:true, admin:true, name});
-                return;
-            }else{
-                res.render('password',{msg,title,cast:true,success:true,name});
-                return;
-            }
-           }
-       })
        if (pass === ''){
             const msg = 'Vui lòng nhập mật khẩu mới!';
             if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
@@ -52,16 +39,31 @@ class profileController{
             return;
        }
        if (pass === pass2){
-            const md5pass = md5(pass);
-            const msg2 = 'Đổi mật khẩu thành công!';
-            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
-                Post.updateOne({_id: req.cookies.user_i}, {pass: md5pass})
-            .then(() => res.render('password',{msg2,title,cast:true,success:false,admin:true, name}))
-            }else{
-               Post.updateOne({_id: req.cookies.user_i}, {pass: md5pass})
-            .then(() => res.render('password',{msg2,title,cast:true,success:false,name})) 
-            }
-       }else{
+            Post.findOne({_id: req.cookies.user_i})
+            .then(data =>{
+                if (data.pass === md5(pass2)){
+                    const msg = 'Sử dụng mật khẩu khác với mật khẩu hiện tại!';
+                    if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
+                        res.render('password',{msg,title,cast:true,success:true, admin:true, name});
+                        return;
+                    }else{
+                        res.render('password',{msg,title,cast:true,success:true,name});
+                        return;
+                    }
+                }   else {
+                        const md5pass = md5(pass);
+                        const msg2 = 'Đổi mật khẩu thành công!';
+                        if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
+                            Post.updateOne({_id: req.cookies.user_i}, {pass: md5pass})
+                        .then(() => res.render('password',{msg2,title,cast:true,success:false,admin:true, name}))
+                        }else{
+                        Post.updateOne({_id: req.cookies.user_i}, {pass: md5pass})
+                        .then(() => res.render('password',{msg2,title,cast:true,success:false,name})) 
+                        }
+                    }
+                });
+        }
+        else{
             const msg = 'Mật khẩu không trùng khớp!';
             if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
                 res.render('password',{msg,title,cast:true,success:true, admin:true, name});
