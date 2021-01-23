@@ -17,12 +17,13 @@ html {
 }
 
 .show__video {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     width: 70%;
 }
 
 .show__video > iframe {
-    height: 70%;
+    height: 75%;
     width: 100%;
 }
 
