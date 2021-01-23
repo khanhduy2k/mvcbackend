@@ -23,6 +23,7 @@ html {
 }
 
 .show__video > iframe {
+    box-shadow: 0 0 8px #000000;
     height: 75%;
     width: 100%;
 }
