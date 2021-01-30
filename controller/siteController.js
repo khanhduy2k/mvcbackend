@@ -166,7 +166,7 @@ class SiteController{
     }
     profile(req, res, next){
         const title = 'Setting';
-            Post.findOne({_id: req.cookie.user_i})
+            Post.findOne({_id: req.signedCookies.userId})
                 .then(profile =>{
                         res.render('profile', {profile: mongooseToObject(profile),title}); 
             })
