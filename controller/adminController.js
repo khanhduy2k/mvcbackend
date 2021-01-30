@@ -9,18 +9,17 @@ class adminController{
 
     admin(req, res, next){
         const title = 'Admin';
-        const name = req.cookies.username;
         Course.find({})
         .then(courses =>{
             Feed.countDocuments({new:'chưa đọc'})
             .then(news =>{
                 if (news) {
                     res.render('admin/admin', {
-                    courses: mutipleMongooseToObject(courses), title, news, cast:true,admin:true, name, yesnew: true});
+                    courses: mutipleMongooseToObject(courses), title, news, yesnew: true});
                 }
                 else {
                     res.render('admin/admin', {
-                    courses: mutipleMongooseToObject(courses), title, cast:true,admin:true, name});
+                    courses: mutipleMongooseToObject(courses), title});
                 }
             })
         })
@@ -28,8 +27,7 @@ class adminController{
     }
     insert(req, res, next){
         const title = 'Insert Course';
-        const name = req.cookies.username;
-        res.render('admin/insert',{title, cast:true,admin:true, name});
+        res.render('admin/insert',{title});
     }
     insertup(req, res){
         const img = 'img/'+req.file.filename;
@@ -39,12 +37,11 @@ class adminController{
         res.redirect('/admin');
     }
     edit(req, res, next){
-        const title = 'Sửa khóa học';
-        const name = req.cookies.username;
+        const title = 'Sửa khóa học';    
         Course.findOne({ _id: req.params.id})
         .then(courses =>{
             res.render('admin/edit', {
-                courses: mongooseToObject(courses), title, cast:true,admin:true, name});
+                courses: mongooseToObject(courses), title});
         })
         .catch(next);      
     }
@@ -54,32 +51,29 @@ class adminController{
         .catch(next);
     }
     addvideo(req, res, next){
-        const title = 'Thêm video khóa học';
-        const name = req.cookies.username;
+        const title = 'Thêm video khóa học';    
         Course.findOne({ _id: req.params.id})
         .then(courses =>{
             res.render('admin/addvideo', {
-                courses: mongooseToObject(courses), title, cast:true,admin:true, name});
+                courses: mongooseToObject(courses), title});
         })
         .catch(next);
     }
     deletevideo(req, res, next){
         const title = 'Thêm video khóa học';
-        const name = req.cookies.username;
         Course.update({_id: req.params.id}, { $pop:{videoId1: 1, bai: 1} })
         .then(() => res.redirect('/admin'+req.params.id+'/addvideo'))
         .catch(next)
     }
     postvideo(req, res, next){
         const title = 'Thêm video khóa học';
-        const name = req.cookies.username;
         const {videoId1, bai} = req.body;
         Course.update({_id: req.params.id}, { $push:{videoId1: videoId1, bai: bai} })
         .then(() => 
         Course.findOne({ _id: req.params.id})
         .then(courses =>{
             res.render('admin/addvideo', {
-                courses: mongooseToObject(courses), title, cast:true,admin:true, name});
+                courses: mongooseToObject(courses), title});
         }))
         .catch(next)
     }
@@ -89,7 +83,6 @@ class adminController{
         .catch(next)  
     }
     thanhvien(req, res, next){
-        const name = req.cookies.username;
         const title = 'Quản lí thành viên';
         var page = req.query.page || 1;
         var perpage = 10;
@@ -100,7 +93,7 @@ class adminController{
         .then(user =>{
             Post.countDocuments({})
             .then(num=>{
-               res.render('admin/thanhvien',{title, name, cast:true, admin:true, user: mutipleMongooseToObject(user), num, page, perpage}) 
+               res.render('admin/thanhvien',{title, user: mutipleMongooseToObject(user), num, page, perpage}) 
             });
         })
         .catch(next);
@@ -111,12 +104,11 @@ class adminController{
         .catch(next)  
     }
     chitiet(req, res, next){
-        const name = req.cookies.username;
         const title = 'Quản lí thành viên';
         Post.findOne({name1: req.params.name})
         .then(info=>{
             if (info){
-                res.render('admin/chitiet',{title,name, cast:true,admin:true,info:mongooseToObject(info)});
+                res.render('admin/chitiet',{title, info:mongooseToObject(info)});
             }else{
                 res.redirect('/admin/thanhvien');
             }
@@ -124,30 +116,28 @@ class adminController{
         .catch(next);       
     }
     timkiem(req, res, next){
-        const name = req.cookies.username;
         const title = 'Quản lí thành viên';
         const tukhoa = req.query.tukhoa;
         if (tukhoa === ''){
             var warning = "Nhập tên thành viên muốn tìm kiếm!";
-            res.render('admin/timkiem',{title, name, cast:true, admin:true, warning})
+            res.render('admin/timkiem',{title, warning})
         }else{
             Post.find({ name_user:{ $regex: tukhoa , $options : 'iu'}})
             .then(user =>{
-                res.render('admin/timkiem',{title, name, cast:true, admin:true, user: mutipleMongooseToObject(user)}) 
+                res.render('admin/timkiem',{title, user: mutipleMongooseToObject(user)}) 
             })
             .catch(next);
         }
     }
     thongbao(req, res, next) {
         const title = 'Thông báo';
-        const name = req.cookies.username;
         Feed.find({})
         .then(news =>{
             Feed.countDocuments({})
             .then(num =>{
                 Feed.countDocuments({new: 'chưa đọc'})
                 .then(newnum => {
-                    res.render('admin/thongbao',{title, newnum, name, cast:true, admin:true, num, news: mutipleMongooseToObject(news)})
+                    res.render('admin/thongbao',{title, newnum, num, news: mutipleMongooseToObject(news)})
                 })
             }) 
         }) 
@@ -155,14 +145,13 @@ class adminController{
     }
     read(req, res, next) {
         const title = 'Thông báo';
-        const name = req.cookies.username;
         Feed.updateMany({name: req.params.name}, {new: 'đã đọc'})
         .then()
         Feed.find({})
         .then(news =>{
             Feed.findOne({name: req.params.name})
             .then(readin =>{
-                res.render('admin/thongbao',{title, name, cast:true, admin:true, read:true,
+                res.render('admin/thongbao',{title, read:true,
                      news: mutipleMongooseToObject(news), readin: mongooseToObject(readin)}) 
             })
         }) 
@@ -171,7 +160,6 @@ class adminController{
 
     delletter(req, res, next) {
         const title = 'Thông báo';
-        const name = req.cookies.username;
         Feed.deleteOne({_id: req.params.id})
         .then()
         res.redirect('/admin/thongbao')

@@ -8,94 +8,57 @@ class SiteController{
     index(req, res){
         const title = 'Course Online';
         if (!req.signedCookies.userId) {
-            res.render('home', {title, cast:false});
+            res.render('home', {title});
             return;
         }
         if (req.signedCookies.userId) {
-            const name = req.cookies.username;
             Course.countDocuments({})
             .then(num =>{
-                if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
-                    res.render('home', {title, num, cast:true,admin:true,name});
-                }else{
-                    res.render('home', {title, num, cast:true,name});
-                }
+                    res.render('home', {title, num});
             })            
         }      
     }
     course(req, res, next){
         const title = 'Khóa học';
-    Course.find({})
-        .then(courses => {
-                Post.findOne({_id: req.cookies.user_i})
-                .then(data=>{
-                if (!req.signedCookies.userId) {
-                res.render('course',{ 
-                    courses: mutipleMongooseToObject(courses), title, cast:false});
-                }
-                if (req.signedCookies.userId) {
-                const name = req.cookies.username;
-                Course.countDocuments({})
-                .then(num =>{
-                if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
+        Course.find({})
+            .then(courses => {
+                    Post.findOne({_id: req.cookies.user_i})
+                    .then(data=>{
+                    if (!req.signedCookies.userId) {
                     res.render('course',{ 
-                        courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title, cast:true, admin:true, name});
-                    }else{
-                        res.render('course',{ 
-                            courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title, cast:true,name});
-                    }   
-                })             
-                }  
-            })  
-        })
-        .catch(next);  
+                        courses: mutipleMongooseToObject(courses), title});
+                    }
+                    if (req.signedCookies.userId) {
+                    Course.countDocuments({})
+                    .then(num =>{
+                            res.render('course',{ 
+                                courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title});
+                    })             
+                    }  
+                })  
+            })
+            .catch(next);  
     }
     frontend(req, res, next){
         const title = 'Frontend';
-        const name = req.cookies.username;
         Course.find({phanloai: 'Frontend'})
                 .then(courses => {
                     Post.findOne({_id: req.cookies.user_i})
                     .then(data=>{
-                        if (!req.signedCookies.userId) {
-                            res.render('course',{ 
-                                courses: mutipleMongooseToObject(courses), title, cast:false});
-                            }
-                            if (req.signedCookies.userId) {
-                            const name = req.cookies.username;
-                            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
-                                res.render('course',{ 
-                                    courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true, admin:true, name});
-                                }else{
-                                    res.render('course',{ 
-                                        courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true,name});
-                                }                
-                            }               
+                        res.render('course',{ 
+                            courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true});             
                     });  
                 })
                 .catch(next);
     }
     backend(req, res, next){
         const title = 'Backend';
-        const name = req.cookies.username;
         Course.find({phanloai: 'Backend'})
                 .then(courses => {
                     Post.findOne({_id: req.cookies.user_i})
                     .then(data=>{
-                        if (!req.signedCookies.userId) {
-                            res.render('course',{ 
-                                courses: mutipleMongooseToObject(courses), title, cast:false});
-                            }
-                            if (req.signedCookies.userId) {
-                            const name = req.cookies.username;
-                            if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
-                                res.render('course',{ 
-                                    courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true, admin:true, name});
-                                }else{
-                                    res.render('course',{ 
-                                        courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true,name});
-                                }                
-                            }                
+                        res.render('course',{ 
+                            courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true});           
                     });  
                 })
                 .catch(next);
@@ -121,8 +84,6 @@ class SiteController{
             res.cookie('userId', data._id,{
                 signed: true
             });
-            res.cookie('username', data.name1);
-            res.cookie('user_i', data._id);
             res.redirect('/');
         }else{
             const msg ='Tài khoản hoặc mật khẩu không chính xác!!';
@@ -198,20 +159,16 @@ class SiteController{
                 res.render('signup',{msg, name_user, name1, email, erro_up: true});
             }
     }
+    
     logout(req, res){
-        res.cookie('userId','logout');
+        res.clearCookie('userId')
         res.redirect('/');
     }
     profile(req, res, next){
         const title = 'Setting';
-            Post.findOne({_id: req.cookies.user_i})
+            Post.findOne({_id: req.cookie.user_i})
                 .then(profile =>{
-                    const name = req.cookies.username;
-                    if (req.cookies.user_i === '5fec63433abf7b3828ae4bae'){
-                        res.render('profile', {profile: mongooseToObject(profile),title, cast:true,admin: true, name}); 
-                    } else{
-                        res.render('profile', {profile: mongooseToObject(profile),title, cast:true,name}); 
-                    }
+                        res.render('profile', {profile: mongooseToObject(profile),title}); 
             })
                 .catch(next);
         }     
