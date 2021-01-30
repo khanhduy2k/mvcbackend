@@ -5,7 +5,7 @@ const Post = require('./model/posts');
 class profileController{
     password(req, res, next){
         const title = 'Setting - password';
-            Post.findOne({_id: signedCookies.userId})
+            Post.findOne({_id: req.signedCookies.userId})
                 .then(profile =>{
                     res.render('password', {profile: mongooseToObject(profile), title, success:true});
             })
@@ -25,7 +25,7 @@ class profileController{
             return;
        }
        if (pass === pass2){
-            Post.findOne({_id: signedCookies.userId})
+            Post.findOne({_id: req.signedCookies.userId})
             .then(data =>{
                 if (data.pass === md5(pass2)){
                     const msg = 'Sử dụng mật khẩu khác với mật khẩu hiện tại!';
@@ -34,7 +34,7 @@ class profileController{
                 }   else {
                         const md5pass = md5(pass);
                         const msg2 = 'Đổi mật khẩu thành công!';
-                        Post.updateOne({_id: signedCookies.userId}, {pass: md5pass})
+                        Post.updateOne({_id: req.signedCookies.userId}, {pass: md5pass})
                         .then(() => res.render('password',{msg2, title, success:false})) 
                     }
                 });

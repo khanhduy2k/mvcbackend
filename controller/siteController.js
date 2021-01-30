@@ -22,7 +22,7 @@ class SiteController{
         const title = 'Khóa học';
         Course.find({})
             .then(courses => {
-                    Post.findOne({_id: req.cookies.user_i})
+                    Post.findOne({_id: req.signedCookies.userId})
                     .then(data=>{
                     if (!req.signedCookies.userId) {
                     res.render('course',{ 
@@ -43,7 +43,7 @@ class SiteController{
         const title = 'Frontend';
         Course.find({phanloai: 'Frontend'})
                 .then(courses => {
-                    Post.findOne({_id: req.cookies.user_i})
+                    Post.findOne({_id: req.signedCookies.userId})
                     .then(data=>{
                         res.render('course',{ 
                             courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true});             
@@ -55,7 +55,7 @@ class SiteController{
         const title = 'Backend';
         Course.find({phanloai: 'Backend'})
                 .then(courses => {
-                    Post.findOne({_id: req.cookies.user_i})
+                    Post.findOne({_id: req.signedCookies.userId})
                     .then(data=>{
                         res.render('course',{ 
                             courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true});           
