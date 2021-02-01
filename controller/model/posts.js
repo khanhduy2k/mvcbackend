@@ -12,4 +12,4 @@ const postSchame = new Schema({
     timestamps:true,
 });
 
-module.exports = mongoose.model('post', postSchame);
+module.exports = mongoose.model('post', postSchame.index({'$**': 'text'}));

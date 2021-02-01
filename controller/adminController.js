@@ -122,7 +122,7 @@ class adminController{
             var warning = "Nhập tên thành viên muốn tìm kiếm!";
             res.render('admin/timkiem',{title, warning})
         }else{
-            Post.find({ name_user:{ $regex: tukhoa , $options : 'iu'}})
+            Post.find({ $text:{ $search: "\""+tukhoa+"\""}})
             .then(user =>{
                 res.render('admin/timkiem',{title, user: mutipleMongooseToObject(user)}) 
             })
