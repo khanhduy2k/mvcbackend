@@ -3,7 +3,7 @@
             <div id="go__video" class="show__video">
                 <h2 class="ml-5">Khóa học {{course.name}} </h2>
                 <h5 id="bai" class="ml-5">Bài {{bai}}</h5>                 
-                <iframe src="https://www.youtube.com/embed/{{Idslug}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>           
+                <iframe id="movie_player" src="https://www.youtube.com/embed/{{Idslug}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>           
             </div> 
             <div class="menu__video">
                 {{> menuvideo}}
@@ -16,4 +16,10 @@
            location.replace('#go__video') 
         }, 500)
     }
+
+    var ytplayer = document.getElementById("movie_player");
+
+    var timeYoutube = ytplayer.getCurrentTime();
+
+    console.log(timeYoutube)
 </script>
