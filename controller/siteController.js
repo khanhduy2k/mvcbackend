@@ -7,16 +7,10 @@ class SiteController{
 
     index(req, res){
         const title = 'Course Online';
-        if (!req.signedCookies.userId) {
-            res.render('home', {title});
-            return;
-        }
-        if (req.signedCookies.userId) {
             Course.countDocuments({})
             .then(num =>{
                     res.render('home', {title, num});
-            })            
-        }      
+            })             
     }
     course(req, res, next){
         const title = 'Khóa học';
@@ -24,17 +18,17 @@ class SiteController{
             .then(courses => {
                     Post.findOne({_id: req.signedCookies.userId})
                     .then(data=>{
+                        Course.countDocuments({})
+                        .then(num =>{
                     if (!req.signedCookies.userId) {
                     res.render('course',{ 
                         courses: mutipleMongooseToObject(courses), title});
                     }
                     if (req.signedCookies.userId) {
-                    Course.countDocuments({})
-                    .then(num =>{
                             res.render('course',{ 
-                                courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title});
-                    })             
+                                courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title});            
                     }  
+                    })
                 })  
             })
             .catch(next);  
