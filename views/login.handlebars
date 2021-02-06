@@ -1,10 +1,11 @@
 <div class="main__login">
     <div class="container col-sm-4 col-md-6 col-lg-4 sign-up">
         <h2>Đăng nhập</h2>
-        <form method="POST" id="login-form">
+        <form id="form-login" method="POST" id="login-form">
             <div class="form-group">
                 <label for="name1">Tên đăng nhập</label>
-                <input type="text" class="form-control"  id="" name="name1" placeholder="Nhập tên đăng nhập">
+                <input type="text" class="form-control"  id="username" name="name1" placeholder="Nhập tên đăng nhập">
+                <div class="form_message"></div>
             </div>
             <div class="form-group">
                 <label for="Password1">Nhập mật khẩu</label>
@@ -15,6 +16,7 @@
                         <span class="btneye btn"><i class="fas fa-eye-slash"></i></span> 
                     </div> 
                 </div>
+                <div class="form_message"></div>
             </div>
             <div class="check__captcha">
                 <div class="input__check">
@@ -39,15 +41,14 @@
             <h4>đang đăng nhập</h4>
         </div>
     </div>
-
 <script>
     var btnInsertCourse = document.getElementById('btn-login');
-    var loginForm = document.forms['login-form'];
+    {{!-- var loginForm = document.forms['login-form'];
         btnInsertCourse.onclick = function(){   
             document.getElementById('load').style.display = "flex";
             loginForm.action="/login";
             loginForm.submit();
-        }  
+        }   --}}
         setInterval(function(){ 
 				document.getElementById('msg').style.display = "none";
 			}, 5000);
