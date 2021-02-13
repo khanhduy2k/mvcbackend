@@ -100,6 +100,7 @@
     box-shadow: 0 0 4px #000000;
     width: 400px;
     min-height: 100px;
+    z-index: 100;
 }
 
 .msg__bell_haeder > header {

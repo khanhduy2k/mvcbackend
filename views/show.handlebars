@@ -1,21 +1,110 @@
-    <div class="main__show">
-        <div class="tag__video_show">
-                <div id="go__video" class="show__video">
-                    <h2 class="ml-sm-5">Khóa học {{course.name}} </h2>
-                    <h5 id="bai" class="ml-sm-5">Bài {{course.bai.[0]}} </h5>                 
-                    <iframe src="https://www.youtube.com/embed/{{course.videoId1.[0]}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>           
-                    <div class="info__video">
-                        <h5><b class="text-info">Nội dung khóa {{course.name}}:</b> {{course.mota}}</h5>
-                    </div>
-                </div> 
-                <div class="menu__video">
-                    {{> menuvideo}}
-                </div>
-        </div>   
+<div class="view_show_main">
+    <div class="tab_view">
+        <div class="screen_video">
+            <div class="name_video">
+                TOng qun
+            </div>
+            <div class="video_src">
+                <div class="iframe_video" id="player" src=""></div>
+            </div>
+            <div class="comment">
+                Course Online
+            </div>
+        </div>
+        <div class="video_list">
+            <div class="title_list">Danh sách bài học</div>
+            <div class="list_lessons"></div>
+        </div>
     </div>
+</div>
+<script src="https://www.youtube.com/iframe_api"></script>
+
     <script>
-        window.onload = function () {
-            location.replace('#go__video')
+ 
+    const S = document.querySelector.bind(document);
+    const SA = document.querySelectorAll.bind(document);
+
+    const listLessons = S('.list_lessons');
+    const ScreenYT = S('.video_src');
+    const iframeVideo = S('.iframe_video');
+    const lessonBtn = S('.video_list');
+    const nameLesson = S('.name_video');
+
+    var IDvideo;
+    var player, playing = false;
+    function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        videoId: `${IDvideo}`,
+        events: {
+            'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    const videoIframe = {
+        indexFirst: 0,
+        videos: [
+            {{#each course.videoId1}}
+                
+                { 
+                    src: '{{this}}', 
+                    namevideo: '{{lookup ../course.bai @index}}'
+                }
+                ,
+            {{/each}}
+        ],
+        events: function () {
+            const _this = this;
+            lessonBtn.onclick = function (e) {
+                const lesson = e.target.closest('.lesson_item:not(.active)')
+
+                if (lesson && e.target.closest('.lesson_item') ) {
+                    if (lesson) {
+                        _this.indexFirst = Number(lesson.dataset.index);
+                        player.loadVideoById(IDvideo)
+                        _this.idvideo();
+                        _this.render();
+                        _this.namevideo();
+                    } 
+                }     
+            }
+        },
+        idvideo: function () {
+            IDvideo = this.videos[this.indexFirst].src;
+        },
+        namevideo: function () {
+            nameLesson.innerHTML = 'Bài ' + this.videos[this.indexFirst].namevideo
+        },
+        render: function () {
+            const htmlList = this.videos.map((lesson, index)=> { 
+            return `<div class="lesson_item ${index === this.indexFirst ? 'active' : ''}" data-index="${index}">
+                        <span class="playing"><i class="far fa-play-circle"></i></span>
+                        <span class="pause"><i class="far fa-pause-circle"></i></span>
+                        <div class="name_leson">Bài ${lesson.namevideo}</div> 
+                    </div>`
+            })
+            listLessons.innerHTML = htmlList.join('');
+        },
+        start: function () {
+            this.events();
+            this.idvideo();
+            this.render();
+            this.namevideo();
+        }            
+    }
+    videoIframe.start();
+
+    function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PLAYING) {
+        const lessonPlaying = S('.list_lessons .active');
+        lessonPlaying.classList.add('play');
+        playing = true;
+    }
+    else if(event.data == YT.PlayerState.PAUSED){
+        const lessonPlaying = S('.list_lessons .active');
+        lessonPlaying.classList.remove('play');
+        playing = false;
         }
-    </script>
-   
+    } 
+</script>
+

@@ -1,0 +1,127 @@
+.view_show_main {
+    min-height: 100vh;
+}
+
+.tab_view {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.438);
+    min-height: 100vh;
+}
+
+.screen_video {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: black;
+}
+
+.video_src {
+    position: relative;
+    padding-bottom: 56%;
+    height: 0;
+}
+
+.iframe_video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.name_video {
+    background-color: #000;
+    color: #fff;
+    font-size: 1.4rem;
+    padding: .2rem 1rem;
+}
+
+.comment {
+    display: flex;
+    flex: 1;
+    background-color: #0000;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #ff5e00;
+    text-shadow: 0 0 5px #ff5e00;
+    font-weight: 550;
+}
+
+.video_list {
+    width: 350px;
+}
+
+.title_list {
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    background-color: #ff5e00;
+}
+
+.list_lessons {
+    background-color: #fff;
+    padding: 10px;
+    height: 100vh;
+    overflow: auto;
+}
+
+.lesson_item {
+    background: #fff;
+    padding: 0 10px;
+    font-size: 20px;
+    font-weight: 600;
+    box-shadow: 0 0 4px #000;
+    display: flex;
+    align-items: center;
+}
+
+.lesson_item + .lesson_item {
+    margin-top: 20px;
+}
+
+.lesson_item:hover {
+    cursor: pointer;
+    box-shadow: 0 0 8px rgb(0, 0, 0);
+}
+
+.lesson_item:active {
+    opacity: .8;
+    box-shadow: 0 0 4px rgb(0, 0, 0);
+}
+
+.name_leson {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex: 1;
+}
+
+.playing {
+    color: red;
+    font-size: 40px;
+    margin-right: 20px;
+}
+
+.pause {
+    display: none;
+    font-size: 40px;
+    margin-right: 20px;
+}
+
+.lesson_item.active {
+    background: #ffc1c1;
+    box-shadow: 0 0 4px rgb(255, 0, 0);
+}
+
+.lesson_item.play .playing {
+    display: none;
+}
+
+.lesson_item.play .pause {
+    display: inline-block;
+    color: #ff5e00;
+}
+

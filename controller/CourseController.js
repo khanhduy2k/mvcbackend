@@ -29,21 +29,6 @@ class CourseController{
             .catch(next);   
             return;
     }
-    show2(req, res, next){
-        const title = 'Khóa học '+req.cookies.khoahoc;
-        Course.findOne({ slug: req.cookies.khoahoc})
-            .then(course =>{
-                if(course){
-                    const Idslug = req.params.id;
-                    const bai = req.params.bai;
-                        res.render('show2', { course: mongooseToObject(course), title,cast:true, Idslug, bai})
-                }else{
-                    res.redirect('/');
-                }
-            })
-            .catch(next);   
-            return;      
-    }
     feedback(req, res, next) {
             const title = 'Góp ý';
                 Feed.findOne({_id: req.signedCookies.userId})
