@@ -29,15 +29,7 @@
     const nameLesson = S('.name_video');
 
     var IDvideo;
-    var player, playing = false;
-    function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        videoId: `${IDvideo}`,
-        events: {
-            'onStateChange': onPlayerStateChange
-            }
-        });
-    }
+    console.log(IDvideo)
 
     const videoIframe = {
         indexFirst: 0,
@@ -51,6 +43,9 @@
                 ,
             {{/each}}
         ],
+        idvideo: function () {
+            IDvideo = this.videos[this.indexFirst].src;
+        },
         events: function () {
             const _this = this;
             lessonBtn.onclick = function (e) {
@@ -59,16 +54,13 @@
                 if (lesson && e.target.closest('.lesson_item') ) {
                     if (lesson) {
                         _this.indexFirst = Number(lesson.dataset.index);
-                        player.loadVideoById(IDvideo)
+                        player.loadVideoById(_this.videos[_this.indexFirst].src)
                         _this.idvideo();
                         _this.render();
                         _this.namevideo();
                     } 
                 }     
             }
-        },
-        idvideo: function () {
-            IDvideo = this.videos[this.indexFirst].src;
         },
         namevideo: function () {
             nameLesson.innerHTML = 'Bài ' + this.videos[this.indexFirst].namevideo
@@ -91,6 +83,16 @@
         }            
     }
     videoIframe.start();
+    var player, playing = false;
+    function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        videoId: `${IDvideo}`,
+        events: {
+            'onStateChange': onPlayerStateChange
+            }
+        });
+        
+    }
 
     function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
