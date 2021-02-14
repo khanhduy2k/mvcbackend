@@ -61,8 +61,8 @@ class adminController{
     }
     deletevideo(req, res, next){
         const title = 'Thêm video khóa học';
-        Course.update({_id: req.params.id}, { $pop:{videoId1: 1, bai: 1} })
-        .then(() => res.redirect('/admin'+req.params.id+'/addvideo'))
+        Course.updateMany({_id: req.params.id}, { $pop:{videoId1: 1, bai: 1} })
+        .then(() => res.redirect('/admin/'+req.params.id+'/addvideo'))
         .catch(next)
     }
     postvideo(req, res, next){
