@@ -22,7 +22,7 @@ class SiteController{
                         .then(num =>{
                     if (!req.signedCookies.userId) {
                     res.render('course',{ 
-                        courses: mutipleMongooseToObject(courses), title});
+                        courses: mutipleMongooseToObject(courses), title, num});
                     }
                     if (req.signedCookies.userId) {
                             res.render('course',{ 

@@ -38,635 +38,106 @@
     </div>
 </div>
 <script>
-    var screenMsg = document.getElementById('screen-msg');
-    var bodyMsg = document.getElementById('body-screen-msg');
-    var enterMsg = document.getElementById('enter-msg');
-    var Admin = document.getElementById('msg-admin');
-    var closeScreen = document.getElementById('close-msg-admin');
-    var Datenew = new Date();
-    var countEnter = 0; 
-    document.getElementById('time__now').innerHTML = Datenew.getHours() + ":" + Datenew.getMinutes();
-    {{#if cast}}
-    {{else}}
-    document.getElementById('hehe').onclick = function(){
-                var Datenew = new Date();
-                const mainadmin = document.getElementById('body-screen-msg');
-                const timenow = Datenew.getHours() + ":" + Datenew.getMinutes();
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <b>HeHe</b> ra đời vào ngày 28 tháng 12 năm 2020.
-                                    Tôi ở đây với nhiệm vụ trả lời những câu hỏi của bạn! 
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, 1000)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                    bodyMsg.scrollTo(0,10000000000000);
-                    setTimeout(()=>{
-                        bodyMsg.scrollTo(0,10000000000000);
-                    }, 1000)
-                }
-    {{/if}}
-    enterMsg.addEventListener ("keyup", function(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            countEnter ++;
-            const Daten = new Date();
-            const timenow = Daten.getHours() + ":" + Daten.getMinutes();
-                function newMsg(){
-                    const main = document.getElementById('body-screen-msg');
-                    if (main) {
-                        const newMsg = document.createElement('div');
-                            newMsg.classList.add('user-chat');
-                            newMsg.innerHTML = `
-                            <img src="/img/userchat.png" alt="User">
-                            <span></span>`+enterMsg.value +`
-                            <small>`+timenow+`</small>
+        var screenMsg = document.querySelector('#screen-msg');
+        var bodyMsg = document.querySelector('#body-screen-msg');
+        var enterMsg = document.querySelector('#enter-msg');
+        var Admin = document.querySelector('#msg-admin');
+        var closeScreen = document.querySelector('#close-msg-admin');
+        var countEnter = 0;
+        var Datenew = new Date();
+        const Daten = new Date();
+        const timenow = Daten.getHours() + ":" + Daten.getMinutes();
+        const mainadmin = document.querySelector('#body-screen-msg');
+        const Steptime = 1000;
+        const botfeed = enterMsg.value.toLowerCase();
+        const Hour = Daten.getHours();
+        const firstMsg = document.querySelector('#time__now');
+        firstMsg.innerHTML = timenow;
+
+        const botChat = {
+            renderview: function(value) {
+                if (mainadmin) {
+                    const newMsg2 = document.createElement('div');
+                        newMsg2.classList.add('admin-feed');
+                        newMsg2.innerHTML = `
+                        <img src="/img/bot.jpg" alt="HeHe">
+                            <span></span>
+                            <div class="loading"></div>
+                        `;
+                        setTimeout(()=>{
+                            newMsg2.innerHTML = `
+                            <img src="/img/bot.jpg" alt="HeHe">
+                            <span></span>
+                            ${value}
+                            <small>${timenow}</small>
                             `;
-                        main.appendChild(newMsg);
-                    }
+                        }, Steptime)
+                    mainadmin.appendChild(newMsg2);
                 }
-                newMsg();
-
-
-{{!-- Feedback --}}
-                const mainadmin = document.getElementById('body-screen-msg');
-                const Steptime = 1000;
-                const botfeed = enterMsg.value.toLowerCase();
-                const Hour = Daten.getHours();
-
-                if (botfeed.includes('hello')||botfeed.includes('chào')||enterMsg.value==='hi'){
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                if (Hour >=0 && Hour < 10) {
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Chào buổi sáng {{name}}!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                } else if (Hour >=10 && Hour < 15) {
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Chào buổi trưa {{name}}!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                } else if (Hour >=15 && Hour < 19) {
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Chào buổi chiều {{name}}!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                } else {
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Chào buổi tối {{name}}!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                }
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                    setTimeout(()=>{
-                        function newMsg() {
-                            if (mainadmin) {
-                                const newMsg2 = document.createElement('div');
-                                    newMsg2.classList.add('admin-feed');
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        <div class="loading"></div>
-                                    `;
-                                    {{#if cast}}
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Bạn muốn tôi giúp gì không?
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                    {{else}}
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        <b>HeHe</b> thấy bạn chưa đăng nhập vào hệ thống <br>
-                                        <a href="/login">ĐĂNG NHẬP NGAY</a> để trải nghiệm!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                    {{/if}}
-                                mainadmin.appendChild(newMsg2);
-                            }
-                        }
-                        newMsg();
-                    }, Steptime)
-                    setTimeout(()=>{
+            },
+            question: function() {
+                const _this = this;
+                enterMsg.addEventListener ("keyup", function(event) {
+                    if (event.keyCode === 13) {
+                        countEnter++;
+                        event.preventDefault();
+                        _this.addElement()
+                        _this.handleQA(removeVietnameseTones(enterMsg.value))
+                        enterMsg.value = ""; 
                         bodyMsg.scrollTo(0,10000000000000);
-                    }, 2100)
+                        setTimeout(()=>{
+                            bodyMsg.scrollTo(0,10000000000000);
+                        }, Steptime)
+                    }
+                })
+            },
+            addElement: function () {
+                const main = document.querySelector('#body-screen-msg');
+                if (main) {
+                    const newMsg = document.createElement('div');
+                        newMsg.classList.add('user-chat');
+                        newMsg.innerHTML = `
+                        {{#if admin}}
+                        <img src="/img/admin.jpg" alt="User">
+                        {{else}}
+                        <img src="/img/userchat.png" alt="User">
+                        {{/if}}
+                        <span></span>${enterMsg.value}
+                        <small>${timenow}</small>
+                        `;
+                    main.appendChild(newMsg);
                 }
-                else if (enterMsg.value === '!help'||enterMsg.value==='có'){
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    Để xem giờ gõ lệnh: !time <br>
-                                    Để xem ngày gõ lệnh: !date <br>
-                                    Tôi cũng có thể trả lời bạn một số câu cơ bản về trang 
-                                    <b class="text-danger"> Course Online </b> như: khóa học, học phí, tác giả,...
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
+            }
+            ,
+            handleQA: function (value) {
+                if (value.includes('hello')||value.includes('chao ban')||value.includes('chao')&&value.includes('xin')) {
+                    {{#if cast}}
+                    this.renderview('Xin chào {{name}}')
+                    {{else}}
+                    this.renderview('Xin chào tớ thấy bạn chưa đăng nhập, hãy <a class="text-primary" href="/login">Đăng nhập </a>để bắt đầu học tập nhé')
+                    {{/if}}
                 }
-
-                else if (botfeed.includes('khóa học')){
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    Hiện tại trên <b class="text-danger">Course Online</b>
-                                    có <b>{{num}} khóa học</b> vào phần <a href="/course"> Khóa học</a> để bắt đầu học tập.
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
+                else if (value.includes('khoa hoc')) {
+                    this.renderview('Hiện tại có {{num}} khóa học')
                 }
-
-                else if (botfeed.includes('cuối kì')){
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    Ngày kiểm tra cuối kì <b>backend</b> 22/02/2021!
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                }
-
-                else if (botfeed.includes('haha')||botfeed.includes('hihi')){
-                    function newMsg() {
-                        if (mainadmin) {
-                            var randomAnw =  Math.round(Math.random()*2);
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                if (randomAnw == 0){
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Tôi buồn cười đến thế à? 
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                } else if (randomAnw == 1) {
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Hahaha!!!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                } else {
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Nghiêm túc nào!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                }
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                }
-
-                else if (botfeed.includes('học phí')){
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    Tất cả các khóa học trên <b class="text-danger">Course Online</b> đều 
-                                    <b class="text-primary">MIỄN PHÍ</b> hãy cùng nhau tiến bộ hơn!
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                }
-                
-                else if (botfeed.includes('course online') || botfeed.includes('Course Online')){
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <b class="text-danger">Course Online</b> viết nên bằng HTML-CSS, Javascript - phía front-end và 
-                                    với nodejs - phía back-end.
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                } 
-
-                else if (botfeed.includes('nodejs')){
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <b>Nodejs</b> là một hệ thống phần mềm được thiết kế để viết các ứng dụng internet có khả năng mở rộng.
-                                    Chương trình được viết bằng JavaScript.
-                                    Wikipedia nói thế đấy <i class="bg-warning rounded-circle far fa-grin-beam"></i>
-                                    tham gia khóa <a href="/courses/nodejs">Nodejs</a> ngay nào!
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                }
-
-                else if (botfeed.includes('ngày sinh')&&botfeed.includes('bạn')||botfeed.includes('sinh nhật')){
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <b>HeHe</b> ra đời vào ngày 28 tháng 12 năm 2020.
-                                    Tôi ở đây với nhiệm vụ trả lời những câu hỏi của bạn! 
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                } 
-
-                else if (botfeed.includes('người tạo ra hehe')||botfeed.includes('ai')&&botfeed.includes('tạo ra bạn')||enterMsg.value=='tác giả') {
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    Người tạo ra tôi cũng như <b class="text-danger">Course Online</b> tên là Trần Duy Khánh!
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                }
-
-                else if (botfeed.includes('mấy giờ')||enterMsg.value==='!time') {
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    Bây giờ là `+Daten.getHours()+` giờ `+ Daten.getMinutes()+` phút.
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                }
-
-                else if (botfeed.includes('nay')&&botfeed.includes('ngày')||enterMsg.value==='!date') {
-                    function newMsg() {
-                        if (mainadmin) {
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                setTimeout(()=>{
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    Hôm nay là ngày `+ Daten.getDate() +` tháng `+ n +` năm `+ Daten.getFullYear() +`.
-                                    <small>`+timenow+`</small>
-                                    `;
-                                }, Steptime)
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
-                }
-
-                else if (botfeed.includes('i love you')||botfeed.includes('yêu bạn')) {
-                    function newMsg() {
-                        if (mainadmin) {
-                            var randomAnw =  Math.round(Math.random()*2);
-                            const newMsg2 = document.createElement('div');
-                                newMsg2.classList.add('admin-feed');
-                                newMsg2.innerHTML = `
-                                <img src="/img/bot.jpg" alt="HeHe">
-                                    <span></span>
-                                    <div class="loading"></div>
-                                `;
-                                if (randomAnw == 0){
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Me too! Hihi!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                }
-                                else if (randomAnw == 1){
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Ối trời ơi xạo hoài!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                }
-                                else {
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Tình yêu là gì? Có ăn được không?
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                }
-                                
-                            mainadmin.appendChild(newMsg2);
-                        }
-                    }
-                    newMsg();
+                else if (value.includes('hoc phi')) {
+                    this.renderview('Tất cả khóa học tại <b class="text-danger"> Course Online </b> đều <b class="text-info"> miễn phí </b>')
                 }
                 else {
-                    if (countEnter == 1) {
-                        function newMsg() {
-                            if (mainadmin) {
-                                const newMsg2 = document.createElement('div');
-                                    newMsg2.classList.add('admin-feed');
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        <div class="loading"></div>
-                                    `;
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Sử dụng lệnh !help để hiển thị danh sách các lệnh và cách giao tiếp với tôi!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                mainadmin.appendChild(newMsg2);
-                            }
-                        }
-                        newMsg();
+                    if (countEnter < 10) {
+                        this.renderview('Tớ vẫn đang học, vì vậy có thể vẫn chưa hiểu câu hỏi của bạn!')
                     }
-
-                    else if (enterMsg.value==='không') {
-                        function newMsg() {
-                            if (mainadmin) {
-                                const newMsg2 = document.createElement('div');
-                                    newMsg2.classList.add('admin-feed');
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        <div class="loading"></div>
-                                    `;
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Không thì vô đây làm gì???
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                mainadmin.appendChild(newMsg2);
-                            }
-                        }
-                        newMsg();
-                    }
-
-                    else if (countEnter > 10) {
-                        function newMsg() {
-                            if (mainadmin) {
-                                const newMsg2 = document.createElement('div');
-                                    newMsg2.classList.add('admin-feed');
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        <div class="loading"></div>
-                                    `;
-                                    setTimeout(()=>{
-                                        newMsg2.innerHTML = `
-                                        <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        Bạn có thể sử dụng lệnh !help để biết 1 số câu hỏi mà tôi có thể trả lời được!
-                                        <small>`+timenow+`</small>
-                                        `;
-                                    }, Steptime)
-                                mainadmin.appendChild(newMsg2);
-                            }
-                        }
-                        newMsg();
-                    }
-
                     else {
-                        var randomAnw =  Math.round(Math.random()*2);
-                        function newMsg() {
-                            if (mainadmin) {
-                                const newMsg2 = document.createElement('div');
-                                    newMsg2.classList.add('admin-feed');
-                                    newMsg2.innerHTML = `
-                                    <img src="/img/bot.jpg" alt="HeHe">
-                                        <span></span>
-                                        <div class="loading"></div>
-                                    `;
-                                    if (randomAnw == 0) {
-                                        setTimeout(()=>{
-                                            newMsg2.innerHTML = `
-                                            <img src="/img/bot.jpg" alt="HeHe">
-                                            <span></span>
-                                                Xin lỗi tôi không hiểu yêu cầu của bạn!
-                                            <small>`+timenow+`</small>
-                                            `;
-                                        }, Steptime)
-                                    } 
-                                    else if (randomAnw == 1) {
-                                        setTimeout(()=>{
-                                            newMsg2.innerHTML = `
-                                            <img src="/img/bot.jpg" alt="HeHe">
-                                            <span></span>
-                                                Nhỏ không học lớn làm Bot<br> :(
-                                            <small>`+timenow+`</small>
-                                            `;
-                                        }, Steptime)
-                                    }
-                                    else {
-                                        setTimeout(()=>{
-                                            newMsg2.innerHTML = `
-                                            <img src="/img/bot.jpg" alt="HeHe">
-                                            <span></span>
-                                                Xin lỗi tôi vẫn đang học, có thể tôi không hiểu những gì bạn vừa hỏi tôi!
-                                            <small>`+timenow+`</small>
-                                            `;
-                                        }, Steptime)
-                                    }
-                                mainadmin.appendChild(newMsg2);
-                            }
-                        }
-                        newMsg();
+                        this.renderview('Bạn có thể gửi tin cho quản trị viên tại <a class="text-primary" href="/"> TRANG CHỦ </a>')
                     }
                 }
-            bodyMsg.scrollTo(0,10000000000000);
-            setTimeout(()=>{
-                bodyMsg.scrollTo(0,10000000000000);
-            }, Steptime)
-            enterMsg.value = ""; 
+            }
+            ,
+            start: function () {
+                this.question()
+            }
         }
-    });
+        botChat.start()
 
     Admin.onclick = function (){
         screenMsg.classList.remove('screen-msg-none');
@@ -681,5 +152,34 @@
             Admin.classList.remove('msg-admin-3');
         }, 400)
     }
+
+    function removeVietnameseTones(str) {
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
+    str = str.replace(/đ/g,"d");
+    str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+    str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+    str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+    str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+    str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+    str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+    str = str.replace(/Đ/g, "D");
+    // Some system encode vietnamese combining accent as individual utf-8 characters
+    // Một vài bộ encode coi các dấu mũ, dấu chữ như một kí tự riêng biệt nên thêm hai dòng này
+    str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // ̀ ́ ̃ ̉ ̣  huyền, sắc, ngã, hỏi, nặng
+    str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // ˆ ̆ ̛  Â, Ê, Ă, Ơ, Ư
+    // Remove extra spaces
+    // Bỏ các khoảng trắng liền nhau
+    str = str.replace(/ + /g," ");
+    str = str.trim();
+    // Remove punctuations
+    // Bỏ dấu câu, kí tự đặc biệt
+    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g," ");
+    return str;
+}
 </script>
 
