@@ -9,25 +9,25 @@ class CourseController{
     show(req, res, next){
         const title = 'Khóa học '+req.params.slug;
         Course.findOne({ slug: req.params.slug })
-            .then(course =>{
-                if(course){
-                    Post.findOne({_id: req.signedCookies.userId})
-                    .then(data=>{
-                        if (data.learning.includes(req.params.slug) == false){
-                            Post.update({_id: req.signedCookies.userId}, {$push:{learning: req.params.slug}})
-                            .then()
-                            Course.updateOne({slug: req.params.slug}, {__v: course.__v+1})
-                            .then()                            
-                        }
-                    });
-                    res.cookie('khoahoc',course.slug)
-                        res.render('show', { course: mongooseToObject(course), title})
-                }else{
-                    res.redirect('/');
-                }
-            })
-            .catch(next);   
-            return;
+        .then(course =>{
+            if(course){
+                Post.findOne({_id: req.signedCookies.userId})
+                .then(data=>{
+                    if (data.learning.includes(req.params.slug) == false){
+                        Post.update({_id: req.signedCookies.userId}, {$push:{learning: req.params.slug}})
+                        .then()
+                        Course.updateOne({slug: req.params.slug}, {__v: course.__v+1})
+                        .then()                            
+                    }
+                });
+                res.cookie('khoahoc',course.slug)
+                res.render('show', { course: mongooseToObject(course), title})
+            }else{
+                res.redirect('/');
+            }
+        })
+        .catch(next);   
+        return;
     }
     feedback(req, res, next) {
             const title = 'Góp ý';
@@ -51,11 +51,11 @@ class CourseController{
                     .then(info =>{
                         if (lengthfeed == 0) {
                             const msg = 'Nội dung góp ý không được để trống!';
-                                res.render('feedback', {title, msg, info: mongooseToObject(info)});  
+                            res.render('feedback', {title, msg, info: mongooseToObject(info)});  
                         }
                         else if (lengthfeed > 600) {
                             const msg = 'Nội dung góp ý không vượt quá 600 kí tự!';
-                                res.render('feedback', {title, msg, info: mongooseToObject(info)});
+                            res.render('feedback', {title, msg, info: mongooseToObject(info)});
                         }
                         else {
                             if (!info){

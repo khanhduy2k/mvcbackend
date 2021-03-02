@@ -72,17 +72,17 @@ class SiteController{
         return;
     }
     if(check == check2){
-      Post.findOne({name1: name1,pass: pass})
-    .then(data=>{
-        if(data){
-            res.cookie('userId', data._id,{
-                signed: true
-            });
-            res.redirect('/');
-        }else{
-            const msg ='Tài khoản hoặc mật khẩu không chính xác!!';
-            res.render('login',{msg});
-        }
+        Post.findOne({name1: name1,pass: pass})
+        .then(data=>{
+            if(data){
+                res.cookie('userId', data._id,{
+                    signed: true
+                });
+                res.redirect('/');
+            }else{
+                const msg ='Tài khoản hoặc mật khẩu không chính xác!!';
+                res.render('login',{msg});
+            }
     })
     }else{
         const msg ='Mã xác thực không chính xác!!';
@@ -106,6 +106,17 @@ class SiteController{
                 res.render('signup',{msg, title , name_user, email, erro_up: true});
                 return;
             }
+            if (email) {
+                const test = (value) => {
+                    var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; 
+                    return regex.test(value) ? true : false;
+                }
+                if (!test(email)) {
+                    const msg = 'Sai định dạng Email'
+                    res.render('signup',{msg, title , name_user, name1, erro_up: true});
+                    return;  
+                }
+            }
             if (name1.length < 4){
                 const msg = 'Tên đăng nhập từ 4 kí tự trở lên';
                 res.render('signup',{msg, title , name_user, email, erro_up: true});
@@ -118,35 +129,34 @@ class SiteController{
            }
             if(pass == pass2){
                 Post.findOne({email: email})
-                    .then(dataemail =>{
-                        if(dataemail){
-                            const msg = 'Email đã được sử dụng!';
-                            res.render('signup',{msg, title , name_user, name1, erro_up: true});
+                .then(dataemail =>{
+                    if(dataemail){
+                        const msg = 'Email đã được sử dụng!';
+                        res.render('signup',{msg, title , name_user, name1, erro_up: true});
+                        return;
+                    }else{
+                        Post.findOne({name1: name1})
+                        .then(data=>{
+                        if(data){
+                            const msg = 'Tài khoản đã tồn tại!';
+                            res.render('signup',{msg, title , name_user, email, erro_up: true});
                             return;
-                        }else{
-                            Post.findOne({name1: name1})
-                            .then(data=>{
-                            if(data){
-                                const msg = 'Tài khoản đã tồn tại!';
-                                res.render('signup',{msg, title , name_user, email, erro_up: true});
-                                return;
 
+                        }else{
+                            let errors = [];
+                            if(!name1){
+                                errors.push({ msg: 'Nhập tên tài khoản!' });
                             }else{
-                                let errors = [];
-                                if(!name1){
-                                    errors.push({ msg: 'Nhập tên tài khoản!' });
-                                }else{
-                                    const md5pass = md5(pass);
-                                    const newPost = new Post({name1: name1, name_user: name_user, email: email, pass: md5pass});
-                                    newPost.save();
-                                    res.render('signup',{success: true});
-                                    }
-                                 }
-                             });
-                        }
-                        
-                    });
+                                const md5pass = md5(pass);
+                                const newPost = new Post({name1: name1, name_user: name_user, email: email, pass: md5pass});
+                                newPost.save();
+                                res.render('signup',{success: true});
+                                }
+                                }
+                            });
+                    }
                     
+                });   
             }
             else{
                 const msg = 'Mật khẩu không trùng khớp!';
@@ -161,10 +171,10 @@ class SiteController{
     profile(req, res, next){
         const title = 'Setting';
             Post.findOne({_id: req.signedCookies.userId})
-                .then(profile =>{
-                        res.render('profile', {profile: mongooseToObject(profile),title}); 
+            .then(profile =>{
+                res.render('profile', {profile: mongooseToObject(profile),title}); 
             })
-                .catch(next);
+            .catch(next);
         }     
 }
 

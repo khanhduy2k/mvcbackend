@@ -54,18 +54,18 @@
            <div class="col-sm-5 m-auto" style="height: 400px;">
             <div class="bg-light text-center p-4 table-msg" style="height:100px;">
                 <h3 class="text-success"><i class="fas fa-check-circle"></i> Đăng kí thành công</h3>
-                <p class="text-center text-info"><b>Đi tới trang đăng nhập sau <b id="count">5</b></b></p>
+                <p class="text-center text-info"><b>Đi tới <a href="/login">trang đăng nhập</a> sau <b id="count">5</b></b></p>
             </div>
         </div> 
         </div>
         <script>
             var count = document.getElementById('count');
-            var secon = 5
+            var sec = 5
             var stop = document.getElementById('stop');
             var time = setInterval(function() {
-                    secon -=1;     
-                    count.innerHTML = secon;
-                    if (secon == 0){
+                    sec -=1;     
+                    count.innerHTML = sec;
+                    if (sec == 0){
                         clearInterval(time);
                     }
                 }, 1000);       
