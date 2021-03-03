@@ -52,7 +52,7 @@ module.exports.requireadminlogin = function(req, res, next){
 
 module.exports.requireUserlogin = function(req, res, next){
     if (req.signedCookies.userId){
-        res.locals.cast = true;
+        res.locals.login = true;
     }
     next();
 };

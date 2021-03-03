@@ -9,7 +9,7 @@
             <span class="text-light" title="Đónng cửa sổ chat" id="close-msg-admin"><h1>&times;</h1></span>
         </div>
         <div id="body-screen-msg" class="body-screen-msg">
-            {{#if cast}}
+            {{#if login}}
             <div class="admin-feed">
                 <img src="/img/bot.jpg" alt="HeHe">
                 <span></span>
@@ -111,7 +111,7 @@
             ,
             handleQA: function (value) {
                 if (value.includes('hello')||value.includes('chao ban')||value.includes('chao')&&value.includes('xin')) {
-                    {{#if cast}}
+                    {{#if login}}
                     this.renderview('Xin chào {{name}}')
                     {{else}}
                     this.renderview('Xin chào tớ thấy bạn chưa đăng nhập, hãy <a class="text-primary" href="/login">Đăng nhập </a>để bắt đầu học tập nhé')
