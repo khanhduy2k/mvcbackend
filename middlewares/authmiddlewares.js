@@ -5,12 +5,16 @@ module.exports.requireAuth = function(req, res, next){
         res.redirect('/login');
         return;
     }
+    else {
         Post.find({ _id: req.signedCookies.userId })
         .then(user =>{
             if(!user){
                 res.redirect('/');
+                return;
                 }
-            });
+            }); 
+    }
+    
     next();
 };
 
