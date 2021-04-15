@@ -17,7 +17,7 @@
                 <div class="go_to__course">
                     <span class="num__member"><i class="fas fa-users"></i> {{this.__v}}</span>
                     <div class="learn btn__go_course">
-                        <a href="/courses/{{this.slug}}">Miễn phí</a>
+                        <a class="btnJoin" href="/courses/{{this.slug}}">Miễn phí</a>
                     </div>
                 </div>
             </div>
@@ -37,4 +37,15 @@
         }
     }
 
+    const STORAGE_INDEX_VIDEO = 'video';
+    const btnJoin = document.querySelectorAll('.btnJoin');
+    function setConfig(index, value) {
+            config[index] = value;
+            localStorage.setItem(STORAGE_INDEX_VIDEO, JSON.stringify(config));
+        }
+    btnJoin.forEach(e=> {
+        e.onclick = function() {
+            setConfig('indexVideo', 0);
+        }
+    })
 </script>

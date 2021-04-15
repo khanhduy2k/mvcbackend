@@ -26,7 +26,8 @@
     const ScreenYT = S('.video_src');
     const iframeVideo = S('.iframe_video');
     const lessonBtn = S('.video_list');
-    const nameLesson = S('.name_video');
+    const nameLesson = S('.name_video');    
+    const STORAGE_INDEX_VIDEO = 'video';
 
     var IDvideo;
 
@@ -42,6 +43,11 @@
                 ,
             {{/each}}
         ],
+        config: JSON.parse(localStorage.getItem(STORAGE_INDEX_VIDEO)) || {},
+        setConfig: function (index, value) {
+            this.config[index] = value;
+            localStorage.setItem(STORAGE_INDEX_VIDEO, JSON.stringify(this.config));
+        },
         idvideo: function () {
             IDvideo = this.videos[this.indexFirst].src;
         },
@@ -53,6 +59,7 @@
                 if (lesson && e.target.closest('.lesson_item') ) {
                     if (lesson) {
                         _this.indexFirst = Number(lesson.dataset.index);
+                        _this.setConfig('indexVideo', _this.indexFirst);
                         player.loadVideoById(_this.videos[_this.indexFirst].src)
                         _this.idvideo();
                         _this.render();
@@ -75,6 +82,7 @@
             listLessons.innerHTML = htmlList.join('');
         },
         start: function () {
+            if (this.config.indexVideo) this.indexFirst = this.config.indexVideo;
             this.events();
             this.idvideo();
             this.render();
