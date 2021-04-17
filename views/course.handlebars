@@ -37,8 +37,9 @@
         }
     }
 
-    const STORAGE_INDEX_VIDEO = 'video';
     const btnJoin = document.querySelectorAll('.btnJoin');
+    const STORAGE_INDEX_VIDEO = 'video';
+    const config = JSON.parse(localStorage.getItem(STORAGE_INDEX_VIDEO)) || {};
     function setConfig(index, value) {
             config[index] = value;
             localStorage.setItem(STORAGE_INDEX_VIDEO, JSON.stringify(config));
