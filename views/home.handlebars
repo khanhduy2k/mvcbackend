@@ -28,9 +28,40 @@
                 <div><p><b>Học bất cứ đâu, bất cứ khi nào</b></p></div> 
             </div>
         </div> 
+        </div>
     </div>
 </div>
-</div>
 {{> chatfb}}
-
+<div class="loader loading-page">
+    <div class="loading-page__title">
+        Course Online
+    </div>
+</div>
+<script>
+    const bodyLoading = document.querySelector('.loader');
+    let setLoad = sessionStorage.getItem('isLoad');
+    if (!setLoad) sessionStorage.setItem('isLoad', 0);
+    const loading = {
+        isLoad: Number(setLoad),
+        handle: function() {
+            if (this.isLoad < 1) {
+                setTimeout(
+                    function() {
+                        bodyLoading.classList.remove('loading-page');
+                    }, 1700)
+                this.sumnumber()
+            }else {
+                bodyLoading.classList.remove('loading-page');
+            }
+        },
+        sumnumber: function() {
+                this.isLoad = this.isLoad+1;
+                sessionStorage.setItem('isLoad', this.isLoad);
+        },
+        start: function() {
+            this.handle()
+        }
+    }
+    loading.start();
+</script>
    
