@@ -9,7 +9,7 @@
         <div class = "mt-2">
           <a class="btn btn-dark" href="/admin/thongbao">
           <i class="fas fa-bell" style="position: relative;">
-            {{#if yesnew}}<span class="dot-onti"><small class="new-num"><b>{{news}}</b></small></span>{{/if}}</i>
+            {{#if newLetter}}<span class="dot-onti"><small class="new-num"><b>{{news}}</b></small></span>{{/if}}</i>
           </a>
         </div>
         <h2 class="text-secondary text-right">Quản lí&nbsp;&nbsp;<i class=" fas fa-user-cog"></i></h2>
@@ -18,8 +18,8 @@
             {{#each courses}}
               <div class="admin__course">
                 <div class="admin__name_course">
-                    <p class="text-secondary"><i class="fas fa-users"></i><b> {{this.__v}}</b></p>
-                    <h5 class="text-center"><b>{{this.name}}</b></h5>
+                    <p class="text-secondary"><i class="fas fa-users"></i><b> {{this.numberStudents}}</b></p>
+                    <h5 class="text-center"><b>{{this.nameCourse}}</b></h5>
                 </div>
                 <div class="admin__action_course">
                   <div class="btn__admin_action bg-danger">

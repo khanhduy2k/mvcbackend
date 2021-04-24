@@ -4,15 +4,15 @@
         <form id="signup-form" action="signup" method="POST">
             <div class="form-group">
                 <div class="text-right" >
-                    <label style="float: left;" for="name1">Tên đăng nhập</label>
+                    <label style="float: left;" for="user">Tên đăng nhập</label>
                 </div>
-                <input type="text" class="form-control"  id="name1" name="name1" placeholder="Nhập tên đăng nhập" value="{{name1}}">
+                <input type="text" class="form-control"  id="user" name="user" placeholder="Nhập tên đăng nhập" value="{{user}}">
             </div>
             <div class="form-group">
                 <div class="text-right" >
-                    <label style ="float: left;" for="name_user">Họ và tên</label>
+                    <label style ="float: left;" for="fullName">Họ và tên</label>
                 </div>
-                <input type="text" class="form-control" id="name_user"   name="name_user" placeholder="Nhập đầy đủ" value="{{name_user}}">
+                <input type="text" class="form-control" id="fullName"   name="fullName" placeholder="Nhập đầy đủ" value="{{fullName}}">
             </div>
             <div class="form-group">
                 <label for="Email1">Email đăng ký</label>
@@ -22,7 +22,7 @@
                 <div class="text-right" >
                     <label style="float: left;" for="Password1">Nhập mật khẩu</label>
                 </div>
-                <input type="password" class="form-control" id="Password1"  name="pass" placeholder="Nhập mật khẩu" autocomplete="off">
+                <input type="password" class="form-control" id="Password1"  name="passWord" placeholder="Nhập mật khẩu" autocomplete="off">
                 <div id="check" style="display: none;">
                     <small id="check-x"><i class="fas fa-times-circle "></i></small>
                     <small id="check-v" style="display: none;"><i class="fas fa-check-circle "></i></small>
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="Password2">Nhập lại mật khẩu</label>
-                <input type="password" class="form-control" id="Password2"  name="pass2" placeholder="Nhập lại mật khẩu">
+                <input type="password" class="form-control" id="Password2"  name="passWord2" placeholder="Nhập lại mật khẩu">
                 <div id="check2" style="display: none;">
                     <small id="check-x-2"><i class="fas fa-times-circle "></i></small>
                     <small id="check-w-2"><i class="fas fa-exclamation-circle "></i></small>

@@ -1,7 +1,7 @@
 const { mutipleMongooseToObject } = require('../ulti/mongoose');
 const { mongooseToObject } = require('../ulti/mongoose');
 const Course = require('./model/course');
-const Post = require('./model/posts');
+const User = require('./model/user');
 const md5 = require('md5');
 class SiteController{
 
@@ -16,7 +16,7 @@ class SiteController{
         const title = 'Khóa học';
         Course.find({})
             .then(courses => {
-                    Post.findOne({_id: req.signedCookies.userId})
+                    User.findOne({_id: req.signedCookies.userId})
                     .then(data=>{
                         Course.countDocuments({})
                         .then(num =>{
@@ -35,9 +35,9 @@ class SiteController{
     }
     frontend(req, res, next){
         const title = 'Frontend';
-        Course.find({phanloai: 'Frontend'})
+        Course.find({classify: 'Frontend'})
                 .then(courses => {
-                    Post.findOne({_id: req.signedCookies.userId})
+                    User.findOne({_id: req.signedCookies.userId})
                     .then(data=>{
                         res.render('course',{ 
                             courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true});             
@@ -47,9 +47,9 @@ class SiteController{
     }
     backend(req, res, next){
         const title = 'Backend';
-        Course.find({phanloai: 'Backend'})
+        Course.find({classify: 'Backend'})
                 .then(courses => {
-                    Post.findOne({_id: req.signedCookies.userId})
+                    User.findOne({_id: req.signedCookies.userId})
                     .then(data=>{
                         res.render('course',{ 
                             courses: mutipleMongooseToObject(courses), data: mongooseToObject(data), title, cast:true});           
@@ -62,17 +62,17 @@ class SiteController{
         res.render('login', {title});
     }
     checklogin(req, res){
-    const name1 = req.body.name1;
-    const pass = md5(req.body.pass);
+    const user = req.body.user;
+    const passWord = md5(req.body.passWord);
     const check = req.body.mact;
     const check2 = req.body.mact2;
-    if (name1 ===''||pass===''){
+    if (user ===''||passWord===''){
         const msg ='Vui lòng nhập đầy đủ!';
         res.render('login',{msg});
         return;
     }
     if(check == check2){
-        Post.findOne({name1: name1,pass: pass})
+        User.findOne({user: user,passWord: passWord})
         .then(data=>{
             if(data){
                 res.cookie('userId', data._id,{
@@ -95,15 +95,15 @@ class SiteController{
     }
     checksignup(req, res){ 
         const title='Đăng ký';
-        const { name_user, name1, email, pass, pass2} = req.body;
-            if (name1 === ''|| name_user === ''||email=== ''||pass=== ''){
+        const { fullName, user, email, passWord, passWord2} = req.body;
+            if (user === ''|| fullName === ''||email=== ''||passWord=== ''){
                 const msg = 'Vui lòng nhập đầy đủ thông tin!';
-                res.render('signup',{msg, title , name_user, name1, email, erro_up: true});
+                res.render('signup',{msg, title , fullName, user, email, erro_up: true});
                 return;
             }
-            if (name1.includes(" ")){
+            if (user.includes(" ")){
                 const msg = 'Tên đăng nhập phải viết liền';
-                res.render('signup',{msg, title , name_user, email, erro_up: true});
+                res.render('signup',{msg, title , fullName, email, erro_up: true});
                 return;
             }
             if (email) {
@@ -113,43 +113,43 @@ class SiteController{
                 }
                 if (!test(email)) {
                     const msg = 'Sai định dạng Email'
-                    res.render('signup',{msg, title , name_user, name1, erro_up: true});
+                    res.render('signup',{msg, title , fullName, user, erro_up: true});
                     return;  
                 }
             }
-            if (name1.length < 4){
+            if (user.length < 4){
                 const msg = 'Tên đăng nhập từ 4 kí tự trở lên';
-                res.render('signup',{msg, title , name_user, email, erro_up: true});
+                res.render('signup',{msg, title , fullName, email, erro_up: true});
                 return;
             }
-            if (pass.length < 5 || pass.length >20 ){
+            if (passWord.length < 5 || passWord.length >20 ){
                 const msg = 'Mật khẩu gồm 5-20 kí tự';
-                res.render('signup',{msg, title , name_user, name1, email, erro_up: true});
+                res.render('signup',{msg, title , fullName, user, email, erro_up: true});
                 return;
            }
-            if(pass == pass2){
-                Post.findOne({email: email})
+            if(passWord == passWord2){
+                User.findOne({email: email})
                 .then(dataemail =>{
                     if(dataemail){
                         const msg = 'Email đã được sử dụng!';
-                        res.render('signup',{msg, title , name_user, name1, erro_up: true});
+                        res.render('signup',{msg, title , fullName, user, erro_up: true});
                         return;
                     }else{
-                        Post.findOne({name1: name1})
+                        User.findOne({user: user})
                         .then(data=>{
                         if(data){
                             const msg = 'Tài khoản đã tồn tại!';
-                            res.render('signup',{msg, title , name_user, email, erro_up: true});
+                            res.render('signup',{msg, title , fullName, email, erro_up: true});
                             return;
 
                         }else{
                             let errors = [];
-                            if(!name1){
+                            if(!user){
                                 errors.push({ msg: 'Nhập tên tài khoản!' });
                             }else{
-                                const md5pass = md5(pass);
-                                const newPost = new Post({name1: name1, name_user: name_user, email: email, pass: md5pass});
-                                newPost.save();
+                                const md5passWord = md5(passWord);
+                                const newUser = new User({user: user, fullName: fullName, email: email, passWord: md5passWord});
+                                newUser.save();
                                 res.render('signup',{success: true});
                                 }
                                 }
@@ -160,7 +160,7 @@ class SiteController{
             }
             else{
                 const msg = 'Mật khẩu không trùng khớp!';
-                res.render('signup',{msg, name_user, name1, email, erro_up: true});
+                res.render('signup',{msg, fullName, user, email, erro_up: true});
             }
     }
     
@@ -170,7 +170,7 @@ class SiteController{
     }
     profile(req, res, next){
         const title = 'Setting';
-            Post.findOne({_id: req.signedCookies.userId})
+            User.findOne({_id: req.signedCookies.userId})
             .then(profile =>{
                 res.render('profile', {profile: mongooseToObject(profile),title}); 
             })

@@ -1,7 +1,7 @@
 const { mongooseToObject } = require('../ulti/mongoose');
-const { exists, remove } = require('./model/posts');
+const { exists, remove } = require('./model/user');
 const md5 = require('md5');
-const Post = require('./model/posts');
+const Post = require('./model/user');
 class profileController{
     password(req, res, next){
         const title = 'Setting - password';

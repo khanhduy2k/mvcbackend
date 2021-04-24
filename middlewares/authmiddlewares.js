@@ -1,12 +1,13 @@
 
-const Post = require('../controller/model/posts');
+const { find } = require('../controller/model/user');
+const User = require('../controller/model/user');
 module.exports.requireAuth = function(req, res, next){
     if(!req.signedCookies.userId){
         res.redirect('/login');
         return;
     }
     else {
-        Post.find({ _id: req.signedCookies.userId })
+        User.find({ _id: req.signedCookies.userId })
         .then(user =>{
             if(!user){
                 res.redirect('/');
@@ -18,14 +19,18 @@ module.exports.requireAuth = function(req, res, next){
     next();
 };
 
-module.exports.requireadmin = function(req, res, next){
-    if (req.signedCookies.userId !== '5fec63433abf7b3828ae4bae'){
-        res.redirect('/');
-    }
+module.exports.requireAdmin = function(req, res, next){
+    User.findOne({_id: req.signedCookies.userId})
+    .then(user => {
+        if (user.position !== 'admin') {
+            redirect('/')
+            return;
+        }
+    })
     next();
 };
 
-module.exports.requirelogin = function(req, res, next){
+module.exports.requireLogin = function(req, res, next){
     if(req.signedCookies.userId){
         res.redirect('/');
         return;
@@ -35,17 +40,20 @@ module.exports.requirelogin = function(req, res, next){
 
 module.exports.requireUser = function(req, res, next){
     if(req.signedCookies.userId){
-        Post.findOne({_id: req.signedCookies.userId})
+        User.findOne({_id: req.signedCookies.userId})
         .then(data=> {
-            res.locals.name = data.name1;
+            res.locals.name = data.user;
         })
     }
     next();
 };
 
-module.exports.requireadminlogin = function(req, res, next){
-    if (req.signedCookies.userId == '5fec63433abf7b3828ae4bae'){
-        res.locals.admin = true;
+module.exports.requireAdminLogin = function(req, res, next){
+    if(req.signedCookies.userId){
+        User.findOne({_id: req.signedCookies.userId})
+        .then(data=> {
+            if (data.position == 'admin') res.locals.admin = true;
+        })
     }
     next();
 };

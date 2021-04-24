@@ -2,9 +2,9 @@
 <div class="container">
     <div class="main__add_video">
         <div class="bg-light video__table_mobile" style="overflow:auto;height:300px">
-        {{#each courses.videoId1}}
+        {{#each courses.idVideo}}
             <div class="">
-                <p class="text-info">{{lookup ../courses.bai @index}}</p>
+                <p class="text-info">{{lookup ../courses.nameLesson @index}}</p>
                 <p class="border-bottom border-danger"><b>Idvideo: </b> {{this}}</p> 
             </div>
         {{/each}} 
@@ -15,12 +15,12 @@
                 </div>
             <form action="addvideo" method="POST">
                 <div class="form-group">
-                    <label for="bai">Tên video</label>
-                    <input class="form-control" id="bai" name="bai" type="text">
+                    <label for="nameLesson">Tên video</label>
+                    <input class="form-control" id="nameLesson" name="nameLesson" type="text">
                 </div>
                 <div class="form-group">
-                    <label for="idvideo">Idvideo</label>
-                    <input class="form-control" id="idvideo" name="videoId1" type="text">
+                    <label for="idVideo">Idvideo</label>
+                    <input class="form-control" id="idVideo" name="idVideo" type="text">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary">Thêm</button>

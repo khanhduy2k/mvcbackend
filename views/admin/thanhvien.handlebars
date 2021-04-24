@@ -17,6 +17,7 @@
         <th scope="col">STT</th>
         <th scope="col">Tên đăng nhập</th>
         <th scope="col">Họ & tên</th>
+        <th scope="col">Chức vụ</th>
         <th scope="col">Email liên hệ</th>    
         <th scope="col"></th>     
         <th scope="col"></th>     
@@ -26,10 +27,11 @@
         {{#each user}}
       <tr>
         <th scope="row">{{sum @key 1}}</th>
-        {{{admin this.name1 this.name1}}}
-        {{{admin this.name1 this.name_user}}}
-        {{{admin this.name1 this.email}}}
-        <td><a class="btn btn-info" href="/admin/{{this.name1}}/chitiet">Chi tiết</a></td>
+        {{{admin this.position this.user}}}
+        {{{admin this.position this.fullName}}}
+        {{{admin this.position this.position}}}
+        {{{admin this.position this.email}}}
+        <td><a class="btn btn-info" href="/admin/{{this.user}}/chitiet">Chi tiết</a></td>
         <td><a class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-user">Xóa</a></td>
       </tr>
       {{/each}}
@@ -50,8 +52,8 @@
         {{#each user}}
       <tr>
         <th scope="row">{{sum @key 1}}</th>
-        {{{admin this.name1 this.name1}}}
-        <td><a class="btn btn-info" href="/admin/{{this.name1}}/chitiet">Chi tiết</a></td>
+        {{{admin this.position this.user}}}
+        <td><a class="btn btn-info" href="/admin/{{this.user}}/chitiet">Chi tiết</a></td>
         <td><a class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-user">Xóa</a></td>
       </tr>
       {{/each}}

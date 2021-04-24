@@ -6,19 +6,17 @@ const cookieparser = require('cookie-parser');
 const route = require('./routes');
 
 const db = require('./config/db');
-//apply
 
 const app = express();
 app.use(cookieparser('back-end-web-2020-vnua'));
 db.connect();
 app.use(express.static(path.join(__dirname, 'public')));
 
-// handlebras&body-parser
 app.engine('handlebars', exphbs({
     helpers: {
         sum: (a, b)=>a+b,
-        admin: (name, color)=>{
-            if (name === 'Admin'){
+        admin: (position, color)=>{
+            if (position === 'admin'){
                 let out = `<td class="text-warning">`;
                 out = out +color;
                 return out + `</td>`;
@@ -95,7 +93,6 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(express.json());
 
-//apply routes
 route(app);
 const port = process.env.PORT || 8800;
 app.listen(port, () => console.log(`App listening at http://localhost:${port}`));

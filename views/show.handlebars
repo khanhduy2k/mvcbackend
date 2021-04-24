@@ -29,16 +29,16 @@
     const nameLesson = S('.name_video');    
     const STORAGE_INDEX_VIDEO = 'video';
 
-    var IDvideo;
+    let IDvideo;
 
     const videoIframe = {
         indexFirst: 0,
         videos: [
-            {{#each course.videoId1}}
+            {{#each course.idVideo}}
                 
                 { 
                     src: '{{this}}', 
-                    namevideo: '{{lookup ../course.bai @index}}'
+                    namevideo: '{{lookup ../course.nameLesson @index}}'
                 }
                 ,
             {{/each}}
@@ -83,6 +83,7 @@
         },
         start: function () {
             if (this.config.indexVideo) this.indexFirst = this.config.indexVideo;
+            if ( this.indexFirst >= this.videos.length) this.indexFirst = 0;
             this.events();
             this.idvideo();
             this.render();

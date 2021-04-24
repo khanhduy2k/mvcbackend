@@ -14,7 +14,7 @@
           </div>
           <a href="/admin/{{this.name}}/read"><b>{{this.name}}</b> góp ý với <b class="text-danger">Course Online</b></a>
           <small class="read"><i class="fab fa-pinterest"></i> <b class="new-read">{{this.new}}</b></small>
-          <small class="timeshow">{{{time this.date2}}}</small>
+          <small class="timeshow">{{{time this.dateLast}}}</small>
         </div>
         {{/each}}
     </div>
@@ -64,10 +64,10 @@
   <div class="show-letter">
     <a class="close close-letter" href="/admin/thongbao"><h2>&times;</h2></a>
     <div class="show__letter">
-      {{#each readin.feedback}}
+      {{#each readLetter.feedBack}}
       <div class="letter">
       <span class="icon-letter"><i class="text-primary far fa-comment-dots"></i> 
-      {{{time (lookup ../readin.date @index)}}}</span>
+      {{{time (lookup ../readLetter.dateWrite @index)}}}</span>
       {{this}}
       </div>
       {{/each}}

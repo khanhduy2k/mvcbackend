@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const feedback = new Schema({
     name: { type: String, required: true },
-    feedback: { type: Array, required: true },
+    feedBack: { type: Array, required: true },
     new: {type: String, default: 'chưa đọc'},
-    date: {type: Array, default: Date.now},
-    date2: {type: String, default: Date.now}
+    dateWrite: {type: Array, default: Date.now},
+    dateLast: {type: String, default: Date.now}
 }, {
     timestamps:true,
 });

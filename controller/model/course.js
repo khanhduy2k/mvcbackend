@@ -7,13 +7,13 @@ const Schema = mongoose.Schema;
 
 const Course = new Schema({
     img: { type: String},
-    name: { type: String, required: true },
-    mota:{ type: String, required: true },
-    phanloai:{ type: String, required: true },
-    slug: { type: String, slug: 'name' },
-    videoId1: { type: Array},
-    bai: { type: Array},
-    __v: Number,
+    nameCourse: { type: String, required: true },
+    description:{ type: String, required: true },
+    classify:{ type: String, required: true },
+    slug: { type: String, slug: 'nameCourse' },
+    idVideo: { type: Array},
+    nameLesson: { type: Array},
+    numberStudents: { type: Number, default: 0},
 },{
     timestamps:true,
 });
