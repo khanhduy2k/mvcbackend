@@ -7,8 +7,8 @@ const authMiddlewares = require('../middlewares/authmiddlewares');
 
 function route(app){
     app.use('/', 
-        authMiddlewares.requireUser,
         authMiddlewares.requireAdminLogin,
+        authMiddlewares.requireUser,
         authMiddlewares.requireUserlogin,
     siteRouter);
 
