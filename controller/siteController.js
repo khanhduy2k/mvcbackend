@@ -171,7 +171,9 @@ class SiteController{
     }
     
     logout(req, res){
-        res.clearCookie('userId')
+        res.clearCookie('userId');
+        res.clearCookie('userPosition');
+        res.clearCookie('userName');
         res.redirect('/');
     }
     profile(req, res, next){
