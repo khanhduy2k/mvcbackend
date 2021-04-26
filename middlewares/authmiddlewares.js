@@ -38,9 +38,7 @@ module.exports.requireLogin = function(req, res, next){
         res.redirect('/');
         return;
     }
-    else {
-        next()
-    }
+    next();
 };
 
 module.exports.requireUserlogin = function(req, res, next){
@@ -55,6 +53,6 @@ module.exports.requireUserlogin = function(req, res, next){
                 res.locals.name = data.user;
             }
         })
-        next()
+        next();
     }
 };
