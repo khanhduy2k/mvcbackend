@@ -87,6 +87,9 @@ body{
     transform: translate(-50%, -53%);
 }
 /* sidemenu */
+.side__menu {
+    margin-top: 50px;
+}
 
 .side__menu a {
     padding: 10px;
@@ -330,7 +333,7 @@ li{
 /* Member */
 .main__manage_member {
     height: 90vh;
-    padding-top: 5vh;
+    padding-top: 80px;
 }
 
 .main_table__member {
@@ -410,7 +413,7 @@ li{
 
 /* thongbao */
 .mobile__thongbao__ {
-    padding-top: 20px;
+    padding-top: 80px;
     padding-bottom: 20px;
 }
 
@@ -528,4 +531,8 @@ li{
     position: absolute;
     top: 0;
     left: 5px;
+}
+
+.main-chi-tiet {
+    padding: 80px 0;
 }

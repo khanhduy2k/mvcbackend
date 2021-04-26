@@ -78,6 +78,12 @@ class SiteController{
                 res.cookie('userId', data._id,{
                     signed: true
                 });
+                res.cookie('userName', data.user,{
+                    signed: true
+                });
+                res.cookie('userPosition', data.position,{
+                    signed: true
+                });
                 res.redirect('/');
             }else{
                 const msg ='Tài khoản hoặc mật khẩu không chính xác!!';

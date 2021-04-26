@@ -91,14 +91,6 @@
         showLogout.onclick = function() {
          document.getElementsByClassName('___log_out')[0].style.display = 'flex'
         }
-
-        $(window).scroll(function () {
-              if ($(window).scrollTop() >= 61) {
-                  $('#nav').addClass('navbar-fixed-top');
-              } else {
-                  $('#nav').removeClass('navbar-fixed-top');
-              }
-          });
       </script>
       {{else}}
       <div class="__auth__login">

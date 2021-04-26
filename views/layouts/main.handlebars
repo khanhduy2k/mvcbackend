@@ -18,12 +18,11 @@
 </head>
 <body>
     <noscript>Ứng dụng chỉ hoạt động trên các trình duyệt có hỗ trợ javascript</noscript>
-    <div class="main">
+        <div class="main">
+            {{> header}}
+            {{{body}}}
+            {{> footer}}
         </div>
-        {{> header}}
-        {{{body}}}
-        {{> footer}}
-    </div>
         <div id="table">
             <h3>Ứng dụng chưa hỗ trợ cho thiết bị này</h3>
             <p>Sử dụng pc để có trải nghiệm tốt nhất</p>

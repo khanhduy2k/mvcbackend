@@ -1,15 +1,12 @@
 .view_show_main {
     min-height: 100vh;
+    padding-top: 60px;
 }
 
 .tab_view {
     display: flex;
     background-color: rgba(255, 255, 255, 0.438);
     min-height: 100vh;
-}
-
-.video_list-fake {
-    width: 350px;
 }
 
 .screen_video {
@@ -43,21 +40,18 @@
 
 .comment {
     display: flex;
-    background-color: rgb(255, 255, 255);
+    flex: 1;
+    background-color: #0000;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
     color: #ff5e00;
     text-shadow: 0 0 5px #ff5e00;
     font-weight: 550;
-    height: 100vh;
 }
 
 .video_list {
     width: 350px;
-    position: fixed;
-    top: 0;
-    right: 0;
 }
 
 .title_list {
@@ -74,6 +68,8 @@
     padding: 10px;
     height: 100vh;
     overflow: auto;
+    padding-bottom: 80px;
+    border: #ff5e00 2px solid;
 }
 
 .lesson_item {

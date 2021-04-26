@@ -1,5 +1,3 @@
-
-const { find } = require('../controller/model/user');
 const User = require('../controller/model/user');
 module.exports.requireAuth = function(req, res, next){
     if(!req.signedCookies.userId){
@@ -32,7 +30,7 @@ module.exports.requireAdmin = function(req, res, next){
 };
 
 module.exports.requireLogin = function(req, res, next){
-    if(req.signedCookies.userId){
+    if(req.signedCookies.userId || req.signedCookies.userPosition){
         res.redirect('/');
         return;
     }
@@ -42,15 +40,10 @@ module.exports.requireLogin = function(req, res, next){
 module.exports.requireUserlogin = function(req, res, next){
     if (req.signedCookies.userId){
         res.locals.login = true;
-        User.findOne({_id: req.signedCookies.userId})
-        .then(data=> {
-            if (data.position == 'admin') {
-                res.locals.admin = true;
-            }
-            if (data) {
-                res.locals.name = data.user;
-            }
-        })
+        res.locals.name = req.signedCookies.userName;
+        if (req.signedCookies.userPosition === 'admin') {
+            res.locals.admin = true;
+        }
     }
     next();
 };
