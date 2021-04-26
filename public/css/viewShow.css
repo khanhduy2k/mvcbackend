@@ -8,6 +8,10 @@
     min-height: 100vh;
 }
 
+.video_list-fake {
+    width: 350px;
+}
+
 .screen_video {
     display: flex;
     flex-direction: column;
@@ -35,21 +39,25 @@
     font-size: 1.4rem;
     padding: .2rem 1rem;
 }
+/* Comment Video  */
 
 .comment {
     display: flex;
-    flex: 1;
-    background-color: #0000;
+    background-color: rgb(255, 255, 255);
     justify-content: center;
     align-items: center;
     font-size: 2rem;
     color: #ff5e00;
     text-shadow: 0 0 5px #ff5e00;
     font-weight: 550;
+    height: 100vh;
 }
 
 .video_list {
     width: 350px;
+    position: fixed;
+    top: 0;
+    right: 0;
 }
 
 .title_list {

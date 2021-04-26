@@ -6,28 +6,31 @@ module.exports.requireAuth = function(req, res, next){
         res.redirect('/login');
         return;
     }
-    else {
+    else if(req.signedCookies.userId) {
         User.find({ _id: req.signedCookies.userId })
         .then(user =>{
             if(!user){
                 res.redirect('/');
                 return;
-                }
-            }); 
+            }else {
+                next()
+            }
+        }); 
     }
     
-    next();
 };
 
 module.exports.requireAdmin = function(req, res, next){
     User.findOne({_id: req.signedCookies.userId})
     .then(user => {
         if (user.position !== 'admin') {
-            redirect('/')
+            res.redirect('/');
             return;
         }
+        else {
+            next()
+        }
     })
-    next();
 };
 
 module.exports.requireLogin = function(req, res, next){
@@ -35,32 +38,23 @@ module.exports.requireLogin = function(req, res, next){
         res.redirect('/');
         return;
     }
-    next();
-};
-
-module.exports.requireUser = function(req, res, next){
-    if(req.signedCookies.userId){
-        User.findOne({_id: req.signedCookies.userId})
-        .then(data=> {
-            res.locals.name = data.user;
-        })
+    else {
+        next()
     }
-    next();
-};
-
-module.exports.requireAdminLogin = function(req, res, next){
-    if(req.signedCookies.userId){
-        User.findOne({_id: req.signedCookies.userId})
-        .then(data=> {
-            if (data.position == 'admin') res.locals.admin = true;
-        })
-    }
-    next();
 };
 
 module.exports.requireUserlogin = function(req, res, next){
     if (req.signedCookies.userId){
         res.locals.login = true;
+        User.findOne({_id: req.signedCookies.userId})
+        .then(data=> {
+            if (data.position == 'admin') {
+                res.locals.admin = true;
+            }
+            if (data) {
+                res.locals.name = data.user;
+            }
+        })
+        next()
     }
-    next();
 };

@@ -8,30 +8,22 @@ const authMiddlewares = require('../middlewares/authmiddlewares');
 function route(app){
     
     app.use('/admin',  
-        authMiddlewares.requireAdminLogin,
-        authMiddlewares.requireUser,
-        authMiddlewares.requireUserlogin,
         authMiddlewares.requireAdmin,
+        authMiddlewares.requireUserlogin,
         authMiddlewares.requireAuth, 
     adminRouter);
     
-    app.use('/profile',
-        authMiddlewares.requireAdminLogin,
-        authMiddlewares.requireUser,
+    app.use('/profile',    
         authMiddlewares.requireUserlogin,
         authMiddlewares.requireAuth, 
     profileRouter);
     
     app.use('/courses',
-        authMiddlewares.requireAdminLogin,
-        authMiddlewares.requireUser,
         authMiddlewares.requireUserlogin,
         authMiddlewares.requireAuth, 
     coursesRouter);
     
     app.use('/', 
-        authMiddlewares.requireAdminLogin,
-        authMiddlewares.requireUser,
         authMiddlewares.requireUserlogin,
     siteRouter);
 }
