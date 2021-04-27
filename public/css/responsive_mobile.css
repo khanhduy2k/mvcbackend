@@ -153,6 +153,11 @@
         width: 90%;
         margin: auto;
     }
+
+    .home-text-msg {
+        font-size: 1.3rem;
+        padding: 20px;
+    }
     /* sidemenu */
     .side__menu {
         position: fixed;

@@ -184,6 +184,15 @@ li{
    text-align: center;
 }
 
+.home-text-msg {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #f7592e;
+    font-size: 1.5rem;
+    padding: 50px 200px;
+    text-align: center;
+    color: #fff;
+}
+
 /* Sign up*/
 .main__signup {
     min-height: 100vh;
