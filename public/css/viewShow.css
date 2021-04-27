@@ -129,3 +129,23 @@
     color: #ff5e00;
 }
 
+.lesson_item.lock {
+    color: #ccc;
+}
+
+.lesson_item.lock:hover {
+    cursor: default;
+    box-shadow: 0 0 4px rgb(0, 0, 0);
+}
+
+.lesson_item.lock:active {
+    opacity: 1;
+    box-shadow: 0 0 4px rgb(0, 0, 0);
+}
+
+.locked {
+    color: rgb(48, 48, 48);
+    font-size: 40px;
+    margin-right: 20px;
+}
+

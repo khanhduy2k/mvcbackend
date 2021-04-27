@@ -1,18 +1,26 @@
-<div class="main__admin_action pb-2">
-<div class="container">
-    <div class="main__add_video">
-        <div class="bg-light video__table_mobile" style="overflow:auto;height:300px">
-        {{#each courses.idVideo}}
-            <div class="">
-                <p class="text-info">{{lookup ../courses.nameLesson @index}}</p>
-                <p class="border-bottom border-danger"><b>Idvideo: </b> {{this}}</p> 
+<div class="main-add-video">
+    <div class="view-add-video">
+        <div class="screen-video">
+            <div class="screen-video-name">Bài:</div>
+            <div class="screen-video-time">Độ dài video:</div>
+            <div class="screen-video__iframe">
+                <div class="iframe-add-video " id="player" src=""></div>
             </div>
-        {{/each}} 
         </div>
-        <div class="video__table_in_mobile" style="height:300px">
-            <div class="form-group">
-                    <a href="/admin">Về trang quản lí</a>
+        <div class="control-add">
+            <div class="list-idvideo">
+            {{#if courses.idVideo}}
+            {{else}}
+                <b class="text-secondary">Khóa học hiện tại chưa có video nào!</b>
+            {{/if}}
+            {{#each courses.idVideo}}
+                <div class="">
+                    <p class="text-info">{{lookup ../courses.nameLesson @index}}</p>
+                    <p class="text-success">{{lookup ../courses.timeVideo @index}}</p>
+                    <p class="border-bottom border-danger"><b>Idvideo: </b> {{this}}</p> 
                 </div>
+            {{/each}} 
+            </div>
             <form action="addvideo" method="POST">
                 <div class="form-group">
                     <label for="nameLesson">Tên video</label>
@@ -23,11 +31,45 @@
                     <input class="form-control" id="idVideo" name="idVideo" type="text">
                 </div>
                 <div class="form-group">
+                    <label for="time">Độ dài video</label>
+                    <input class="form-control" id="time" name="timeVideo" type="text">
+                </div>
+                <div class="form-group">
                     <button class="btn btn-primary">Thêm</button>
                     <a class="btn btn-danger" href="delete" style="float: right;">Xóa video cuối</a>
                 </div>
             </form>
-        </div>        
+        </div>
     </div>
 </div>
-</div>
+
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+    const txtTitle = document.querySelector('.screen-video-name');
+    const txtTime = document.querySelector('.screen-video-time')
+    const inputIdVideo = document.querySelector('#idVideo');
+    const inputName = document.querySelector('#nameLesson');
+    const timeVideo = document.querySelector('#time');
+    let player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+        }); 
+    }
+    let IDvideo;
+    inputIdVideo.onchange=()=> {
+        IDvideo = inputIdVideo.value;
+        player.loadVideoById(IDvideo);
+        const getTime = setInterval(()=>{
+            if (player.playerInfo.duration) {
+                timeVideo.value = player.playerInfo.duration;
+                txtTime.innerHTML = `Độ dài video: ${player.playerInfo.duration} giây`;
+                clearInterval(getTime)
+            }
+        })
+    }
+
+    inputName.onchange=()=>{
+        txtTitle.innerHTML = `Bài: ${inputName.value}`;
+    }
+</script>

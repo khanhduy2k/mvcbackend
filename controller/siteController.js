@@ -9,7 +9,7 @@ class SiteController{
         const title = 'Course Online';
             Course.countDocuments({})
             .then(num =>{
-                    res.render('home', {title, num});
+                res.render('home', {title, num});
             })             
     }
     course(req, res, next){
@@ -183,7 +183,11 @@ class SiteController{
                 res.render('profile', {profile: mongooseToObject(profile),title}); 
             })
             .catch(next);
-        }     
+    }   
+    
+    account(req, res, next){
+        res.render('account/account');
+    }
 }
 
 module.exports = new SiteController();

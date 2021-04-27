@@ -4,10 +4,12 @@ const exphbs  = require('express-handlebars');
 const bodyparser= require('body-parser');
 const cookieparser = require('cookie-parser');
 const route = require('./routes');
-
-const db = require('./config/db');
-
 const app = express();
+const sever = require('http').Server(app);
+const io = require('socket.io')(sever);
+const db = require('./config/db');
+const middlewaresSocket = require('./middlewares/socket');
+
 app.use(cookieparser('back-end-web-2020-vnua'));
 db.connect();
 app.use(express.static(path.join(__dirname, 'public')));
@@ -95,4 +97,6 @@ app.use(express.json());
 
 route(app);
 const port = process.env.PORT || 8800;
-app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
+io.on('connection', middlewaresSocket.socket)
+
+sever.listen(port, () => console.log(`App listening at http://localhost:${port}`));

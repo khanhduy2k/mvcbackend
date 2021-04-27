@@ -13,6 +13,7 @@ const Course = new Schema({
     slug: { type: String, slug: 'nameCourse' },
     idVideo: { type: Array},
     nameLesson: { type: Array},
+    timeVideo: { type: Array},
     numberStudents: { type: Number, default: 0},
 },{
     timestamps:true,

@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/viewShow.css">
     <link rel="stylesheet" href="/css/responsive_mobile.css">
+    <script src="/socket.io/socket.io.js"></script>
     <script src="https://kit.fontawesome.com/882f0e5447.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.12.1.min.js" type="text/javascript"></script>
     <link rel="icon" href="/img/favcion.jpg" type="image/gif" sizes="16x16">
     <title id="title">{{title}}</title>
+    <script>const socket = io(window.location.origin);</script>
 </head>
 <body>
     <noscript>Ứng dụng chỉ hoạt động trên các trình duyệt có hỗ trợ javascript</noscript>

@@ -53,3 +53,70 @@
 .main__admin_action {
     padding-top: 80px;
 }
+
+/* addVIdeo */
+
+.main-add-video {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.view-add-video {
+    min-height: 90%;
+    width: 90%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.screen-video {
+    width: 45%;
+}
+
+.screen-video-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: red;
+}
+
+.screen-video-time {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgb(0, 174, 255);
+}
+
+
+.screen-video__iframe {
+    position: relative;
+    padding-bottom: 56%;
+    height: 0;
+    width: 100%;
+}
+
+.iframe-add-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.control-add {
+    flex: 0.95;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.list-idvideo {
+    width: 100%;
+    height: 300px;
+    overflow-y: scroll;
+    box-shadow: 0 0 5px #000;
+    padding: 20px;
+}

@@ -1,3 +1,4 @@
+const { signedCookies } = require('cookie-parser');
 const User = require('../controller/model/user');
 
 module.exports.requireAuth = function(req, res, next){

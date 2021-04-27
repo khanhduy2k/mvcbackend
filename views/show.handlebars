@@ -6,7 +6,7 @@
                 <div class="iframe_video" id="player" src=""></div>
             </div>
             <div class="comment">
-                Course Online
+                Course Online {{lesson}}
             </div>
         </div>
         <div class="video_list-fake"></div>
@@ -31,15 +31,18 @@
     const STORAGE_INDEX_VIDEO = 'video';
 
     let IDvideo;
+    let timeVideo = 0;
 
     const videoIframe = {
         indexFirst: 0,
+        Progress: Number({{lesson.progress}}),
         videos: [
             {{#each course.idVideo}}
                 
                 { 
                     src: '{{this}}', 
-                    namevideo: '{{lookup ../course.nameLesson @index}}'
+                    namevideo: '{{lookup ../course.nameLesson @index}}',
+                    timevideo: '{{lookup ../course.timeVideo @index}}',
                 }
                 ,
             {{/each}}
@@ -52,6 +55,10 @@
         idvideo: function () {
             IDvideo = this.videos[this.indexFirst].src;
         },
+        timevideo: function() {
+            const setTimeOk = Number(this.videos[this.indexFirst].timevideo)/100*80;
+            return setTimeOk;
+        },
         events: function () {
             const _this = this;
             lessonBtn.onclick = function (e) {
@@ -61,24 +68,38 @@
                     if (lesson) {
                         _this.indexFirst = Number(lesson.dataset.index);
                         _this.setConfig('indexVideo', _this.indexFirst);
-                        player.loadVideoById(_this.videos[_this.indexFirst].src)
+                        player.loadVideoById(_this.videos[_this.indexFirst].src);
+                        socket.emit('start-count-time');
                         _this.idvideo();
                         _this.render();
                         _this.namevideo();
                     } 
                 }     
             }
+
+            socket.on('reset-view', (index)=>{
+                _this.Progress = index;
+                _this.render();
+            })
         },
         namevideo: function () {
             nameLesson.innerHTML = 'Bài ' + this.videos[this.indexFirst].namevideo
         },
         render: function () {
             const htmlList = this.videos.map((lesson, index)=> { 
-            return `<div class="lesson_item ${index === this.indexFirst ? 'active' : ''}" data-index="${index}">
+            if (index <= this.Progress) {
+                return `<div class="lesson_item ${index === this.indexFirst ? 'active' : ''}" data-index="${index}">
                         <span class="playing"><i class="far fa-play-circle"></i></span>
                         <span class="pause"><i class="far fa-pause-circle"></i></span>
                         <div class="name_leson">Bài ${lesson.namevideo}</div> 
                     </div>`
+            }
+            else {
+                return `<div class="lesson_item lock">
+                        <span class="locked"><i class="fas fa-lock"></i></span>
+                        <div class="name_leson">Bài ${lesson.namevideo}</div> 
+                    </div>`
+                }
             })
             listLessons.innerHTML = htmlList.join('');
         },
@@ -100,20 +121,43 @@
             'onStateChange': onPlayerStateChange
             }
         });
-        
     }
+    var myTime;
 
     function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING) {
-        const lessonPlaying = S('.list_lessons .active');
-        lessonPlaying.classList.add('play');
-        playing = true;
-    }
-    else if(event.data == YT.PlayerState.PAUSED){
-        const lessonPlaying = S('.list_lessons .active');
-        lessonPlaying.classList.remove('play');
-        playing = false;
+        if (event.data == YT.PlayerState.PLAYING) {
+            const lessonPlaying = S('.list_lessons .active');
+            lessonPlaying.classList.add('play');
+            if(videoIframe.indexFirst === videoIframe.Progress) {
+                socket.emit('start-count-time');
+            }
+            playing = true;
         }
-    } 
+        else if(event.data == YT.PlayerState.PAUSED){
+            const lessonPlaying = S('.list_lessons .active');
+            lessonPlaying.classList.remove('play');
+            clearInterval(myTime);
+            playing = false;
+        }
+    }
+    socket.on('Resume-count-time', ()=>{
+        if (videoIframe.Progress==videoIframe.indexFirst && videoIframe.Progress < videoIframe.videos.length ) {
+            myTime = setInterval(()=>{
+                timeVideo++;
+                if (timeVideo >= videoIframe.timevideo()) {
+                    socket.emit('Lesson-finished', [`{{lesson._id}}`, videoIframe.Progress])
+                }
+            }, 1000)
+        }
+    })
+
+    socket.on('Stop-count-time',()=>{
+        clearInterval(myTime);
+    })
+
+    console.log(videoIframe.myTime)
+    console.log(videoIframe.indexFirst)
+    console.log(timeVideo)
+    console.log(videoIframe.timevideo())
 </script>
 

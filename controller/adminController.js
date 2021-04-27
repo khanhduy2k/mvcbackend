@@ -61,14 +61,14 @@ class adminController{
     }
     deletevideo(req, res, next){
         const title = 'Thêm video khóa học';
-        Course.updateMany({_id: req.params.id}, { $pop:{idVideo: 1, nameLesson: 1} })
+        Course.updateMany({_id: req.params.id}, { $pop:{idVideo: 1, nameLesson: 1, timeVideo: 1} })
         .then(() => res.redirect('/admin/'+req.params.id+'/addvideo'))
         .catch(next)
     }
     postvideo(req, res, next){
         const title = 'Thêm video khóa học';
-        const {idVideo, nameLesson} = req.body;
-        Course.update({_id: req.params.id}, { $push:{idVideo: idVideo, nameLesson: nameLesson} })
+        const {idVideo, nameLesson, timeVideo} = req.body;
+        Course.update({_id: req.params.id}, { $push:{idVideo: idVideo, nameLesson: nameLesson, timeVideo: timeVideo} })
         .then(() => 
         Course.findOne({ _id: req.params.id})
         .then(courses =>{

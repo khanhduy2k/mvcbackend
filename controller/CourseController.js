@@ -1,6 +1,7 @@
 const { mutipleMongooseToObject } = require('../ulti/mongoose');
 const { mongooseToObject } = require('../ulti/mongoose');
 const Course = require('./model/course');
+const Progress = require('./model/lessonProgress');
 const User = require('./model/user');
 const Feed = require('./model/feedback');
 const { count } = require('./model/course');
@@ -14,14 +15,19 @@ class CourseController{
                 User.findOne({_id: req.signedCookies.userId})
                 .then(data=>{
                     if (data.learning.includes(req.params.slug) == false){
-                        User.update({_id: req.signedCookies.userId}, {$push:{learning: req.params.slug}})
+                        const newProgress = new Progress({idUser: data._id, idCourse: course._id});
+                        newProgress.save()
+                        User.updateOne({_id: req.signedCookies.userId}, {$push:{learning: req.params.slug}})
                         .then()
                         Course.updateOne({slug: req.params.slug}, {numberStudents: course.numberStudents+1})
                         .then()                            
                     }
+                    Progress.findOne({idUser: data._id, idCourse: course._id})
+                    .then(lesson =>{
+                        res.cookie('khoahoc',course.slug)
+                        res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)})
+                    })
                 });
-                res.cookie('khoahoc',course.slug)
-                res.render('show', { course: mongooseToObject(course), title})
             }else{
                 res.redirect('/');
             }
