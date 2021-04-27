@@ -1,0 +1,24 @@
+.footer {
+
+}
+
+.footer-ribbon {
+    background-color: #f7592e;
+    min-height: 15vh;
+    box-shadow: 0 0 4px #fff;
+}
+
+.footer-info {
+    padding: 3vw;
+    background-color: #fff;
+}
+
+.footer-info-contact__email {
+    padding: 1rem 0;
+    font-size: 1.1rem;
+}
+
+.footer-info-contact__author {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
