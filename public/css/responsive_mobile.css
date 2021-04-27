@@ -124,6 +124,11 @@
 
     /* viewhome */
 
+    .loading-page__title {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
     .background-home {
         padding-top: 25%;
         text-align: center;
@@ -157,6 +162,10 @@
     .home-text-msg {
         font-size: 1.3rem;
         padding: 20px;
+    }
+
+    .footer {
+        text-align: center;
     }
     /* sidemenu */
     .side__menu {
