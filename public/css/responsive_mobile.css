@@ -160,7 +160,7 @@
     }
 
     .home-text-msg {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         padding: 20px;
     }
 
@@ -350,10 +350,26 @@
 
     /* add video */
 
-    .main__add_video {
+    .main-add-video {
+        padding-top: 50px;
+    }
+
+    .view-add-video {
+        min-height: 100%;
         width: 100%;
-        padding: 10px;
-        margin-top: 2vh;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 20px 0;
+    }
+
+    .screen-video {
+        width: 90%;
+        margin-bottom: 10px;
+    }
+
+    .control-add {
+        flex: 1;
+        width: 90%;
     }
 
     /* manage member */
