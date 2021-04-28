@@ -34,7 +34,7 @@
     let timeVideo = 0;
 
     const videoIframe = {
-        indexFirst: 0,
+        indexFirst: Number({{lesson.progress}}),
         Progress: Number({{lesson.progress}}),
         videos: [
             {{#each course.idVideo}}
@@ -104,12 +104,13 @@
             listLessons.innerHTML = htmlList.join('');
         },
         start: function () {
-            if (this.config.indexVideo >= 0) this.indexFirst = this.config.indexVideo;
+            if (this.config.resetIndexVideo) this.indexFirst = this.config.indexVideo;
             if ( this.indexFirst >= this.videos.length) this.indexFirst = 0;
             this.events();
             this.idvideo();
             this.render();
             this.namevideo();
+            this.setConfig('resetIndexVideo', true)
         }            
     }
     videoIframe.start();
