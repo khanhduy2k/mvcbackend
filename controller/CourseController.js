@@ -15,8 +15,10 @@ class CourseController{
                 User.findOne({_id: req.signedCookies.userId})
                 .then(data=>{
                     if (data.learning.includes(req.params.slug) == false){
-                        const newProgress = new Progress({idUser: data._id, idCourse: course._id});
-                        newProgress.save()
+                        if (data.position !== 'admin') {
+                            const newProgress = new Progress({idUser: data._id, idCourse: course._id});
+                            newProgress.save();
+                        }
                         User.updateOne({_id: req.signedCookies.userId}, {$push:{learning: req.params.slug}})
                         .then()
                         Course.updateOne({slug: req.params.slug}, {numberStudents: course.numberStudents+1})

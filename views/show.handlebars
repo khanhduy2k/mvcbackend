@@ -87,6 +87,13 @@
         },
         render: function () {
             const htmlList = this.videos.map((lesson, index)=> { 
+            {{#if admin}}
+                return `<div class="lesson_item ${index === this.indexFirst ? 'active' : ''}" data-index="${index}">
+                        <span class="playing"><i class="far fa-play-circle"></i></span>
+                        <span class="pause"><i class="far fa-pause-circle"></i></span>
+                        <div class="name_leson">Bài ${lesson.namevideo}</div> 
+                    </div>`
+            {{else}}
             if (index <= this.Progress) {
                 return `<div class="lesson_item ${index === this.indexFirst ? 'active' : ''}" data-index="${index}">
                         <span class="playing"><i class="far fa-play-circle"></i></span>
@@ -100,7 +107,8 @@
                         <div class="name_leson">Bài ${lesson.namevideo}</div> 
                     </div>`
                 }
-            })
+            {{/if}}
+            });
             listLessons.innerHTML = htmlList.join('');
         },
         start: function () {
