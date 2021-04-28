@@ -104,7 +104,7 @@
             listLessons.innerHTML = htmlList.join('');
         },
         start: function () {
-            if (this.config.indexVideo) this.indexFirst = this.config.indexVideo;
+            if (this.config.indexVideo >= 0) this.indexFirst = this.config.indexVideo;
             if ( this.indexFirst >= this.videos.length) this.indexFirst = 0;
             this.events();
             this.idvideo();
