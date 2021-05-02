@@ -1,0 +1,223 @@
+<div class="main-seemore">
+    <div class="list-lesson-seemore">
+        <div class="list-lesson-seemore__title">
+            Các bài học trong khóa {{course.nameCourse}}
+        </div>
+        <div class="list-lesson-seemore__info"></div>
+        <div class="list-lesson-seemore__list"></div>
+    </div>
+    <div class="video-demo-seemore">
+        <div class="video-demo-seemore__video"></div>
+        <div class="video-demo-seemore__info"></div>
+    </div>
+    <div class="video-demo">
+        <div class="close">&times;</div>
+        <iframe id="iframe" width="100%" height="100%" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="pay-ments">
+        <div class="option-pay">
+            <div class="close-x">&times;</div>
+            <div class="option-pay__title">
+                Vui lòng chọn phương thức thanh toán
+            </div>
+            <div id="paypal-button-container"></div>
+        </div>
+    </div>
+    <div class="msg-payment"></div>
+</div>
+<script src="https://www.paypal.com/sdk/js?client-id=AYhYuA9fTSd-Zc4WLSCzybMjnFc2ZDIMi8medLeRctArqRFWAJLb69mq5YG4FvtQmdAMUGeRWYxeX6zO&disable-funding=credit,card"></script>
+<script type="text/javascript">
+    const mainSeeMore = document.querySelector('.main-seemore');
+    const infoLeson = document.querySelector('.list-lesson-seemore__info');
+    const listVideo = document.querySelector('.list-lesson-seemore__list');
+    const videoView = document.querySelector('.video-demo-seemore__info');
+    const videoDemo = document.querySelector('.video-demo-seemore__video');
+    const videoShow = document.querySelector('.video-demo');
+    const btnClose = document.querySelector('.close');
+    const iframeYt = document.querySelector('#iframe');
+    const pay = document.querySelector('.pay-ments');
+    const btnClosePay = document.querySelector('.close-x');
+    const renderList = {
+        learning: `{{user.learning}}`,
+        listLesson: [
+            {{#each course.nameLesson}}
+                '{{this}}',
+            {{/each}}
+        ],
+        timeLesson: [
+            {{#each course.timeVideo}}
+                {{this}},
+            {{/each}}
+        ],
+        totalTime: function(time, curvalue) {
+            const total = this.timeLesson.reduce((time, curvalue)=> {
+                let total = time + curvalue;
+                return total;
+            })
+            return total;
+        },
+        learnFree(price, option=1){
+            if (option == 1) {
+                if (price > 0) {
+                    return `Học thử miễn phí!`;
+                }
+                else {
+                    return `Video giới thiệu!`;
+                }
+            }
+            if (option == 2) {
+                if (price > 0) {
+                    return `Giá khóa học : {{course.priceCourse}}$`;
+                }
+                else {
+                    return `Khóa học miễn phí`;
+                }
+            }
+            if (option == 3) {
+                if(this.learning.includes('{{course.slug}}')) {
+                    return `
+                    <div class="btn-option center">
+                        <a href="/courses/{{course.slug}}" class="btn btn-option__learn bg-danger">
+                            Học tiếp
+                        </a>
+                    </div>`
+                }
+                else {
+                    if (price > 0) {
+                        return `
+                        <div class="btn-option center">
+                            <div class="btn btn-option__buy">
+                                Đăng ký ngay
+                            </div>
+                        </div>
+                        `;
+                    }
+                    else {
+                        return `
+                        <div class="btn-option center">
+                            <a href="/courses/{{course.slug}}" class="btn btn-option__learn">
+                                Học ngay
+                            </a>
+                        </div>
+                        `;
+                    }
+                }
+            }
+        },
+        checkLearning: function(learning, status) {
+            if (learning.includes(status)) {
+                return `Bạn đã đăng ký khóa học`;
+            }
+            else {
+                return `Bạn chưa đăng ký khóa học`;
+            }
+        },
+        event: function() {
+            const _this = this;
+
+            videoDemo.onclick = ()=> {
+                videoShow.style.display = 'block';
+                iframeYt.src = 'https://www.youtube.com/embed/{{course.idVideo.[0]}}';
+            }
+
+            btnClose.onclick = () => {
+                videoShow.style.display = 'none';
+                iframeYt.src = ''
+            }
+
+            if (document.querySelector('.btn-option__buy')) {
+                document.querySelector('.btn-option__buy').onclick = () => {
+                    pay.style.display = 'flex';
+                }
+            }
+
+            btnClosePay.onclick = () => {
+                pay.style.display = 'none';
+            }
+
+            socket.on('user-learning', (data)=> {
+                console.log(data);
+                _this.learning = `${this.learning}, ${data}`;
+                _this.view();
+            })
+        },
+        view: function(){
+            const _this = this;
+            const htmls = this.listLesson.map((data, index)=> {
+                return `
+                    <div class="item">
+                        <div class="name-lesson">Bài: ${data}</div> <div class="time-lesson">${new Date(this.timeLesson[index   ] * 1000).toISOString().substr(11, 8)}</div>
+                    </div>
+                `
+            });
+            listVideo.innerHTML = htmls.join('');
+
+            const htmlInfo = 
+                `
+                    <div class="total-lesson"> Số bài học: ${_this.listLesson.length}</div>
+                    <div class="total-time"> Tổng thời lượng: ${new Date(this.totalTime(this.timeLesson, 0) * 1000).toISOString().substr(11, 8)}</div>
+                `
+            infoLeson.innerHTML = htmlInfo;
+
+            const htmlVideo = `
+                <div class="status">
+                    ${this.checkLearning(this.learning, `{{course.slug}}`)}
+                </div>
+                <div class="price">
+                    ${this.learnFree(Number({{course.priceCourse}}), 2)}
+                </div>
+                    ${this.learnFree(Number({{course.priceCourse}}), 3)}
+            `
+            videoView.innerHTML = htmlVideo;
+
+            const htmlDemo = `
+                <img src="/{{course.img}}" alt="">
+                <div class="text">${this.learnFree(Number({{course.priceCourse}}))}</div>
+                <div class="play"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="play-circle" class="svg-inline--fa fa-play-circle fa-w-16 CourseDetail_icon__2RurH" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm115.7 272l-176 101c-15.8 8.8-35.7-2.5-35.7-21V152c0-18.4 19.8-29.8 35.7-21l176 107c16.4 9.2 16.4 32.9 0 42z"></path></svg></div>
+            `
+            videoDemo.innerHTML = htmlDemo;
+        },
+        start: function() {
+            this.view()
+            this.event()
+        }
+    }
+    renderList.start();
+
+    paypal.Buttons({
+        enableStandardCardFields: true,
+        createOrder: function(data, actions) {
+            return actions.order.create({
+            purchase_units: [
+                {
+                amount: {
+                    value: '{{course.priceCourse}}',
+                    currency_code: 'USD'
+                },
+                }
+            ]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                    const wait = document.createElement('div');
+                    wait.innerHTML = 'Vui lòng chờ...'
+                    wait.classList.add('wait-payment');
+                    pay.style.display = 'none';
+                    mainSeeMore.appendChild(wait);
+                if (details.status == 'COMPLETED') {
+                    socket.emit('payment-completed', {'details': details, 'idCourse': '{{course._id}}', 'idUser': '{{idUser}}', 'slug': '{{course.slug}}'})
+                }
+            })
+        }
+    }).render("#paypal-button-container");
+
+    socket.on('payment-saved',(data)=> {
+        document.querySelector('.wait-payment').remove();
+        document.querySelector('.msg-payment').innerHTML = 'Đã đăng ký thành công khóa học';
+        document.querySelector('.msg-payment').classList.add('show')
+        setTimeout(()=> {
+            document.querySelector('.msg-payment').classList.remove('show');
+        }, 3000)
+    });
+</script>

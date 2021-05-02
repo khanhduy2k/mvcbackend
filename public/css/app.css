@@ -319,8 +319,8 @@ li{
 
 /* css insert */
 .load {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: #000000;
     background-color: rgb(36, 34, 34, 0.6);
     position: fixed;
@@ -335,6 +335,7 @@ li{
 }
 
 .preload-icon {
+    margin-top: 20%;
     text-align: center;
     font-size: 66px;
     color: #fff;

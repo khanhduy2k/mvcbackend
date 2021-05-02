@@ -30,11 +30,11 @@ class adminController{
         res.render('admin/insert',{title});
     }
     insertup(req, res){
-        const img = 'img/'+req.file.filename;
-        const {nameCourse, classify, description} = req.body;
-        const newCourse = new Course({nameCourse: nameCourse, classify: classify, description: description, img: img});
-        newCourse.save();
-        res.redirect('/admin');
+            const img = 'img/'+req.file.filename;
+            const {nameCourse, classify, description, priceCourse} = req.body;
+            const newCourse = new Course({nameCourse: nameCourse, classify: classify, description: description, priceCourse: priceCourse, img: img});
+            newCourse.save();
+            res.redirect('/admin');
     }
     edit(req, res, next){
         const title = 'Sửa khóa học';    

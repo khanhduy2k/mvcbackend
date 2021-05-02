@@ -1,41 +1,176 @@
 {{> sidemenu}}
 <div class="main__show_courses">
     <div class="__show__courses">
-        {{#each courses}}
-        <div class="__course">
-            <div class="img__course">
-                <img src="{{this.img}}" alt="">
-            </div>
-            <div class="info__course">
-                <div  class="name__course">
-                    <h5>{{this.nameCouser}}</h5>
-                    <p id="namecourse" style="display: none;">{{this.slug}}</p>
-                </div>
-                <div class="content__course">
-                    {{this.description}}
-                </div>
-                <div class="go_to__course">
-                    <span class="num__member"><i class="fas fa-users"></i> {{this.numberStudents}}</span>
-                    <div class="learn btn__go_course">
-                        <a class="btnJoin" href="/courses/{{this.slug}}">Miễn phí</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{/each}}
     </div>
+    <div class="msg-payment"></div>
 </div>
 {{> botchat}}
+<div class="pay-ments">
+    <div class="option-pay">
+        <div class="close-x">&times;</div>
+        <div class="option-pay__title">
+            Vui lòng chọn phương thức thanh toán
+        </div>
+    </div>
+</div>
+<script src="https://www.paypal.com/sdk/js?client-id=AYhYuA9fTSd-Zc4WLSCzybMjnFc2ZDIMi8medLeRctArqRFWAJLb69mq5YG4FvtQmdAMUGeRWYxeX6zO&disable-funding=credit,card"></script>
 <script>
-    var learning = '{{data.learning}}';
-    var namecourse = document.querySelectorAll('#namecourse');
-    var learned = document.querySelectorAll('.learn a');
-    for ( var i = 0; i < learned.length; i++ ){
-        if (learning.includes(namecourse[i].innerHTML)){
-            learned[i].innerHTML = 'Học tiếp';
-            learned[i].classList.add('btn-learning');
+    const pay = document.querySelector('.pay-ments');
+    const mainCourses = document.querySelector('.main__show_courses');
+    const optionPay = document.querySelector('.option-pay');
+    const btnClosePay = document.querySelector('.close-x');
+    const viewRender = document.querySelector('.__show__courses');
+    const renderCourse = {
+        learning: '{{data.learning}}',
+        coursesList: [
+            {{#each courses}}
+                {
+                    id: '{{this._id}}',
+                    nameCourse: '{{this.nameCourse}}',
+                    price: Number({{this.priceCourse}}),
+                    student: '{{this.numberStudents}}',
+                    slug: '{{this.slug}}',
+                    img: '{{this.img}}',
+                    description: '{{this.description}}',
+                },
+            {{/each}}
+        ],
+        handle: {
+            isRibbonFree(price) {
+                if(price > 0) {
+                    return `<div class="ribbon-course charge">Tính phí</div>`;
+                }else {
+                    return `<div class="ribbon-course free">Miễn phí</div>`;
+                }
+            },
+            isBtnFree(price, slug, id) {
+                if (renderCourse.learning.includes(slug)) {
+                    return `<a class="btnJoin btn-learning" href="/courses/${slug}">Học tiếp</a>`
+                }else {
+                    if (price > 0) {
+                        return `
+                        <a class="btn-learn" href="/courses/seemore/${slug}">Xem thêm</a>
+                        <div class="btn-buy" data-id="${id}">Mua ngay</div>
+                        `
+                    }
+                    else {
+                        return `
+                        <a class="btn-learn" href="/courses/seemore/${slug}">Xem thêm</a>
+                        <a class="btnJoin btn-learn bg-info" href="/courses/${slug}">Học ngay</a>
+                        `
+                    }
+                }
+            },
+            isFreePrice(price, slug) {
+                if (renderCourse.learning.includes(slug)) {
+                    return ``;
+                }
+                else {
+                    if (price > 0) {
+                        return `<div class="price">Giá khóa học: ${price}$</div>`;
+                    }else{
+                        return ``;
+                    }
+                }
+            }
+        },
+        event: function() {
+            const _this = this;
+
+            document.querySelectorAll('.btn-buy').forEach(e=> {
+                e.onclick = () => {
+                    socket.emit('search-course', {'idCourse': `${e.dataset.id}`, 'idUser': '{{data._id}}'});
+                }
+            })
+
+            btnClosePay.onclick = () => {
+                pay.style.display = 'none';
+                document.querySelector('.paypal-button-container').remove();
+            }
+
+            socket.on('price-course', (course) => {
+                const btnPaypal = document.createElement('div');
+                btnPaypal.classList.add('paypal-button-container');
+                optionPay.appendChild(btnPaypal);
+                pay.style.display = 'flex';
+                paypal.Buttons({
+                    enableStandardCardFields: true,
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                        purchase_units: [
+                            {
+                            amount: {
+                                value: `${course.priceCourse}`,
+                                currency_code: 'USD'
+                            },
+                            }
+                        ]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                                const wait = document.createElement('div');
+                                wait.innerHTML = 'Vui lòng chờ...'
+                                wait.classList.add('wait-payment');
+                                mainCourses.appendChild(wait);
+                                pay.style.display = 'none';
+                            if (details.status == 'COMPLETED') {
+                                socket.emit('payment-completed', {'details': details, 'idCourse': `${course._id}`, 'idUser': '{{data._id}}', 'slug': `${course.slug}`})
+                            }
+                        })
+                    }
+                }).render(btnPaypal);
+            });
+
+            socket.on('user-learning', (data)=> {
+                _this.learning = `${_this.learning}, ${data}`;
+                _this.view();
+            }) 
+
+        },
+        view: function() {
+            const htmls = this.coursesList.map((data, index)=> {
+                return `
+                    <div class="__course">
+                        <a href="/courses/seemore/${data.slug}" class="img__course">
+                            ${this.handle.isRibbonFree(data.price)}
+                            <img src="${data.img}" alt="">
+                            ${this.handle.isFreePrice(data.price, data.slug)}
+                        </a>
+                        <div class="info__course">
+                            <div  class="name__course">
+                                <h5>${data.nameCourse}</h5>
+                            </div>
+                            <div class="content__course">
+                                ${data.description}
+                            </div>
+                            <div class="go_to__course">
+                                <span class="num__member"><i class="fas fa-users"></i> ${data.student}</span>
+                                <div class="learn btn__go_course">
+                                    ${this.handle.isBtnFree(data.price, data.slug, data.id)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            });
+            viewRender.innerHTML = htmls.join('')
+        },
+        start: function() {
+            this.view()
+            this.event()
         }
     }
+    renderCourse.start();
+                         
+    socket.on('payment-saved',(data)=> {
+        document.querySelector('.wait-payment').remove();
+        document.querySelector('.msg-payment').innerHTML = 'Đã đăng ký thành công khóa học';
+        document.querySelector('.msg-payment').classList.add('show')
+        setTimeout(()=> {
+            document.querySelector('.msg-payment').classList.remove('show');
+        }, 3000)
+    });
 
     const btnJoin = document.querySelectorAll('.btnJoin');
     const STORAGE_INDEX_VIDEO = 'video';
@@ -48,5 +183,5 @@
         e.onclick = function() {
             setConfig('resetIndexVideo', false);
         }
-    })
+    });
 </script>

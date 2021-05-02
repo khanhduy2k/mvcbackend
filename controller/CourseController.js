@@ -4,7 +4,6 @@ const Course = require('./model/course');
 const Progress = require('./model/lessonProgress');
 const User = require('./model/user');
 const Feed = require('./model/feedback');
-const { count } = require('./model/course');
 
 class CourseController{
     show(req, res, next){
@@ -12,24 +11,52 @@ class CourseController{
         Course.findOne({ slug: req.params.slug })
         .then(course =>{
             if(course){
-                User.findOne({_id: req.signedCookies.userId})
-                .then(data=>{
-                    if (data.learning.includes(req.params.slug) == false){
-                        if (data.position !== 'admin') {
-                            const newProgress = new Progress({idUser: data._id, idCourse: course._id});
-                            newProgress.save();
-                        }
-                        User.updateOne({_id: req.signedCookies.userId}, {$push:{learning: req.params.slug}})
-                        .then()
-                        Course.updateOne({slug: req.params.slug}, {numberStudents: course.numberStudents+1})
-                        .then()                            
-                    }
-                    Progress.findOne({idUser: data._id, idCourse: course._id})
+                if (course.priceCourse > 0) {
+                    Progress.findOne({idUser: req.signedCookies.userId, idCourse: course._id, status: 'unlock'})
                     .then(lesson =>{
-                        res.cookie('khoahoc',course.slug)
-                        res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)})
-                    })
-                });
+                        if (lesson) {
+                            const idUser = req.signedCookies.userId;
+                            res.cookie('khoahoc',course.slug)
+                            res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson), idUser})
+                        }
+                        else {
+                            User.findOne({_id: req.signedCookies.userId})
+                            .then(user => {
+                                const idUser = req.signedCookies.userId;
+                                const title = `Khóa học ${course.nameCourse}`;
+                                res.render('course/seemore', {title, course: mongooseToObject(course), user: mongooseToObject(user), idUser})
+                            });
+                        }
+                    });
+                }
+                else {
+                    User.findOne({_id: req.signedCookies.userId})
+                    .then(data=>{
+                        if (data.learning.includes(req.params.slug) == false){
+                            User.updateOne({_id: req.signedCookies.userId}, {$push:{learning: req.params.slug}})
+                            .then()
+                            Course.updateOne({slug: req.params.slug}, {numberStudents: course.numberStudents+1})
+                            .then()                            
+                            if (data.position !== 'admin') {
+                                const newProgress = new Progress({idUser: data._id, idCourse: course._id, nameCourse: course.nameCourse});
+                                newProgress.save()
+                                .then(()=> {
+                                    Progress.findOne({idUser: data._id, idCourse: course._id})
+                                    .then(lesson =>{
+                                        res.cookie('khoahoc',course.slug)
+                                        res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)})
+                                    });
+                                });
+                            }
+                        }else {
+                            Progress.findOne({idUser: data._id, idCourse: course._id})
+                            .then(lesson =>{
+                                res.cookie('khoahoc',course.slug)
+                                res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)})
+                            });
+                        }
+                    });
+                }
             }else{
                 res.redirect('/');
             }
@@ -37,14 +64,36 @@ class CourseController{
         .catch(next);   
         return;
     }
+
+    seemore(req, res, next) {
+        User.findOne({_id: req.signedCookies.userId})
+        .then(user => {
+            Course.findOne({slug: req.params.course})
+            .then(course=> {
+                const idUser = req.signedCookies.userId;
+                const title = `Khóa học ${course.nameCourse}`;
+                res.render('course/seemore', {title, course: mongooseToObject(course), user: mongooseToObject(user), idUser})
+            })
+        })
+    }
+
+    buynow(req, res, next) {
+        Course.findOne({slug: req.params.course})
+        .then(course=> {
+            const title = `Khóa học ${course.nameCourse}`;
+            res.render('course/buynow', {title})
+        })
+    }
+    
     feedback(req, res, next) {
-            const title = 'Góp ý';
-                Feed.findOne({_id: req.signedCookies.userId})
-                .then(info =>{
-                    res.render('feedback', {title, info: mongooseToObject(info)});   
-                })
-                .catch(next)      
+        const title = 'Góp ý';
+            Feed.findOne({_id: req.signedCookies.userId})
+            .then(info =>{
+                res.render('feedback', {title, info: mongooseToObject(info)});   
+            })
+            .catch(next)      
     } 
+
     send(req, res, next) {
             const title = 'Góp ý';
             const feedBack = req.body.feedBack;

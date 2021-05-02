@@ -17,8 +17,7 @@
     </div>
 </div>
 <script src="https://www.youtube.com/iframe_api"></script>
-
-    <script>
+   <script>
  
     const S = document.querySelector.bind(document);
     const SA = document.querySelectorAll.bind(document);
@@ -68,8 +67,9 @@
                     if (lesson) {
                         _this.indexFirst = Number(lesson.dataset.index);
                         _this.setConfig('indexVideo', _this.indexFirst);
+                        _this.setConfig('resetIndexVideo', true)
                         player.loadVideoById(_this.videos[_this.indexFirst].src);
-                        socket.emit('start-count-time');
+                        socket.emit('reset-count-time');
                         _this.idvideo();
                         _this.render();
                         _this.namevideo();
@@ -80,6 +80,8 @@
             socket.on('reset-view', (index)=>{
                 _this.Progress = index;
                 _this.render();
+                const lessonPlaying = S('.list_lessons .active');
+                lessonPlaying.classList.add('play');
             })
         },
         namevideo: function () {
@@ -118,7 +120,6 @@
             this.idvideo();
             this.render();
             this.namevideo();
-            this.setConfig('resetIndexVideo', true)
         }            
     }
     videoIframe.start();
@@ -146,15 +147,21 @@
             const lessonPlaying = S('.list_lessons .active');
             lessonPlaying.classList.remove('play');
             clearInterval(myTime);
+            myTime = null;
             playing = false;
         }
     }
+    socket.on('Reset-time', ()=> {
+        timeVideo=0;
+        myTime = null;
+    })
+
     socket.on('Resume-count-time', ()=>{
         if (videoIframe.Progress==videoIframe.indexFirst && videoIframe.Progress < videoIframe.videos.length ) {
             myTime = setInterval(()=>{
                 timeVideo++;
                 if (timeVideo >= videoIframe.timevideo()) {
-                    socket.emit('Lesson-finished', [`{{lesson._id}}`, videoIframe.Progress])
+                    socket.emit('Lesson-finished', [`{{lesson._id}}`, videoIframe.Progress, videoIframe.videos.length])
                 }
             }, 1000)
         }
@@ -162,6 +169,7 @@
 
     socket.on('Stop-count-time',()=>{
         clearInterval(myTime);
+        myTime = null;
     })
 </script>
 

@@ -1,0 +1,276 @@
+.main-seemore {
+    min-height: 90vh;
+    background-color: rgb(240, 240, 240);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 70px 30px;
+}
+
+.list-lesson-seemore {
+    position: relative;
+    width:55%;
+    padding: 20px;
+    height: 85vh;
+}
+
+.list-lesson-seemore__title {
+    color: rgb(0, 0, 0);
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.list-lesson-seemore__list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.list-lesson-seemore__list::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    background-color: rgb(33, 20, 220);
+}
+
+.list-lesson-seemore__info {
+    display: flex;
+}
+
+.list-lesson-seemore__info .total-lesson {
+    font-weight: 600;
+}
+
+.list-lesson-seemore__info .total-time {
+    font-weight: 600;
+    margin-left: 30px;
+}
+
+.list-lesson-seemore__list {
+    height: 85%;
+    overflow-y: scroll;
+}
+
+.list-lesson-seemore__list .item {
+    color: #fff;
+    font-weight: 600;
+    padding: 15px 5px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, rgb(0, 217, 255), rgb(0, 255, 157));
+}
+
+.list-lesson-seemore__list .item .name-lesson {
+    flex: 0.8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.video-demo-seemore {
+    width: 40%;
+    background-color: #fff;
+    box-shadow: 0 0 1px #000;
+    overflow: hidden;
+    border-radius: .3rem;
+}
+
+.video-demo-seemore__video > img {
+    width: 100%;
+}
+
+.video-demo-seemore__video {
+    position: relative;
+}
+
+.video-demo-seemore__video::after {
+    content: "";
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(255, 255, 255, 0.555));
+}
+.video-demo-seemore__video .play {
+    position: absolute;
+    transition: .3s;
+    background-color: #fff;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    box-shadow: 0 0 2px #000;
+    z-index: 1;
+}
+
+.video-demo-seemore__video:hover .play {
+    cursor: pointer;
+    width: 120px;
+    height: 120px;
+}
+
+.video-demo-seemore__video .text {
+    position: absolute;
+    bottom: 20px;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    left: 50%;
+    z-index: 1;
+    transform: translateX(-50%);
+}
+
+.video-demo-seemore__info {
+    padding: 5vh;
+    text-align: center;
+}
+
+.video-demo-seemore__info .status {
+    font-weight: 600;
+}
+
+.video-demo-seemore__info .price {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: tomato;
+}
+
+.btn-option {
+    margin-top: 5vh;
+    margin-bottom: 3vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-option.center {
+    justify-content: center;
+}
+
+.btn-option__add {
+    padding: 10px;
+    background-color: tomato;
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-option__buy {
+    padding: 10px;
+    background-color: rgb(255, 123, 0);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-option__learn {
+    padding: 10px;
+    background-color: rgb(0, 228, 209);
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+}
+
+.btn-option__learn:hover {
+    opacity: .8;
+    color: #fff;
+}
+
+.video-demo {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 100000000000000;
+    width: 95%;
+    height: 95%;
+    padding: 50px;
+    background-color: #000;
+    border-radius: .6rem;
+}
+
+.video-demo .close {
+    top: 0;
+    right: 10px;
+    position: absolute;
+    font-size: 3rem;
+    color: #fff;
+}
+
+.pay-ments {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.233);
+    z-index: 100000000000000;
+}
+
+
+.option-pay {
+    position: relative;
+    background-color: #fff;
+    width: 40%;
+    border-radius: .4rem;
+    box-shadow: 0 0 4px #000;
+    padding: 50px;
+}
+
+.option-pay .close-x {
+    top: 0;
+    right: 10px;
+    position: absolute;
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+}
+
+.option-pay .close-x:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+
+.option-pay__title {
+    padding: 20px 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.msg-payment {
+    position: fixed;
+    color: rgb(2, 202, 2);
+    font-weight: 600;
+    font-size: 1.12rem;
+    padding: 20px 20px;
+    background-color: #fff;
+    box-shadow: 0 0 4px #000;
+    z-index: 1000;
+    top: 80px;
+    transition: .5s;
+    right: -100%;
+}
+
+.msg-payment.show {
+    right: 0;
+}
+
+.wait-payment {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100000000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.616);
+    color: #fff;
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+

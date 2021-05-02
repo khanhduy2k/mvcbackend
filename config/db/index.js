@@ -4,6 +4,8 @@ async function connect(){
         await mongoose.connect('mongodb+srv://duykhanh:gENglSwLA5eNSJNR@posts.llbbe.mongodb.net/courses?retryWrites=true&w=majority', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            useCreateIndex: true,
+
          });
         console.log("Connect successfully!!!");
     }catch (error) {

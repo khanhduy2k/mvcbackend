@@ -5,4 +5,5 @@ const CourseController = require('../controller/CourseController');
 router.get('/feedback', CourseController.feedback);
 router.post('/feedback', CourseController.send);
 router.get('/:slug', CourseController.show);
+router.get('/seemore/:course', CourseController.seemore);
 module.exports = router;

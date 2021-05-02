@@ -1,0 +1,84 @@
+<div class="main-my-courses">
+    <div class="table-my-courses">
+        <div class="table-my-courses__title">
+            Các khóa học của tôi
+        </div>
+        <div class="list-my-courses">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    const listMyCourses = document.querySelector('.list-my-courses');
+    const renderCourses = {
+        myCourses: [
+        {{#each data}}
+            {   
+                idCourse: '{{this.idCourse}}',
+                progress: {{this.progress}},
+                name: '{{this.nameCourse}}',
+                slug: '{{this.slug}}',
+                price: {{this.price}}
+            },
+        {{/each}}    
+        ],
+        Courses: [
+        {{#each courses}}
+            {   
+                slug: '{{this.slug}}',
+                timeVideo: [{{this.timeVideo}}].length,
+            },
+        {{/each}}    
+        ],
+        handle: {
+            isFree(price) {
+                if (price > 0) {
+                    return `
+                        <div class="item__price pay">
+                            Khóa học tính phí
+                        </div>
+                    `
+                }
+                else {
+                    return `
+                        <div class="item__price">
+                            Khóa học miễn phí
+                        </div>
+                    `
+                }
+            },
+            progress(slug, array) {
+                for( let i in array ) {
+                    if (slug === array[i].slug) {
+                        return array[i].timeVideo
+                    }
+                }
+            }
+        },
+        event: function() {
+            
+        },
+        view: function() {
+            const _this = this;
+            const html = this.myCourses.map((data, index)=> {
+                return `
+                    <a href="/courses/${data.slug}" class="item">
+                        <div class="progress-course" style="width: ${data.progress/this.handle.progress(data.slug, this.Courses)*100}%"></div>
+                        <div class="item__name">
+                            ${data.name}
+                        </div>
+                        ${this.handle.isFree(data.price)}
+                        <div class="item__progress">
+                        Hoàn thành ${data.progress}/${this.handle.progress(data.slug, this.Courses)} bài học (${data.progress/this.handle.progress(data.slug, this.Courses)*100}%)
+                        </div>
+                    </a>
+                `
+            })
+
+            listMyCourses.innerHTML = html.join('');
+        },
+        start: function() { 
+            this.view()
+        }
+    }
+    renderCourses.start()
+</script>

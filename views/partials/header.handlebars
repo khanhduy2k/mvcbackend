@@ -68,6 +68,10 @@
                   <div class="items__menu_auth">
                     <a href="/admin"><i class="fas fa-user-cog"></i> Quản lí</a>
                   </div>
+                  {{else}}
+                  <div class="items__menu_auth">
+                    <a href="/profile/my-courses"><i class="fas fa-book-open"></i> My Courses</a>
+                  </div>
                   {{/if}}
                   <div class="items__menu_auth">
                     <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook"></i> Fanpage</a>
@@ -155,6 +159,10 @@
                   {{#if admin}}
                   <div class="items__mobile">
                     <a href="/admin"><i class="fas fa-user-cog"></i>Quản lí</a>
+                  </div>
+                  {{else}}
+                  <div class="items__mobile">
+                    <a href="/profile/my-courses"><i class="fas fa-book-open"></i>My Courses</a>
                   </div>
                   {{/if}}
                   <div class="items__mobile">
