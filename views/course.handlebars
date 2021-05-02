@@ -49,13 +49,17 @@
                 }else {
                     if (price > 0) {
                         return `
-                        <a class="btn-learn" href="/courses/seemore/${slug}">Xem thêm</a>
+                        <a class="btn-learn" href="/seemore/${slug}">Xem thêm</a>
+                        {{#if login}}
                         <div class="btn-buy" data-id="${id}">Mua ngay</div>
+                        {{else}}
+                        <a href="/login" class="btn-buy">Mua ngay</a>
+                        {{/if}}
                         `
                     }
                     else {
                         return `
-                        <a class="btn-learn" href="/courses/seemore/${slug}">Xem thêm</a>
+                        <a class="btn-learn" href="/seemore/${slug}">Xem thêm</a>
                         <a class="btnJoin btn-learn bg-info" href="/courses/${slug}">Học ngay</a>
                         `
                     }
@@ -76,7 +80,7 @@
         },
         event: function() {
             const _this = this;
-
+            {{#if login}}
             document.querySelectorAll('.btn-buy').forEach(e=> {
                 e.onclick = () => {
                     socket.emit('search-course', {'idCourse': `${e.dataset.id}`, 'idUser': '{{data._id}}'});
@@ -125,8 +129,8 @@
             socket.on('user-learning', (data)=> {
                 _this.learning = `${_this.learning}, ${data}`;
                 _this.view();
-            }) 
-
+            });
+            {{/if}}
         },
         view: function() {
             const htmls = this.coursesList.map((data, index)=> {

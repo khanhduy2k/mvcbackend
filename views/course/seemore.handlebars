@@ -24,6 +24,13 @@
         </div>
     </div>
     <div class="msg-payment"></div>
+    {{#if login}}
+    {{else}}
+    <div class="msg-login">
+        <div class="title">Vui lòng đăng nhập</div>
+        Bạn cần đăng nhập để tham gia các khóa học. Vui lòng <a href="/login" class="text-info">Đăng nhập</a> hoặc <a href="/signup" class="text-info">Đăng ký</a>
+    </div>
+    {{/if}}
 </div>
 <script src="https://www.paypal.com/sdk/js?client-id=AYhYuA9fTSd-Zc4WLSCzybMjnFc2ZDIMi8medLeRctArqRFWAJLb69mq5YG4FvtQmdAMUGeRWYxeX6zO&disable-funding=credit,card"></script>
 <script type="text/javascript">
@@ -73,6 +80,7 @@
                     return `Khóa học miễn phí`;
                 }
             }
+            {{#if login}}
             if (option == 3) {
                 if(this.learning.includes('{{course.slug}}')) {
                     return `
@@ -103,6 +111,7 @@
                     }
                 }
             }
+            {{/if}}
         },
         checkLearning: function(learning, status) {
             if (learning.includes(status)) {
@@ -166,7 +175,15 @@
                 <div class="price">
                     ${this.learnFree(Number({{course.priceCourse}}), 2)}
                 </div>
+                    {{#if login}}
                     ${this.learnFree(Number({{course.priceCourse}}), 3)}
+                    {{else}}
+                    <div class="btn-option center">
+                        <a href="/login" class="btn btn-option__learn">
+                            Đăng nhập
+                        </a>
+                    </div>
+                    {{/if}}
             `
             videoView.innerHTML = htmlVideo;
 
@@ -183,7 +200,7 @@
         }
     }
     renderList.start();
-
+    {{#if login}}
     paypal.Buttons({
         enableStandardCardFields: true,
         createOrder: function(data, actions) {
@@ -220,4 +237,5 @@
             document.querySelector('.msg-payment').classList.remove('show');
         }, 3000)
     });
+    {{/if}}
 </script>

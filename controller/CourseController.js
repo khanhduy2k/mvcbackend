@@ -64,26 +64,6 @@ class CourseController{
         .catch(next);   
         return;
     }
-
-    seemore(req, res, next) {
-        User.findOne({_id: req.signedCookies.userId})
-        .then(user => {
-            Course.findOne({slug: req.params.course})
-            .then(course=> {
-                const idUser = req.signedCookies.userId;
-                const title = `Khóa học ${course.nameCourse}`;
-                res.render('course/seemore', {title, course: mongooseToObject(course), user: mongooseToObject(user), idUser})
-            })
-        })
-    }
-
-    buynow(req, res, next) {
-        Course.findOne({slug: req.params.course})
-        .then(course=> {
-            const title = `Khóa học ${course.nameCourse}`;
-            res.render('course/buynow', {title})
-        })
-    }
     
     feedback(req, res, next) {
         const title = 'Góp ý';

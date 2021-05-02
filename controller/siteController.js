@@ -33,6 +33,19 @@ class SiteController{
             })
             .catch(next);  
     }
+
+    seemore(req, res, next) {
+        User.findOne({_id: req.signedCookies.userId})
+        .then(user => {
+            Course.findOne({slug: req.params.course})
+            .then(course=> {
+                const idUser = req.signedCookies.userId;
+                const title = `Khóa học ${course.nameCourse}`;
+                res.render('course/seemore', {title, course: mongooseToObject(course), user: mongooseToObject(user), idUser})
+            })
+        })
+    }
+
     frontend(req, res, next){
         const title = 'Frontend';
         Course.find({classify: 'Frontend'})
@@ -45,6 +58,7 @@ class SiteController{
                 })
                 .catch(next);
     }
+
     backend(req, res, next){
         const title = 'Backend';
         Course.find({classify: 'Backend'})
@@ -57,10 +71,12 @@ class SiteController{
                 })
                 .catch(next);
     }
+
     login(req, res){
         const title ='Đăng nhập';
         res.render('login', {title});
     }
+
     checklogin(req, res){
     const user = req.body.user;
     const passWord = md5(req.body.passWord);
@@ -95,10 +111,12 @@ class SiteController{
         res.render('login',{msg});
     }
     }
+
     signup(req, res){  
         const title='Đăng ký';
         res.render('signup', {title});
     }
+
     checksignup(req, res){ 
         const title='Đăng ký';
         const { fullName, user, email, passWord, passWord2} = req.body;
@@ -176,6 +194,7 @@ class SiteController{
         res.clearCookie('userName');
         res.redirect('/');
     }
+    
     profile(req, res, next){
         const title = 'Setting';
             User.findOne({_id: req.signedCookies.userId})

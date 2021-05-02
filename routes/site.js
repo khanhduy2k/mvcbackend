@@ -15,6 +15,7 @@ router.get('/course', siteController.course);
 router.get('/signup',authMiddlewares.requireLogin, siteController.signup);
 router.get('/login',authMiddlewares.requireLogin, siteController.login);
 router.get('/account', siteController.account);
+router.get('/seemore/:course', siteController.seemore);
 router.get('/', siteController.index);
 
 module.exports = router;
