@@ -1,0 +1,155 @@
+<div class="main-admin-pay">
+    <div class="panel-payments">
+        <div class="panel-payments__statistics">
+            <span class="text-info mr-5">Tổng số đơn: <span id="total-pay">100</span></span>
+            <span class="text-danger ml-5">Tổng tiền đã nhận: <span id="total-price">100</span>$</span>
+        </div>
+        <div class="panel-payments__info"></div>
+        <div class="panel-payments__pagination"></div>
+    </div>
+    <div class="main-admin-pay__wait">
+        <div class="wait">
+            <img src="/img/icon/load.png" alt="">
+        </div>
+    </div>
+    <div class="main-admin-pay__details">
+    </div>
+</div>
+<script type="text/javascript">
+    const loadWait = document.querySelector('.main-admin-pay__wait');
+    const mainPayments = document.querySelector('.panel-payments__info');
+    const paginationList = document.querySelector('.panel-payments__pagination');
+    const totalPrice = document.querySelector('#total-price');
+    const detailsTable = document.querySelector('.main-admin-pay__details');
+    const totalPay = document.querySelector('#total-pay');
+    const renderView = {
+        data: [
+            {{#each data}}
+                {   
+                    id: '{{this._id}}',
+                    idUser: '{{this.idUser}}',
+                    idCourse: '{{this.idCourse}}',
+                    idPayment: '{{this.details.id}}',
+                    amountPayment: {{this.details.purchase_units.[0].amount.value}},
+                    emailPayment: '{{this.details.payer.email_address}}',
+                    date: '{{this.details.create_time}}',
+                },
+            {{/each}}
+        ],
+        pagination: {
+            index: 1,
+            skip: 8,
+        },
+        event: function() {
+        },
+        handle: function() {
+            totalPrice.innerHTML = this.data.reduce((total, value)=>{
+                return total + value.amountPayment;
+            }, 0);
+
+            totalPay.innerHTML = this.data.length;
+        },
+        paginationView: function() {
+            const _this = this;
+            const htmlTab = this.data.map((data, index)=>{
+                if(index < Math.ceil(this.data.length/this.pagination.skip)) {
+                    if (index==0) {
+                        return `
+                            <div class="tab active" data-index="${index+1}">${index+1}</div>
+                        `
+                    }
+                    else {
+                        return `
+                            <div class="tab" data-index="${index+1}">${index+1}</div>
+                        `
+                    }
+                }
+            });
+            paginationList.innerHTML = htmlTab.join('');
+            const paginationTab = document.querySelectorAll('.tab');
+            paginationTab.forEach(e=> {
+                e.onclick = ()=> {
+                    const active = document.querySelector('.tab.active');
+                    if (active) active.classList.remove('active')
+                    e.classList.add('active')
+                   _this.pagination.index = e.dataset.index;
+                   _this.view()
+                }
+            })
+        },
+        view: function() {
+            const htmls = this.data.map((data, index) => {
+                if(index >= (this.pagination.index*this.pagination.skip-this.pagination.skip) && index < (this.pagination.index*this.pagination.skip)) {
+                    return `
+                    <div class="card-info">
+                        <div class="card-info__text">
+                            <b>Đơn số: ${index+1}</b>
+                            <div class="email">
+                                <div class="email__title"><b>Email thanh toán:</b></div> 
+                                <div class="text">${data.emailPayment}</div> 
+                            </div>
+                            <div class="id">
+                                <div class="id__title"><b>ID hóa đơn:</b></div> 
+                                <div class="text">${data.idPayment}</div> 
+                            </div>
+                            <div class="price">
+                                <div class="price__title"><b>Thanh toán: <span class="text-danger">${data.amountPayment}$</span></b></div> 
+                            </div>
+                        </div>
+                        <div class="card-info__btn">
+                            <div class="btn btn-info title-details" data-index="${index}">
+                                <div class="title-details-text">Chi tiết</div>
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                }
+            });
+            mainPayments.innerHTML = htmls.join('');
+            const btnDetails = document.querySelectorAll('.title-details');
+            btnDetails.forEach(e=> {
+                e.onclick=()=> {
+                    socket.emit('details-payments', this.data[e.dataset.index])
+                    loadWait.style.display = 'flex';
+                }
+            })
+        },
+        start: function() {
+            this.event();
+            this.handle();
+            this.view();
+            this.paginationView();
+        }
+    }
+    renderView.start();
+
+    socket.on('get-data-payment', (data)=> {
+        loadWait.style.display = 'none';
+        console.log(data)
+        const htmls = `
+            <div class="details-user">
+            <div class="close">&times;</div>
+                <div class="details-user__title">
+                    Thông tin
+                </div>
+                <div class="details-user__content">
+                    <div><b>Tên học viên:</b> ${data.user.fullName}</div>
+                    <div><b>Email liên hệ:</b> ${data.user.email}</div>
+                    <div><b>Thời gian mua khóa học:</b>${data.date}</div>
+                    <div><b>Tên khóa học:</b> ${data.course.nameCourse}</div>
+                    <div><b>Giá khóa học:</b> ${data.course.priceCourse}$</div>
+                    <div><b>Khóa học của học viên:</b> ${data.user.learning}</div>
+                </div>
+            </div>
+        `
+        detailsTable.innerHTML = htmls;
+        detailsTable.style.display = 'flex';
+        const close = document.querySelector('.close');
+        if(close) {
+            close.onclick=()=> {
+                detailsTable.style.display = 'none';
+            }  
+        }
+    });
+</script>

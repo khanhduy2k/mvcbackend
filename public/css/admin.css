@@ -120,3 +120,177 @@
     box-shadow: 0 0 5px #000;
     padding: 20px;
 }
+
+/* payments */
+.main-admin-pay {
+    width: 100%;
+    padding-top: 70px;
+    padding-bottom: 40px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.panel-payments {
+    position: relative;
+    width: 90%;
+    padding: 30px;
+    padding-bottom: 70px;
+    min-height: 88vh;
+    background-color: #fff;
+}
+
+.panel-payments__statistics {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.panel-payments__info {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-info {
+    margin-top: 10px;
+    margin-left: 1%;
+    background-color: #fff;
+    box-shadow: 0 0 4px #000;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 24%;
+}
+
+.card-info__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80%;
+}
+
+.card-info__text .text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.title-details {
+    position: relative;
+}
+
+.title-details-text {
+    content: "Chi tiết";
+    position: absolute;
+    background-color: rgb(97, 65, 30);
+    padding: 5px;
+    top: -80%;
+    right: -120%;
+    opacity: 0;
+}
+
+.title-details:hover > .title-details-text {
+    opacity: 1;
+}
+
+.panel-payments__pagination {
+    bottom: 5px;
+    position: absolute;
+    display: flex;
+}
+
+.panel-payments__pagination .tab{
+    margin-left: 5px;
+    padding: 8px 15px;
+    border: 1px solid #000;
+}
+
+.panel-payments__pagination .tab:hover {
+    cursor: pointer;
+}
+
+.panel-payments__pagination .tab:active {
+    opacity: .7;
+    background-color: #ccc;
+}
+
+.panel-payments__pagination .tab.active{
+    margin-left: 5px;
+    padding: 8px 15px;
+    color: #fff;
+    background-color: rgb(255, 75, 4);
+    border: 1px solid rgb(255, 75, 4);
+}
+
+.panel-payments__pagination .tab.active:active {
+    background-color: rgb(255, 75, 4);
+    opacity: 1;
+}
+
+.panel-payments__pagination .tab.active:hover {
+    cursor: default;
+}
+
+.main-admin-pay__wait {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100000000000;
+    display: none;
+}
+
+.main-admin-pay__wait .wait {
+    animation: rotating .23s linear infinite;
+}
+
+.main-admin-pay__wait .wait > img {
+    width: 100px;
+}
+
+@keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+}
+
+.main-admin-pay__details {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.712);
+    z-index: 100000000000;
+}
+
+.details-user .close {
+    position: absolute;
+    font-size: 2.5rem;
+    top: 10px;
+    right: 10px;
+}
+
+.details-user {
+    position: relative;
+    height: 70vh;
+    width: 40%;
+    background-color: #fff;
+    padding: 30px;
+}
+
+.details-user__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+}

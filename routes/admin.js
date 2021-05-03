@@ -29,6 +29,7 @@ router.post('/:id/edit', adminController.update);
 router.post('/:id/delete', adminController.delete);
 router.post('/:id/deleteuser', adminController.deleteuser);
 router.get('/:name/chitiet', adminController.chitiet);
+router.get('/payments', adminController.payments);
 router.get('/thanhvien', adminController.thanhvien);
 router.get('/thanhvien/timkiem', adminController.timkiem);
 router.get('/', adminController.admin);

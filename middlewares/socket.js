@@ -2,6 +2,7 @@ const User = require('../controller/model/user');
 const Progress = require('../controller/model/lessonProgress');
 const Payments = require('../controller/model/paymentpaypal');
 const Course = require('../controller/model/course');
+const course = require('../controller/model/course');
 
 module.exports.socket = function(socket) {
     socket.on('nghe', ()=> {
@@ -69,6 +70,16 @@ module.exports.socket = function(socket) {
         .then(course => {
             if(course) socket.emit('data-course', course)
         })
-    })
+    });
+
+    socket.on('details-payments', (data)=> {
+        Course.findOne({_id: data.idCourse})
+        .then(course => {
+            User.findOne({_id: data.idUser})
+            .then(user=> {
+                socket.emit('get-data-payment', {course: course, user: user, date: data.date})
+            })
+        })
+    });
     
 }

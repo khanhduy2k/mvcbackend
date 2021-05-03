@@ -1,5 +1,5 @@
-const { mutipleMongooseToObject } = require('../ulti/mongoose');
-const { mongooseToObject } = require('../ulti/mongoose');
+const { mutipleMongooseToObject } = require('../util/mongoose');
+const { mongooseToObject } = require('../util/mongoose');
 const Course = require('./model/course');
 const User = require('./model/user');
 const md5 = require('md5');
@@ -120,7 +120,7 @@ class SiteController{
     checksignup(req, res){ 
         const title='Đăng ký';
         const { fullName, user, email, passWord, passWord2} = req.body;
-            if (user === ''|| fullName === ''||email=== ''||passWord=== ''){
+            if (user == undefined || fullName == undefined || email == undefined || passWord == undefined){
                 const msg = 'Vui lòng nhập đầy đủ thông tin!';
                 res.render('signup',{msg, title , fullName, user, email, erro_up: true});
                 return;
@@ -151,6 +151,7 @@ class SiteController{
                 res.render('signup',{msg, title , fullName, user, email, erro_up: true});
                 return;
            }
+           if (user && fullName && email && passWord) {
             if(passWord == passWord2){
                 User.findOne({email: email})
                 .then(dataemail =>{
@@ -181,10 +182,13 @@ class SiteController{
                     }
                     
                 });   
-            }
-            else{
+            }else{
                 const msg = 'Mật khẩu không trùng khớp!';
                 res.render('signup',{msg, fullName, user, email, erro_up: true});
+            }
+           }else {
+                const msg = 'Có lỗi xảy ra vui lòng thử lại!';
+                res.render('signup',{erro_up: true});
             }
     }
     

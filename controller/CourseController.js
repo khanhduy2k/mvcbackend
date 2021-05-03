@@ -1,5 +1,5 @@
-const { mutipleMongooseToObject } = require('../ulti/mongoose');
-const { mongooseToObject } = require('../ulti/mongoose');
+const { mutipleMongooseToObject } = require('../util/mongoose');
+const { mongooseToObject } = require('../util/mongoose');
 const Course = require('./model/course');
 const Progress = require('./model/lessonProgress');
 const User = require('./model/user');
@@ -24,7 +24,13 @@ class CourseController{
                             .then(user => {
                                 const idUser = req.signedCookies.userId;
                                 const title = `Khóa học ${course.nameCourse}`;
-                                res.render('course/seemore', {title, course: mongooseToObject(course), user: mongooseToObject(user), idUser})
+                                if(user.position !== 'admin') {
+                                    res.render('course/seemore', {title, course: mongooseToObject(course), user: mongooseToObject(user), idUser})
+                                }
+                                else {
+                                    res.cookie('khoahoc',course.slug)
+                                    res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson), idUser})
+                                }
                             });
                         }
                     });

@@ -1,5 +1,5 @@
-const { mongooseToObject } = require('../ulti/mongoose');
-const { mutipleMongooseToObject } = require('../ulti/mongoose');
+const { mongooseToObject } = require('../util/mongoose');
+const { mutipleMongooseToObject } = require('../util/mongoose');
 const md5 = require('md5');
 const Post = require('./model/user');
 const Progress = require('../controller/model/lessonProgress');

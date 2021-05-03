@@ -24,7 +24,7 @@
         Courses: [
         {{#each courses}}
             {   
-                slug: '{{this.slug}}',
+                id: '{{this._id}}',
                 timeVideo: [{{this.timeVideo}}].length,
             },
         {{/each}}    
@@ -46,9 +46,9 @@
                     `
                 }
             },
-            progress(slug, array) {
+            progress(id, array) {
                 for( let i in array ) {
-                    if (slug === array[i].slug) {
+                    if (id === array[i].id) {
                         return array[i].timeVideo
                     }
                 }
@@ -62,13 +62,13 @@
             const html = this.myCourses.map((data, index)=> {
                 return `
                     <a href="/courses/${data.slug}" class="item">
-                        <div class="progress-course" style="width: ${data.progress/this.handle.progress(data.slug, this.Courses)*100}%"></div>
+                        <div class="progress-course" style="width: ${Math.floor(data.progress/this.handle.progress(data.idCourse, this.Courses)*100)}%"></div>
                         <div class="item__name">
                             ${data.name}
                         </div>
                         ${this.handle.isFree(data.price)}
                         <div class="item__progress">
-                        Hoàn thành ${data.progress}/${this.handle.progress(data.slug, this.Courses)} bài học (${data.progress/this.handle.progress(data.slug, this.Courses)*100}%)
+                        Hoàn thành ${data.progress}/${this.handle.progress(data.idCourse, this.Courses)} bài học (${Math.floor(data.progress/this.handle.progress(data.idCourse, this.Courses)*100)}%)
                         </div>
                     </a>
                 `

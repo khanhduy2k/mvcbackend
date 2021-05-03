@@ -1,10 +1,13 @@
-const { mutipleMongooseToObject } = require('../ulti/mongoose');
-const { mongooseToObject } = require('../ulti/mongoose');
+const { mutipleMongooseToObject } = require('../util/mongoose');
+const { mongooseToObject } = require('../util/mongoose');
 const { updateOne } = require('./model/course');
 
 const Course = require('./model/course');
 const User = require('./model/user');
-const Feed = require('./model/feedback')
+const Feed = require('./model/feedback');
+const Progress = require('./model/lessonProgress');
+const Payments = require('./model/paymentpaypal');
+
 class adminController{
 
     admin(req, res, next){
@@ -169,6 +172,14 @@ class adminController{
         Feed.updateMany({new: 'chưa đọc'}, {new: 'đã đọc'})
         .then()
         res.redirect('/admin/thongbao')
+    }
+
+    payments( req, res, next){
+        const title = 'Quản lí thanh toán';
+        Payments.find({})
+        .then(data => {
+            res.render('admin/payments', {title, data: mutipleMongooseToObject(data)})
+        })
     }
     
 }

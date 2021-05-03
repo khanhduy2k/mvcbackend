@@ -136,7 +136,7 @@
             const htmls = this.coursesList.map((data, index)=> {
                 return `
                     <div class="__course">
-                        <a href="/courses/seemore/${data.slug}" class="img__course">
+                        <a href="/seemore/${data.slug}" class="img__course">
                             ${this.handle.isRibbonFree(data.price)}
                             <img src="${data.img}" alt="">
                             ${this.handle.isFreePrice(data.price, data.slug)}
