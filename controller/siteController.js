@@ -5,6 +5,14 @@ const User = require('./model/user');
 const md5 = require('md5');
 class SiteController{
 
+    maintenance(req, res){
+        const title = 'Course Online';
+            Course.countDocuments({})
+            .then(num =>{
+                res.render('maintenance');
+            })             
+    }
+
     index(req, res){
         const title = 'Course Online';
             Course.countDocuments({})
@@ -12,6 +20,7 @@ class SiteController{
                 res.render('home', {title, num});
             })             
     }
+
     course(req, res, next){
         const title = 'Khóa học';
         Course.find({})

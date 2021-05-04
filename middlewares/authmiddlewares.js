@@ -1,6 +1,15 @@
 const { signedCookies } = require('cookie-parser');
 const User = require('../controller/model/user');
 
+module.exports.maintenance = function(req, res, next){
+    const maintenance = true;
+    if(maintenance){
+        res.redirect('/maintenance');
+        return;
+    }
+    next()    
+};
+
 module.exports.requireAuth = function(req, res, next){
     if(!req.signedCookies.userId){
         res.redirect('/login');

@@ -4,18 +4,56 @@ const router = express.Router();
 const siteController = require('../controller/siteController');
 const authMiddlewares = require('../middlewares/authmiddlewares');
 
+router.get('/profile',
+    authMiddlewares.requireAuth,
+siteController.profile);
 
-router.get('/profile',authMiddlewares.requireAuth,siteController.profile);
-router.get('/backend', siteController.backend);
-router.get('/frontend', siteController.frontend);
-router.get('/logout', siteController.logout);
-router.post('/login', siteController.checklogin);
-router.post('/signup', siteController.checksignup);
-router.get('/course', siteController.course);
-router.get('/signup',authMiddlewares.requireLogin, siteController.signup);
-router.get('/login',authMiddlewares.requireLogin, siteController.login);
-router.get('/account', siteController.account);
-router.get('/seemore/:course', siteController.seemore);
-router.get('/', siteController.index);
+router.get('/backend', 
+    authMiddlewares.maintenance,
+siteController.backend);
+
+router.get('/frontend', 
+    authMiddlewares.maintenance,
+siteController.frontend);
+
+router.get('/logout', 
+    authMiddlewares.maintenance,
+siteController.logout);
+
+router.post('/login', 
+    authMiddlewares.maintenance,
+siteController.checklogin);
+
+router.post('/signup', 
+    authMiddlewares.maintenance,
+siteController.checksignup);
+
+router.get('/course', 
+    authMiddlewares.maintenance,
+siteController.course);
+
+router.get('/signup',
+    authMiddlewares.maintenance,
+    authMiddlewares.requireLogin, 
+siteController.signup);
+
+router.get('/login',
+    authMiddlewares.maintenance,
+    authMiddlewares.requireLogin, 
+siteController.login);
+
+router.get('/account', 
+    authMiddlewares.maintenance,
+siteController.account);
+
+router.get('/seemore/:course', 
+    authMiddlewares.maintenance,
+siteController.seemore);
+
+router.get('/',
+    authMiddlewares.maintenance, 
+siteController.index);
+
+router.get('/maintenance', siteController.maintenance);
 
 module.exports = router;
