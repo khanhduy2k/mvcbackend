@@ -28,7 +28,7 @@
                     id: '{{this._id}}',
                     nameCourse: '{{this.nameCourse}}',
                     price: Number({{this.priceCourse}}),
-                    student: '{{this.numberStudents}}',
+                    student: {{this.numberStudents}},
                     slug: '{{this.slug}}',
                     img: '{{this.img}}',
                     description: '{{this.description}}',
@@ -81,17 +81,11 @@
         event: function() {
             const _this = this;
             {{#if login}}
-            document.querySelectorAll('.btn-buy').forEach(e=> {
-                e.onclick = () => {
-                    socket.emit('search-course', {'idCourse': `${e.dataset.id}`, 'idUser': '{{data._id}}'});
-                }
-            })
-
-            btnClosePay.onclick = () => {
-                pay.style.display = 'none';
-                document.querySelector('.paypal-button-container').remove();
-            }
-
+            socket.on('user-learning', (data)=> {
+                _this.learning = `${_this.learning}, ${data}`;
+                _this.student = _this.student+1;
+                _this.view();
+            });
             socket.on('price-course', (course) => {
                 const btnPaypal = document.createElement('div');
                 btnPaypal.classList.add('paypal-button-container');
@@ -112,23 +106,18 @@
                         });
                     },
                     onApprove: function(data, actions) {
+                        pay.style.display = 'none';
+                        const wait = document.createElement('div');
+                        wait.innerHTML = 'Vui lòng chờ...'
+                        wait.classList.add('wait-payment');
+                        mainCourses.appendChild(wait);
                         return actions.order.capture().then(function(details) {
-                                const wait = document.createElement('div');
-                                wait.innerHTML = 'Vui lòng chờ...'
-                                wait.classList.add('wait-payment');
-                                mainCourses.appendChild(wait);
-                                pay.style.display = 'none';
                             if (details.status == 'COMPLETED') {
                                 socket.emit('payment-completed', {'details': details, 'idCourse': `${course._id}`, 'idUser': '{{data._id}}', 'slug': `${course.slug}`})
                             }
                         })
                     }
                 }).render(btnPaypal);
-            });
-
-            socket.on('user-learning', (data)=> {
-                _this.learning = `${_this.learning}, ${data}`;
-                _this.view();
             });
             {{/if}}
         },
@@ -158,7 +147,26 @@
                     </div>
                 `
             });
-            viewRender.innerHTML = htmls.join('')
+            viewRender.innerHTML = htmls.join('');
+            {{#if login}}
+            if(document.querySelectorAll('.btn-buy').length>1) {
+                document.querySelectorAll('.btn-buy').forEach(e=> {
+                e.onclick = () => {
+                        socket.emit('search-course', {'idCourse': `${e.dataset.id}`, 'idUser': '{{data._id}}'});
+                    }
+                });
+            }else {
+                document.querySelector('.btn-buy')?document.querySelector('.btn-buy').onclick = () => {
+                    socket.emit('search-course', {'idCourse': `${document.querySelector('.btn-buy').dataset.id}`, 'idUser': '{{data._id}}'});
+                }:''
+            }
+            
+
+            btnClosePay.onclick = () => {
+                pay.style.display = 'none';
+                document.querySelector('.paypal-button-container').remove();
+            }
+            {{/if}}
         },
         start: function() {
             this.view()
@@ -171,6 +179,7 @@
         document.querySelector('.wait-payment').remove();
         document.querySelector('.msg-payment').innerHTML = 'Đã đăng ký thành công khóa học';
         document.querySelector('.msg-payment').classList.add('show')
+        document.querySelector('.paypal-button-container').remove();
         setTimeout(()=> {
             document.querySelector('.msg-payment').classList.remove('show');
         }, 3000)

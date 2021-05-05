@@ -1,0 +1,41 @@
+<div class="main__login">
+    <div class="container col-sm-4 col-md-6 col-lg-4 sign-up">
+        <h2>Đăng nhập</h2>
+        <form method="POST" action="/login/email/link" id="login-form-link">
+            <div class="form-group">
+                <label for="user">Nhập email đăng nhập</label>
+                <input type="text" class="form-control"  id="email" name="email" placeholder="Nhập email">
+                <div class="form_message"></div>
+            </div>
+            <div class="thong-bao mt-4" ><b><p id="msg">{{msg}}</p></b></div>
+            <div class="login">
+               <button id="btn-login-link" class="btn btn-danger btn-sign-footer">Gửi link</button>
+            </div>
+        </form>
+    </div>
+    <div class="load" id="load">
+        <div class="preload-icon">
+            <i class="fa fa-spinner fa-spin text-light" style="font-size: 60px;"></i>
+            <h4>Đang gửi link</h4>
+        </div>
+    </div>
+<script>
+    var btnInsertCourse = document.getElementById('btn-login-link');
+    {{!-- var loginForm = document.forms['login-form-link'];
+        btnInsertCourse.onclick = function(){   
+            document.getElementById('load').style.display = "flex";
+            loginForm.submit();
+        }   --}}
+        setInterval(function(){ 
+				document.getElementById('msg').style.display = "none";
+			}, 5000);
+        document.body.onload = function (){
+            var a = Math.floor(Math.random() * 50);
+            var c = Math.floor(Math.random() * 50);
+            var d = a+c;
+            document.getElementById("demo").innerHTML = a+"+"+c ;
+            document.getElementById("c").value = d;
+        } 
+</script>
+</div>
+

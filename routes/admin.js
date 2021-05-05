@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controller/adminController');
-
+const authMiddlewares = require('../middlewares/authmiddlewares');
 const multer  = require('multer');
 
 const storage = multer.diskStorage({
@@ -27,10 +27,11 @@ router.post('/:id/addvideo', adminController.postvideo);
 router.get('/:id/edit', adminController.edit);
 router.post('/:id/edit', adminController.update);
 router.post('/:id/delete', adminController.delete);
-router.post('/:id/deleteuser', adminController.deleteuser);
-router.get('/:name/chitiet', adminController.chitiet);
-router.get('/payments', adminController.payments);
-router.get('/thanhvien', adminController.thanhvien);
-router.get('/thanhvien/timkiem', adminController.timkiem);
+router.post('/position-change/:id', authMiddlewares.requireAdmin, adminController.positionChange)
+router.post('/:id/deleteuser', authMiddlewares.requireAdmin, adminController.deleteuser);
+router.get('/:name/chitiet', authMiddlewares.requireAdmin, adminController.chitiet);
+router.get('/payments', authMiddlewares.requireAdmin, adminController.payments);
+router.get('/thanhvien', authMiddlewares.requireAdmin, adminController.thanhvien);
+router.get('/thanhvien/timkiem', authMiddlewares.requireAdmin, adminController.timkiem);
 router.get('/', adminController.admin);
 module.exports = router;

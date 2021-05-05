@@ -10,7 +10,7 @@ const Course = new Schema({
     nameCourse: { type: String, required: true },
     description:{ type: String, required: true },
     classify:{ type: String, required: true },
-    slug: { type: String, slug: 'nameCourse', unique: true },
+    slug: { type: String, slug: 'nameCourse', unique: false },
     idVideo: { type: Array},
     nameLesson: { type: Array},
     timeVideo: { type: Array},

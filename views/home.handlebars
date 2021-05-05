@@ -1,5 +1,7 @@
 <div class="mt-4">
     <div class="background-home">
+        {{> chatfb }}
+        <div class="background-home__img-bg"></div>
         <div class="text__home_1"><b><p>Học lập trình với các khóa học chất lượng</p></b></div>
         <div class="text__home_2"><b>CỘNG ĐỒNG HỌC LẬP TRÌNH MIỄN PHÍ</b></div>
         <div class="main__btn___home">
@@ -16,33 +18,44 @@
         <div class="container">
             <div class="img__home">
                 <div class="img__home_items">
+                    <img src="/img/icon/img-1.png" width="30%" alt="">
                     <div><p><b>9.999+ thành viên</b></p></div> 
                 </div>
                 <div class="img__home_items">
+                    <img src="/img/icon/img-2.png" width="30%" alt="">
                     <div><p><b>5+ khóa học</b></p></div> 
                 </div>
                 <div class="img__home_items">
+                    <img src="/img/icon/img-3.png" width="30%" alt="">
                     <div><p><b>Học bất cứ đâu, bất cứ khi nào</b></p></div> 
                 </div>
             </div> 
         </div>
     </div>
-    <div class="home-text-msg">
-        <div class="home-text-msg__txt">
-            "... cảm ơn các khóa học tại F8, cảm ơn các kiến thức bổ ích mà F8 đã mang tới, 
-            cảm ơn anh Sơn Đặng người đã xây dựng và tạo nên 1 cộng đồng tuyệt vời như F8 ..."
-        </div>
-        <div class="home-text-msg__note">
-            - Sản phẩm dựa theo: <a href="https://fullstack.edu.vn" target="_blank">fullstack.edu.vn</a> -
+<div class="main__show_courses">
+    <div class="title">Khóa học nổi bật</div>
+    <div class="text-center">Những khóa học có số lượng học viên theo học nhiều nhất và có phản hồi tích cực nhất</div>
+    <div class="__show__courses"></div>
+    <div class="msg-payment"></div>
+    <div class="title">
+        <a href="/course" class="btn-show-more">Xem tất cả</a>
+    </div>
+</div>
+<div class="pay-ments">
+    <div class="option-pay">
+        <div class="close-x">&times;</div>
+        <div class="option-pay__title">
+            Vui lòng chọn phương thức thanh toán
         </div>
     </div>
 </div>
-{{> chatfb}}
+</div>
 <div class="loader loading-page">
     <div class="loading-page__title">
-        Course Online
+        <img src="/img/icon/cnow-logo.png" alt="cnow-logo">
     </div>
 </div>
+<script src="https://www.paypal.com/sdk/js?client-id=AYhYuA9fTSd-Zc4WLSCzybMjnFc2ZDIMi8medLeRctArqRFWAJLb69mq5YG4FvtQmdAMUGeRWYxeX6zO&disable-funding=credit,card"></script>
 <script>
     const bodyLoading = document.querySelector('.loader');
     let setLoad = sessionStorage.getItem('isLoad');
@@ -69,5 +82,195 @@
         }
     }
     loading.start();
+
+    const pay = document.querySelector('.pay-ments');
+    const mainCourses = document.querySelector('.main__show_courses');
+    const optionPay = document.querySelector('.option-pay');
+    const btnClosePay = document.querySelector('.close-x');
+    const viewRender = document.querySelector('.__show__courses');
+    const renderCourse = {
+        learning: '{{data.learning}}',
+        coursesHot: [],
+        coursesList: [
+            {{#each courses}}
+                {
+                    id: '{{this._id}}',
+                    nameCourse: '{{this.nameCourse}}',
+                    price: Number({{this.priceCourse}}),
+                    student: {{this.numberStudents}},
+                    slug: '{{this.slug}}',
+                    img: '{{this.img}}',
+                    description: '{{this.description}}',
+                },
+            {{/each}}
+        ],
+        sortHot: function (){
+            const _this = this;
+            _this.coursesList.sort((a, b)=> {
+                return b.student - a.student
+            })
+        },
+        handle: {
+            isRibbonFree(price) {
+                if(price > 0) {
+                    return `<div class="ribbon-course charge">Tính phí</div>`;
+                }else {
+                    return `<div class="ribbon-course free">Miễn phí</div>`;
+                }
+            },
+            isBtnFree(price, slug, id) {
+                if (renderCourse.learning.includes(slug)) {
+                    return `<a class="btnJoin btn-learning" href="/courses/${slug}">Học tiếp</a>`
+                }else {
+                    if (price > 0) {
+                        return `
+                        <a class="btn-learn" href="/seemore/${slug}">Xem thêm</a>
+                        {{#if login}}
+                        <div class="btn-buy" data-id="${id}">Mua ngay</div>
+                        {{else}}
+                        <a href="/login" class="btn-buy">Mua ngay</a>
+                        {{/if}}
+                        `
+                    }
+                    else {
+                        return `
+                        <a class="btn-learn" href="/seemore/${slug}">Xem thêm</a>
+                        <a class="btnJoin btn-learn bg-info" href="/courses/${slug}">Học ngay</a>
+                        `
+                    }
+                }
+            },
+            isFreePrice(price, slug) {
+                if (renderCourse.learning.includes(slug)) {
+                    return ``;
+                }
+                else {
+                    if (price > 0) {
+                        return `<div class="price">Giá khóa học: ${price}$</div>`;
+                    }else{
+                        return ``;
+                    }
+                }
+            }
+        },event: function() {
+            const _this = this;
+            {{#if login}}
+            socket.on('user-learning', (data)=> {
+                _this.learning = `${_this.learning}, ${data}`;
+                _this.student = _this.student+1;
+                _this.view();
+            });
+            socket.on('price-course', (course) => {
+                const btnPaypal = document.createElement('div');
+                btnPaypal.classList.add('paypal-button-container');
+                optionPay.appendChild(btnPaypal);
+                pay.style.display = 'flex';
+                paypal.Buttons({
+                    enableStandardCardFields: true,
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                        purchase_units: [
+                            {
+                            amount: {
+                                value: `${course.priceCourse}`,
+                                currency_code: 'USD'
+                            },
+                            }
+                        ]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        pay.style.display = 'none';
+                        const wait = document.createElement('div');
+                        wait.innerHTML = 'Vui lòng chờ...'
+                        wait.classList.add('wait-payment');
+                        mainCourses.appendChild(wait);
+                        return actions.order.capture().then(function(details) {
+                            if (details.status == 'COMPLETED') {
+                                socket.emit('payment-completed', {'details': details, 'idCourse': `${course._id}`, 'idUser': '{{data._id}}', 'slug': `${course.slug}`})
+                            }
+                        })
+                    }
+                }).render(btnPaypal);
+            });
+            {{/if}}
+        },
+        view: function() {
+            const htmls = this.coursesList.map((data, index)=> {
+                if (index<6) return `
+                    <div class="__course">
+                        <a href="/seemore/${data.slug}" class="img__course">
+                            ${this.handle.isRibbonFree(data.price)}
+                            <img src="${data.img}" alt="">
+                            ${this.handle.isFreePrice(data.price, data.slug)}
+                        </a>
+                        <div class="info__course">
+                            <div  class="name__course">
+                                <h5>${data.nameCourse}</h5>
+                            </div>
+                            <div class="content__course">
+                                ${data.description}
+                            </div>
+                            <div class="go_to__course">
+                                <span class="num__member"><i class="fas fa-users"></i> ${data.student}</span>
+                                <div class="learn btn__go_course">
+                                    ${this.handle.isBtnFree(data.price, data.slug, data.id)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            });
+            viewRender.innerHTML = htmls.join('');
+            {{#if login}}
+            if(document.querySelectorAll('.btn-buy').length>1) {
+                document.querySelectorAll('.btn-buy').forEach(e=> {
+                e.onclick = () => {
+                        socket.emit('search-course', {'idCourse': `${e.dataset.id}`, 'idUser': '{{data._id}}'});
+                    }
+                });
+            }else {
+                document.querySelector('.btn-buy')?document.querySelector('.btn-buy').onclick = () => {
+                    socket.emit('search-course', {'idCourse': `${document.querySelector('.btn-buy').dataset.id}`, 'idUser': '{{data._id}}'});
+                }:''
+            }
+            
+
+            btnClosePay.onclick = () => {
+                pay.style.display = 'none';
+                document.querySelector('.paypal-button-container').remove();
+            }
+            {{/if}}
+        },
+        start: function() {
+            this.sortHot()
+            this.view()
+            this.event()
+        }
+    }
+    renderCourse.start();
+                         
+    socket.on('payment-saved',(data)=> {
+        document.querySelector('.wait-payment').remove();
+        document.querySelector('.msg-payment').innerHTML = 'Đã đăng ký thành công khóa học';
+        document.querySelector('.msg-payment').classList.add('show')
+        document.querySelector('.paypal-button-container').remove();
+        setTimeout(()=> {
+            document.querySelector('.msg-payment').classList.remove('show');
+        }, 3000)
+    });
+
+    const btnJoin = document.querySelectorAll('.btnJoin');
+    const STORAGE_INDEX_VIDEO = 'video';
+    const config = JSON.parse(localStorage.getItem(STORAGE_INDEX_VIDEO)) || {};
+    function setConfig(index, value) {
+            config[index] = value;
+            localStorage.setItem(STORAGE_INDEX_VIDEO, JSON.stringify(config));
+        }
+    btnJoin.forEach(e=> {
+        e.onclick = function() {
+            setConfig('resetIndexVideo', false);
+        }
+    });
 </script>
    

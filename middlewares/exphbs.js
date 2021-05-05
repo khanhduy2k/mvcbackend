@@ -5,10 +5,28 @@ module.exports.helpers = {
             let out = `<td class="text-warning">`;
             out = out +color;
             return out + `</td>`;
-        }else {
+        }
+        else if (position === 'collaborators'){
+            let out = `<td class="text-info">`;
+            out = out +color;
+            return out + `</td>`;
+        }
+        else if (position === 'adminLv1'){
+            let out = `<td class="text-danger">`;
+            out = out +color;
+            return out + `</td>`;
+        }        
+        else {
             let out = `<td>`;
             out = out +color;
             return out+`</td>`;
+        }
+    },
+    adminPs: (position, id)=>{
+        if (position === 'admin'){
+            return `<td></td>`;
+        }else {
+            return `<td><div class="btn btn-secondary btn-pos" data-id=${id}>Quyền hạn</div></td>`;
         }
     },
     pagination: ( total,size,page ) =>{

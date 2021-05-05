@@ -3,24 +3,32 @@ const { mongooseToObject } = require('../util/mongoose');
 const Course = require('./model/course');
 const User = require('./model/user');
 const md5 = require('md5');
+global.crypto = require('crypto')
+const mailer = require('../util/mailer');
+
 class SiteController{
 
-    maintenance(req, res){
-        const title = 'Course Online';
-            Course.countDocuments({})
-            .then(num =>{
-                res.render('maintenance');
-            })             
+    index(req, res, next){
+        const title = 'Cnow team';
+        Course.find({})
+            .then(courses => {
+                    User.findOne({_id: req.signedCookies.userId})
+                    .then(data=>{
+                        Course.countDocuments({})
+                        .then(num =>{
+                    if (!req.signedCookies.userId) {
+                    res.render('home',{ 
+                        courses: mutipleMongooseToObject(courses), title, num});
+                    }
+                    if (req.signedCookies.userId) {
+                        res.render('home',{ 
+                        courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title});            
+                    }  
+                    })
+                })  
+            })
+        .catch(next);             
     }
-
-    index(req, res){
-        const title = 'Course Online';
-            Course.countDocuments({})
-            .then(num =>{
-                res.render('home', {title, num});
-            })             
-    }
-
     course(req, res, next){
         const title = 'Khóa học';
         Course.find({})
@@ -34,13 +42,13 @@ class SiteController{
                         courses: mutipleMongooseToObject(courses), title, num});
                     }
                     if (req.signedCookies.userId) {
-                            res.render('course',{ 
-                                courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title});            
+                        res.render('course',{ 
+                        courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title});            
                     }  
                     })
                 })  
             })
-            .catch(next);  
+        .catch(next);  
     }
 
     seemore(req, res, next) {
@@ -199,6 +207,167 @@ class SiteController{
                 const msg = 'Có lỗi xảy ra vui lòng thử lại!';
                 res.render('signup',{erro_up: true});
             }
+    }
+    
+    // code cnow login
+    loginLinkTypeEmail(req, res) {
+        const title = 'Đăng nhập';
+        res.render('loginLinkEmail', { title });
+    }
+    
+    loginFacebookUser(req, res) {
+        if (req.user) {
+            User.findOne({ facebookId: req.user.id })
+                .then(data => {
+                    if (data) {
+                        res.cookie('userName', data.user,{
+                            signed: true
+                        });
+                        res.cookie('userPosition', data.position,{
+                            signed: true
+                        });
+                        res.cookie('userId', data._id, {
+                            signed: true
+                        });
+                        res.redirect('/');
+                    } else {
+                        const newUser = new User({ user: req.user.displayName, fullName: req.user.displayName, email: null, passWord: null, facebookId: req.user.id });
+                        newUser.save().then(data => {
+                            res.cookie('userId', data._id, {
+                                signed: true
+                            });
+                            res.redirect('/');
+                        });
+                    }
+                });
+        } else {
+            const msg = 'Tài khoản hoặc mật khẩu không chính xác!!';
+            res.render('login', { msg });
+        }
+    }
+    loginGoogleUser(req, res) {
+        if (req.user) {
+            const email = req.user._json.email
+            User.findOne({ email: email })
+                .then(data => {
+                    if (data) {
+                        res.cookie('userName', data.user,{
+                            signed: true
+                        });
+                        res.cookie('userPosition', data.position,{
+                            signed: true
+                        });
+                        res.cookie('userId', data._id, {
+                            signed: true
+                        });
+                        res.redirect('/');
+                    } else {
+                        const newUser = new User({ user: req.user.displayName, fullName: req.user.displayName, email: email });
+                        newUser.save().then(data => {
+                            res.cookie('userId', data._id, {
+                                signed: true
+                            });
+                            res.redirect('/');
+                        });
+                    }
+                });
+        } else {
+            const msg = 'Tài khoản hoặc mật khẩu không chính xác!!';
+            res.render('login', { msg });
+        }
+    }
+    async sendEmailLinkLogin(req, res) {
+        const email = req.body.email
+        if (email) {
+            const test = (value) => {
+                var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                return regex.test(value) ? true : false;
+            }
+            if (!test(email)) {
+                const msg = 'Sai định dạng Email'
+                res.render('loginLinkEmail', { msg, title });
+                return;
+            }
+        }
+        try {
+            var token = crypto.randomBytes(64).toString('hex');
+
+            User.findOne({ email: email })
+                .then(data => {
+                    console.log("date:", data)
+                    if (!data) {
+                        const newUser = new User({ email: email, passWord: null, secret: token });
+                        newUser.save().then();
+                    } else {
+                        User.updateOne({ _id: data._id }, { $set: { secret: token } }).then()
+                    }
+                });
+            await mailer.sendMail(email, "Login vào học lập trình trực tuyến với gmail", `<a href='http://localhost:8800/login/email/link?token=${token}&email=${email}' class="login-with-facebook">Đăng nhập site</a>`)
+            const msg = 'Link đăng nhập đã được gửi đến gmail của bạn';
+            res.render('loginLinkEmail', { msg });
+        } catch (error) {
+            // Nếu có lỗi thì log ra để kiểm tra và cũng gửi về client
+            const msg = 'Thao tác thất bại, vui lòng thử lại!';
+            res.render('login', { msg });
+        }
+    }
+    async checkEmailLoginLink(req, res) {
+        try {
+            const token = req.query.token;
+            const email = req.query.email;
+            User.findOne({ email: email })
+                .then(data => {
+                    if (data.secret == token) {
+                        res.cookie('userName', data.user,{
+                            signed: true
+                        });
+                        res.cookie('userPosition', data.position,{
+                            signed: true
+                        });
+                        res.cookie('userId', data._id, {
+                            signed: true
+                        });
+                        res.redirect('/');
+                    } else {
+                        const msg = 'Đăng nhập không thành công xin thử lại!';
+                        res.render('login', { msg });
+                    }
+                });
+        } catch (error) {
+            // Nếu có lỗi thì log ra để kiểm tra và cũng gửi về client
+            const msg = 'Đăng nhập không thành công xin thử lại!';
+            res.render('login', { msg });
+        }
+    }
+    loginFacebookUser(req, res) {
+        if (req.user) {
+            User.findOne({ facebookId: req.user.id })
+                .then(data => {
+                    if (data) {
+                        res.cookie('userId', data._id, {
+                            signed: true
+                        });
+                        res.redirect('/');
+                    } else {
+                        const newUser = new User({ user: req.user.displayName, fullName: req.user.displayName, email: null, passWord: null, facebookId: req.user.id });
+                        newUser.save().then(data => {
+                            res.cookie('userName', data.user,{
+                                signed: true
+                            });
+                            res.cookie('userPosition', data.position,{
+                                signed: true
+                            });
+                            res.cookie('userId', data._id, {
+                                signed: true
+                            });
+                            res.redirect('/');
+                        });
+                    }
+                });
+        } else {
+            const msg = 'Tài khoản hoặc mật khẩu không chính xác!!';
+            res.render('login', { msg });
+        }
     }
     
     logout(req, res){

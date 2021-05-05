@@ -21,6 +21,7 @@
         <th scope="col">Email liên hệ</th>    
         <th scope="col"></th>     
         <th scope="col"></th>     
+        <th scope="col"></th>     
       </tr>
     </thead>
     <tbody>
@@ -31,7 +32,8 @@
         {{{admin this.position this.fullName}}}
         {{{admin this.position this.position}}}
         {{{admin this.position this.email}}}
-        <td><a class="btn btn-info" href="/admin/{{this.user}}/chitiet">Chi tiết</a></td>
+        {{{adminPs this.position this._id}}}
+        <td><a class="btn btn-info" href="/admin/{{this._id}}/chitiet">Chi tiết</a></td>
         <td><a class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-user">Xóa</a></td>
       </tr>
       {{/each}}
@@ -78,6 +80,7 @@
 </div>
 </div>
 <form name="delete-user-form" method="POST"></form>
+<div class="form-position"></div>
 <script>
     document.addEventListener('DOMContentLoaded', function(){
         var Userid;
@@ -100,4 +103,41 @@
             
     }  
 });
+
+const formPst = document.querySelector('.form-position');
+const btnPosition = document.querySelectorAll('.btn-pos');
+if (btnPosition) {
+  btnPosition.forEach(e=>{
+    e.onclick=()=> {
+      formPst.style.display = 'flex';
+      formPst.innerHTML = `
+        <form action="/admin/position-change/${e.dataset.id}" method="POST">
+          <div class="title">Chọn quyền cho người dùng</div>
+          <div class="select-position-group">
+            <div class="select-position">
+                <input hidden class="check-position" type="radio" id="adminLv1" name="position" value="adminLv1">
+                <label class="btn btn-position-select" for="adminLv1">adminLv1</label>
+            </div>
+            <div class="select-position">
+                <input hidden class="check-position" type="radio" id="collaborators" name="position" value="collaborators">
+                <label class="btn btn-position-select" for="collaborators">collaborators</label>
+            </div>
+            <div class="select-position">
+                <input hidden class="check-position" type="radio" id="user" name="position" value="user" checked>
+                <label class="btn btn-position-select" for="user">user</label>
+            </div>
+          </div>
+          <div class="btn-position text-right">
+            <button class="btn btn-danger">Lưu</button>
+            <div id="close" class="btn btn-secondary">Hủy</div>
+          </div>
+          </form>
+      `
+      document.querySelector('#close').onclick=()=>{
+        formPst.style.display = 'none';
+        formPst.innerHTML = '';
+      }
+    }
+  })
+}
 </script>

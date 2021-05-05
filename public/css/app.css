@@ -3,12 +3,6 @@ html {
     font-size: 17px;
 }
 
-body{
-    background-image: url(/img/backgr.jpg);
-    background-size: cover;
-    background-attachment:fixed
-}
-
 .loader {
     position: fixed;
     display: flex;
@@ -59,7 +53,10 @@ body{
 }
 
 .profile__ {
-    padding: 5%;
+    min-height: 90vh;
+    padding: 100px;
+    display: flex;
+    align-items: center;
 }
 
 .thong-bao{
@@ -101,13 +98,22 @@ body{
     margin-top: 30px;
     padding: 10px;
     border-radius: 0 4rem 0 0;
-    background-color: #fff;
+    background-color: rgb(0, 0, 0);
 }
 
 .side__menu a {
     text-decoration: none;
     border-radius: 0 2rem;
     display: inline-block;
+    color: #fff;
+}
+
+.btn-success {
+    background-color: rgb(75, 74, 74);
+}
+
+.btn-success:hover {
+    background-color: rgb(75, 74, 74);
 }
 
 .side__menu span {
@@ -157,11 +163,24 @@ li{
 }
 
 .background-home{
+    position: relative;
     color: #fff;
     min-height: 100vh;
-    margin-left: 10%;
-    margin-right: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
     padding-top: 10%;
+}
+
+.background-home__img-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url(/img/bg/bg.jpg);
+    filter: brightness(40%);
+    background-size: cover;
 }
 
 .text__home_1 {
@@ -196,17 +215,23 @@ li{
 /* Sign up*/
 .main__signup {
     min-height: 100vh;
-    padding-top: 5%;
+    padding-top: 80px;
     padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sign-up{
     color: #fff;
     margin-bottom: 10%;
+    box-shadow: 0 0 4px rgb(192, 192, 192);
+    padding: 20px;
 }
 
 .sign-up h2{
     text-align: center;
+    color: #000;
 }
 
 .msg__check_signup {
@@ -238,15 +263,19 @@ li{
 /* Sign in*/
 
 .main__login {
-    min-height: 100vh;
-    padding-top: 5%;
+    min-height: 90vh;
+    padding-top: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .login {
-    margin-top: 20px;
+    margin-top: 10px;
+}
+
+.btn-login-page {
+    
 }
 
 .login a{
@@ -272,7 +301,8 @@ li{
     cursor: default;
     width: 120px;
     text-align: center;
-    color: black;
+    color: transparent;
+    text-shadow: 0 0 2.5px #000;
     background-image: url('https://i.pinimg.com/originals/b4/31/48/b43148675959cdb19d1964abe2d50254.png');
 }
 
@@ -308,6 +338,59 @@ li{
     top: 0;
     right: 0;
     color: #000000;
+}
+
+.social-btn-group {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.btn-login-social {
+    border-radius: .2rem;
+    padding: 10px;
+}
+
+.login-with-face {
+    color: #fff;
+    background-color: rgb(0, 130, 216);
+}
+
+.login-with-face:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+    opacity: .8;
+}
+
+.login-with-link {
+    color: #fff;
+    background-color: rgb(102, 101, 101);
+}
+
+.login-with-link:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+    opacity: .8;
+}
+
+.login-with-gmail {
+    color: #fff;
+    background-color: rgb(255, 43, 43);
+}
+
+.login-with-gmail:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+    opacity: .8;
+}
+
+.size-text-or {
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 15px;
 }
 
 /* Show*/
@@ -413,8 +496,12 @@ li{
 
 /* feedback */
 .main___feedback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding-top: 50px;
     padding-bottom: 30px;
+    min-height: 90vh;
 }
 
 .formfeedback {

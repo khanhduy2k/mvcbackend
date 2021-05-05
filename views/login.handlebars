@@ -1,14 +1,14 @@
 <div class="main__login">
     <div class="container col-sm-4 col-md-6 col-lg-4 sign-up">
         <h2>Đăng nhập</h2>
-        <form id="form-login" method="POST" id="login-form">
+        <form method="POST" id="login-form">
             <div class="form-group">
-                <label for="user">Tên đăng nhập</label>
+                <label class="text-dark" for="user">Tên đăng nhập</label>
                 <input type="text" class="form-control"  id="user" name="user" placeholder="Nhập tên đăng nhập">
                 <div class="form_message"></div>
             </div>
             <div class="form-group">
-                <label for="Password1">Nhập mật khẩu</label>
+                <label class="text-dark" for="Password1">Nhập mật khẩu</label>
                 <div class="pass">
                    <input type="password" class="form-control" id="Password1" name="passWord" placeholder="Nhập mật khẩu">
                     <div class="showpass">
@@ -20,7 +20,7 @@
             </div>
             <div class="check__captcha">
                 <div class="input__check">
-                    <label for="mact">Kết quả</label>
+                    <label class="text-dark" for="mact">Kết quả</label>
                     <input type="text" class="form-control" maxlength="6" id="cpatchaTextBox" name="mact">
                 </div>
                 <div class="random__check">
@@ -30,10 +30,16 @@
             </div>
             <div class="thong-bao mt-4" ><b><p id="msg">{{msg}}</p></b></div>
             <div class="login">
-               <button id="btn-login" class="btn btn-danger btn-sign-footer">Đăng nhập</button>
-               <a href="/signup" class="btn btn-danger btn-sign-footer">Chưa có tài khoản</a>
-            </div>             
+               <button id="btn-login" class="btn btn-info btn-login-page ">Đăng nhập</button>
+               <a href="/signup" class="btn btn-info btn-login-page">Chưa có tài khoản</a>
+            </div> 
         </form>
+        <div class="text-center text-dark size-text-or">Hoặc</div>
+        <div class="social-btn-group">
+            <a href="/login/facebook" class="btn-login-social login-with-face fa fa-facebook">Facebook</a>
+            <a href="/login/email/link/type" class=" btn-login-social  login-with-link fa fa-google">Gmail Link</a> 
+            <a href="/auth/google" class="btn-login-social login-with-gmail fa fa-google">Gmail</a>   
+        </div>            
     </div>
     <div class="load" id="load">
         <div class="preload-icon">

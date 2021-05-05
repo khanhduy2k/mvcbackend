@@ -294,3 +294,71 @@
     font-weight: 700;
     text-align: center;
 }
+
+.modal-dialog {
+    margin-top: 10%;
+}
+
+/* thành viên */
+.form-position {
+    position: fixed;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100000000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-position form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    width: 40%;
+    height: 30%;
+    background-color: #fff;
+}
+
+.form-position form label {
+    cursor: pointer;
+    margin-left: 20px;
+    margin-right: 5px;
+}
+
+.form-position form .title {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.select-position-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-position-select {
+    position: relative;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border: 1px solid #ccc;
+}
+
+.check-position:checked ~ .btn-position-select {
+    font-size: 1.3rem;
+    font-weight: 600;
+    border: 1px solid brown;
+}
+
+.check-position:checked ~ .btn-position-select::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-bottom: 20px solid brown;
+    border-left: 20px solid transparent;
+}

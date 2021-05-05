@@ -1,15 +1,6 @@
 const { signedCookies } = require('cookie-parser');
 const User = require('../controller/model/user');
 
-module.exports.maintenance = function(req, res, next){
-    const maintenance = true;
-    if(maintenance){
-        res.redirect('/maintenance');
-        return;
-    }
-    next()    
-};
-
 module.exports.requireAuth = function(req, res, next){
     if(!req.signedCookies.userId){
         res.redirect('/login');
@@ -19,11 +10,23 @@ module.exports.requireAuth = function(req, res, next){
 };
 
 module.exports.requireAdmin = function(req, res, next){
-    if (req.signedCookies.userPosition !== 'admin') {
+    if (req.signedCookies.userPosition === 'admin'||req.signedCookies.userPosition === 'adminLv1') {
+        next()
+    }
+    else {
         res.redirect('/');
         return;
     }
-    next()
+};
+
+module.exports.requireCollaborators = function(req, res, next){
+    if (req.signedCookies.userPosition === 'collaborators'||req.signedCookies.userPosition === 'admin'||req.signedCookies.userPosition === 'adminLv1') {
+        next()
+    }
+    else {
+        res.redirect('/');
+        return;
+    }
 };
 
 module.exports.requireLogin = function(req, res, next){
@@ -38,8 +41,12 @@ module.exports.requireUserlogin = function(req, res, next){
     if (req.signedCookies.userId){
         res.locals.login = true;
         res.locals.name = req.signedCookies.userName;
-        if (req.signedCookies.userPosition === 'admin') {
+        if (req.signedCookies.userPosition === 'admin'||req.signedCookies.userPosition === 'adminLv1') {
             res.locals.admin = true;
+            res.locals.collaborators = true;
+        }
+        else if (req.signedCookies.userPosition === 'collaborators') {
+            res.locals.collaborators = true;
         }
     }
     next();

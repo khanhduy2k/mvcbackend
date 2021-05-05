@@ -113,7 +113,7 @@ class CourseController{
                                     res.render('feedback', {title, msg, info: mongooseToObject(info)});  
                                 }
                                 else {
-                                    Feed.updateMany({name: name}, { $push:{feedBack: feedBack, dateWrite: date}, dateLast: date, new: 'chưa đọc' })
+                                    Feed.updateOne({name: name}, { $push:{feedBack: feedBack, dateWrite: date}, dateLast: date, new: 'chưa đọc' })
                                     .then()
                                     res.render('feedback', {title, info: mongooseToObject(info), success: true});  
                                 }

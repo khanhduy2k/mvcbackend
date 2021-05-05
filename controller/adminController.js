@@ -64,7 +64,7 @@ class adminController{
     }
     deletevideo(req, res, next){
         const title = 'Thêm video khóa học';
-        Course.updateMany({_id: req.params.id}, { $pop:{idVideo: 1, nameLesson: 1, timeVideo: 1} })
+        Course.updateOne({_id: req.params.id}, { $pop:{idVideo: 1, nameLesson: 1, timeVideo: 1} })
         .then(() => res.redirect('/admin/'+req.params.id+'/addvideo'))
         .catch(next)
     }
@@ -108,7 +108,7 @@ class adminController{
     }
     chitiet(req, res, next){
         const title = 'Quản lí thành viên';
-        User.findOne({user: req.params.name})
+        User.findOne({_id: req.params.name})
         .then(info=>{
             if (info){
                 res.render('admin/chitiet',{title, info:mongooseToObject(info)});
@@ -148,7 +148,7 @@ class adminController{
     }
     read(req, res, next) {
         const title = 'Thông báo';
-        Feed.updateMany({name: req.params.name}, {new: 'đã đọc'})
+        Feed.updateOne({name: req.params.name}, {new: 'đã đọc'})
         .then()
         Feed.find({})
         .then(news =>{
@@ -181,7 +181,17 @@ class adminController{
             res.render('admin/payments', {title, data: mutipleMongooseToObject(data)})
         })
     }
-    
+
+    positionChange( req, res, next){
+        User.findOne({_id: req.params.id})
+        .then(data=>{
+            if (data) {
+                const position = req.body.position;
+                User.updateOne({_id: req.params.id},{position:position})
+                .then(()=>res.redirect('/admin/thanhvien'));
+            }
+        })
+    }
 }
 
 module.exports = new adminController();

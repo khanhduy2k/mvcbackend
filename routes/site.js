@@ -3,57 +3,43 @@ const { signup } = require('../controller/siteController');
 const router = express.Router();
 const siteController = require('../controller/siteController');
 const authMiddlewares = require('../middlewares/authmiddlewares');
+const passport = require('passport');
 
-router.get('/profile',
-    authMiddlewares.requireAuth,
-siteController.profile);
+router.get('/profile',authMiddlewares.requireAuth,siteController.profile);
+router.get('/backend', siteController.backend);
+router.get('/frontend', siteController.frontend);
+router.get('/logout', siteController.logout);
+router.post('/login', siteController.checklogin);
+router.post('/signup', siteController.checksignup);
+router.get('/course', siteController.course);
+router.get('/signup',authMiddlewares.requireLogin, siteController.signup);
+router.get('/login',authMiddlewares.requireLogin, siteController.login);
+router.get('/account', siteController.account);
+router.get('/seemore/:course', siteController.seemore);
+router.get('/login/facebook',passport.authenticate('facebook', { scope: 'email' }));
+router.get('/loginFacebookUser', siteController.loginFacebookUser);
+router.get('/login/google', siteController.loginGoogleUser);
+router.get('/login/email/link', siteController.checkEmailLoginLink);
+router.get('/login/email/link/type', siteController.loginLinkTypeEmail);
+router.post('/login/email/link', siteController.sendEmailLinkLogin);
+router.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { successRedirect: '/loginFacebookUser', failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect('/');
+    });
 
-router.get('/backend', 
-    authMiddlewares.maintenance,
-siteController.backend);
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
-router.get('/frontend', 
-    authMiddlewares.maintenance,
-siteController.frontend);
-
-router.get('/logout', 
-    authMiddlewares.maintenance,
-siteController.logout);
-
-router.post('/login', 
-    authMiddlewares.maintenance,
-siteController.checklogin);
-
-router.post('/signup', 
-    authMiddlewares.maintenance,
-siteController.checksignup);
-
-router.get('/course', 
-    authMiddlewares.maintenance,
-siteController.course);
-
-router.get('/signup',
-    authMiddlewares.maintenance,
-    authMiddlewares.requireLogin, 
-siteController.signup);
-
-router.get('/login',
-    authMiddlewares.maintenance,
-    authMiddlewares.requireLogin, 
-siteController.login);
-
-router.get('/account', 
-    authMiddlewares.maintenance,
-siteController.account);
-
-router.get('/seemore/:course', 
-    authMiddlewares.maintenance,
-siteController.seemore);
-
-router.get('/',
-    authMiddlewares.maintenance, 
-siteController.index);
-
-router.get('/maintenance', siteController.maintenance);
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+// the callback after google has authenticated the user
+router.get('/auth/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/login/google',
+        failureRedirect: '/login'
+    }));
+router.get('/', siteController.index);
 
 module.exports = router;

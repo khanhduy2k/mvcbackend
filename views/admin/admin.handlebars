@@ -3,12 +3,14 @@
         <a class="btn btn-primary mt-2" href="/admin/insert" >Thêm khóa học
             <i class="fas fa-plus"></i>
         </a>
+        {{#if admin}}
         <a class="btn btn-secondary mt-2" href="/admin/thanhvien" >Quản lí thành viên
             <i class="fas fa-users"></i>
         </a>
         <a class="btn btn-info mt-2" href="/admin/payments" >Quản lí thanh toán
             <i class="fas fa-money-bill-wave-alt"></i>
         </a>
+        {{/if}}
         <div class = "mt-2">
           <a class="btn btn-dark" href="/admin/thongbao">
           <i class="fas fa-bell" style="position: relative;">
@@ -45,7 +47,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="p-4 border-bottom text-center">
-        <h5>Admin muốn xóa khóa học này không?</h5>
+        <h5>Bạn muốn xóa khóa học này không?</h5>
       </div>
       <div class="p-4">
         <button type="button" id="btn-delete-course" class="btn btn-danger">Xóa bỏ</button>

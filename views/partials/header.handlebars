@@ -1,6 +1,6 @@
 <div class="header">
         <div class="logo__link ml-4">
-            <a href="/"><h3><b>Course Online</b></h3></a>
+            <a href="/"><h3><b>Cnow</b></h3></a>
         </div>
         <div class="header__link">
           <div class="items__link">
@@ -33,7 +33,7 @@
                 <i class="fas fa-bell"></i>
               </span>
               <div id="msg__bell_haeder" class="msg__bell_haeder">
-                <header><small><b>Thông báo</b></small></header>
+                <header><small class="text-dark"><b>Thông báo</b></small></header>
                 <div class="body_bell_show">
                   <p>Chào mừng <b>{{name}}</b> đã tới với <b class="text-danger">Course Online</b> !</p> 
                 </div>
@@ -64,7 +64,7 @@
                   <i class="fas fa-ellipsis-v"></i>
                 </label>
                 <div class="main__menu_show">
-                  {{#if admin}}
+                  {{#if collaborators}}
                   <div class="items__menu_auth">
                     <a href="/admin"><i class="fas fa-user-cog"></i> Quản lí</a>
                   </div>
@@ -156,7 +156,7 @@
                   <div class="items__mobile">
                     <a href="/courses/feedback"><i class="fas fa-envelope"></i>Góp ý</a>
                   </div>
-                  {{#if admin}}
+                  {{#if collaborators}}
                   <div class="items__mobile">
                     <a href="/admin"><i class="fas fa-user-cog"></i>Quản lí</a>
                   </div>
