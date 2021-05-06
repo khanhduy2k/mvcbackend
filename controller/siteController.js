@@ -302,7 +302,7 @@ class SiteController{
                         User.updateOne({ _id: data._id }, { $set: { secret: token } }).then()
                     }
                 });
-            await mailer.sendMail(email, "Login vào học lập trình trực tuyến với gmail", `<a href='http://localhost:8800/login/email/link?token=${token}&email=${email}' class="login-with-facebook">Đăng nhập site</a>`)
+            await mailer.sendMail(email, "Login vào học lập trình trực tuyến với gmail", `<a href='https://courseonline-vnua.herokuapp.com/login/email/link?token=${token}&email=${email}' class="login-with-facebook">Đăng nhập site</a>`)
             const msg = 'Link đăng nhập đã được gửi đến gmail của bạn';
             res.render('loginLinkEmail', { msg });
         } catch (error) {
