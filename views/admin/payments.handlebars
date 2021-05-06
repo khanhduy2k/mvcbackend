@@ -30,8 +30,8 @@
                     idUser: '{{this.idUser}}',
                     idCourse: '{{this.idCourse}}',
                     idPayment: '{{this.details.id}}',
-                    amountPayment: {{this.details.purchase_units.[0].amount.value}},
-                    emailPayment: '{{this.details.payer.email_address}}',
+                    amountPayment: {{this.details.transactions.[0].amount.total}},
+                    emailPayment: '{{this.details.payer.payer_info.email}}',
                     date: '{{this.details.create_time}}',
                 },
             {{/each}}

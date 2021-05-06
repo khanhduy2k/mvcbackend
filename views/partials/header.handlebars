@@ -13,12 +13,17 @@
     <div class="header__auth">
       {{#if login}}
       <div class="avatar">
-        {{#if admin}}
+        {{#if adminLimit}}
         <img src="/img/admin.jpg" alt="">
         <span class="text-danger"><b>{{name}}</b></span>
         {{else}}
+        {{#if admin}}
+        <img src="/img/adminLv1.jpg" alt="">
+        <span class="text-warning">{{name}}</span>
+        {{else}}
         <img src="/img/userchat.png" alt="">
         <span>{{name}}</span>
+        {{/if}}
         {{/if}}
       </div>
       <div class="line__"></div>

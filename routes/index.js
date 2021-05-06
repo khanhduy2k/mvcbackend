@@ -2,6 +2,7 @@ const siteRouter = require('./site');
 const coursesRouter = require('./courses');
 const profileRouter = require('./profile')
 const adminRouter = require('./admin');
+const payRouter = require('./pay');
 const authMiddlewares = require('../middlewares/authmiddlewares');
 
 
@@ -22,6 +23,10 @@ function route(app){
         authMiddlewares.requireUserlogin,
         authMiddlewares.requireAuth, 
     coursesRouter);
+
+    app.use('/pay',
+        authMiddlewares.requireUserlogin,
+    payRouter);
     
     app.use('/', 
         authMiddlewares.requireUserlogin,

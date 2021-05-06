@@ -15,7 +15,13 @@ const config = require('./config/authen/auth');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const middlewaresSocket = require('./middlewares/socket');
 const middlewaresExphbs = require('./middlewares/exphbs');
+const paypal = require('paypal-rest-sdk');
 
+paypal.configure({
+    'mode': 'sandbox', //sandbox or live
+    'client_id': 'AYhYuA9fTSd-Zc4WLSCzybMjnFc2ZDIMi8medLeRctArqRFWAJLb69mq5YG4FvtQmdAMUGeRWYxeX6zO',
+    'client_secret': 'EATfTy3DQBnO7svfmOlPmvmLPqNC1jDTJexlCvvcSfPQ2hjLYdab9fAnwdk-Ds-E7rDhbRGrM9WnWfFV'
+});
 db.connect();
 app.use(cookieparser('back-end-web-2020-vnua'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -54,7 +60,6 @@ function(accessToken, refreshToken, profile, done) {
     });
 }
 ));
-
 
 app.engine('handlebars',exphbs({
     helpers: middlewaresExphbs.helpers

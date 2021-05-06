@@ -22,6 +22,7 @@ router.get('/login/google', siteController.loginGoogleUser);
 router.get('/login/email/link', siteController.checkEmailLoginLink);
 router.get('/login/email/link/type', siteController.loginLinkTypeEmail);
 router.post('/login/email/link', siteController.sendEmailLinkLogin);
+
 router.get('/auth/facebook/callback',
     passport.authenticate('facebook', { successRedirect: '/loginFacebookUser', failureRedirect: '/login' }),
     function(req, res) {

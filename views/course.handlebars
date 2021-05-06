@@ -13,7 +13,6 @@
         </div>
     </div>
 </div>
-<script src="https://www.paypal.com/sdk/js?client-id=AYhYuA9fTSd-Zc4WLSCzybMjnFc2ZDIMi8medLeRctArqRFWAJLb69mq5YG4FvtQmdAMUGeRWYxeX6zO&disable-funding=credit,card"></script>
 <script>
     const pay = document.querySelector('.pay-ments');
     const mainCourses = document.querySelector('.main__show_courses');
@@ -47,11 +46,16 @@
                 if (renderCourse.learning.includes(slug)) {
                     return `<a class="btnJoin btn-learning" href="/courses/${slug}">Học tiếp</a>`
                 }else {
+                    {{#if admin}}
+                        return `
+                            <a class="btnJoin btn-learning" href="/courses/${slug}">Học tiếp</a>
+                            `
+                    {{else}}
                     if (price > 0) {
                         return `
                         <a class="btn-learn" href="/seemore/${slug}">Xem thêm</a>
                         {{#if login}}
-                        <div class="btn-buy" data-id="${id}">Mua ngay</div>
+                        <a class="btn-buy" href="/pay/cnow/${id}">Mua ngay</a>
                         {{else}}
                         <a href="/login" class="btn-buy">Mua ngay</a>
                         {{/if}}
@@ -63,6 +67,7 @@
                         <a class="btnJoin btn-learn bg-info" href="/courses/${slug}">Học ngay</a>
                         `
                     }
+                    {{/if}}
                 }
             },
             isFreePrice(price, slug) {
@@ -85,39 +90,6 @@
                 _this.learning = `${_this.learning}, ${data}`;
                 _this.student = _this.student+1;
                 _this.view();
-            });
-            socket.on('price-course', (course) => {
-                const btnPaypal = document.createElement('div');
-                btnPaypal.classList.add('paypal-button-container');
-                optionPay.appendChild(btnPaypal);
-                pay.style.display = 'flex';
-                paypal.Buttons({
-                    enableStandardCardFields: true,
-                    createOrder: function(data, actions) {
-                        return actions.order.create({
-                        purchase_units: [
-                            {
-                            amount: {
-                                value: `${course.priceCourse}`,
-                                currency_code: 'USD'
-                            },
-                            }
-                        ]
-                        });
-                    },
-                    onApprove: function(data, actions) {
-                        pay.style.display = 'none';
-                        const wait = document.createElement('div');
-                        wait.innerHTML = 'Vui lòng chờ...'
-                        wait.classList.add('wait-payment');
-                        mainCourses.appendChild(wait);
-                        return actions.order.capture().then(function(details) {
-                            if (details.status == 'COMPLETED') {
-                                socket.emit('payment-completed', {'details': details, 'idCourse': `${course._id}`, 'idUser': '{{data._id}}', 'slug': `${course.slug}`})
-                            }
-                        })
-                    }
-                }).render(btnPaypal);
             });
             {{/if}}
         },
@@ -148,25 +120,6 @@
                 `
             });
             viewRender.innerHTML = htmls.join('');
-            {{#if login}}
-            if(document.querySelectorAll('.btn-buy').length>1) {
-                document.querySelectorAll('.btn-buy').forEach(e=> {
-                e.onclick = () => {
-                        socket.emit('search-course', {'idCourse': `${e.dataset.id}`, 'idUser': '{{data._id}}'});
-                    }
-                });
-            }else {
-                document.querySelector('.btn-buy')?document.querySelector('.btn-buy').onclick = () => {
-                    socket.emit('search-course', {'idCourse': `${document.querySelector('.btn-buy').dataset.id}`, 'idUser': '{{data._id}}'});
-                }:''
-            }
-            
-
-            btnClosePay.onclick = () => {
-                pay.style.display = 'none';
-                document.querySelector('.paypal-button-container').remove();
-            }
-            {{/if}}
         },
         start: function() {
             this.view()

@@ -24,12 +24,12 @@ class CourseController{
                             .then(user => {
                                 const idUser = req.signedCookies.userId;
                                 const title = `Khóa học ${course.nameCourse}`;
-                                if(user.position !== 'admin') {
-                                    res.render('course/seemore', {title, course: mongooseToObject(course), user: mongooseToObject(user), idUser})
-                                }
-                                else {
+                                if(user.position === 'admin' || user.position === 'adminLv1') {
                                     res.cookie('khoahoc',course.slug)
                                     res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson), idUser})
+                                }
+                                else {
+                                    res.render('course/seemore', {title, course: mongooseToObject(course), user: mongooseToObject(user), idUser})                                    
                                 }
                             });
                         }
@@ -43,22 +43,19 @@ class CourseController{
                             .then()
                             Course.updateOne({slug: req.params.slug}, {numberStudents: course.numberStudents+1})
                             .then()                            
-                            if (data.position !== 'admin') {
-                                const newProgress = new Progress({idUser: data._id, idCourse: course._id, nameCourse: course.nameCourse});
-                                newProgress.save()
-                                .then(()=> {
-                                    Progress.findOne({idUser: data._id, idCourse: course._id})
-                                    .then(lesson =>{
-                                        res.cookie('khoahoc',course.slug)
-                                        res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)})
-                                    });
-                                });
+                            if (data.position === 'admin'||data.position === 'adminLv1') {
+                                res.cookie('khoahoc',course.slug);
+                                res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)});
                             }
                         }else {
-                            Progress.findOne({idUser: data._id, idCourse: course._id})
-                            .then(lesson =>{
-                                res.cookie('khoahoc',course.slug)
-                                res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)})
+                            const newProgress = new Progress({idUser: data._id, idCourse: course._id, nameCourse: course.nameCourse});
+                            newProgress.save()
+                            .then(()=> {
+                                Progress.findOne({idUser: data._id, idCourse: course._id})
+                                .then(lesson =>{
+                                    res.cookie('khoahoc',course.slug);
+                                    res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)});
+                                });
                             });
                         }
                     });

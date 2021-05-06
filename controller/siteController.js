@@ -374,6 +374,8 @@ class SiteController{
         res.clearCookie('userId');
         res.clearCookie('userPosition');
         res.clearCookie('userName');
+        res.clearCookie('IdCourseBuy');
+        res.clearCookie('slugCourse');
         res.redirect('/');
     }
     
@@ -389,6 +391,7 @@ class SiteController{
     account(req, res, next){
         res.render('account/account');
     }
+
 }
 
 module.exports = new SiteController();

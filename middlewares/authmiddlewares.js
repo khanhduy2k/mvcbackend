@@ -41,6 +41,9 @@ module.exports.requireUserlogin = function(req, res, next){
     if (req.signedCookies.userId){
         res.locals.login = true;
         res.locals.name = req.signedCookies.userName;
+        if (req.signedCookies.userPosition === 'admin') {
+            res.locals.adminLimit = true;
+        }
         if (req.signedCookies.userPosition === 'admin'||req.signedCookies.userPosition === 'adminLv1') {
             res.locals.admin = true;
             res.locals.collaborators = true;
@@ -51,4 +54,3 @@ module.exports.requireUserlogin = function(req, res, next){
     }
     next();
 };
-
