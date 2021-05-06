@@ -38,24 +38,43 @@ class CourseController{
                 else {
                     User.findOne({_id: req.signedCookies.userId})
                     .then(data=>{
-                        if (data.learning.includes(req.params.slug) == false){
+                        if (data.learning.includes(req.params.slug) == false){                           
                             User.updateOne({_id: req.signedCookies.userId}, {$push:{learning: req.params.slug}})
                             .then()
                             Course.updateOne({slug: req.params.slug}, {numberStudents: course.numberStudents+1})
-                            .then()                            
+                            .then() 
                             if (data.position === 'admin'||data.position === 'adminLv1') {
                                 res.cookie('khoahoc',course.slug);
                                 res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)});
+                            }else {
+                                const newProgress = new Progress({idUser: data._id, idCourse: course._id, nameCourse: course.nameCourse});
+                                newProgress.save()
+                                .then(()=> {
+                                    Progress.findOne({idUser: data._id, idCourse: course._id})
+                                    .then(lesson =>{
+                                        res.cookie('khoahoc',course.slug);
+                                        res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)});
+                                    });
+                                });
                             }
                         }else {
-                            const newProgress = new Progress({idUser: data._id, idCourse: course._id, nameCourse: course.nameCourse});
-                            newProgress.save()
-                            .then(()=> {
-                                Progress.findOne({idUser: data._id, idCourse: course._id})
-                                .then(lesson =>{
+                            Progress.findOne({idUser: data._id, idCourse: course._id})
+                            .then(lesson =>{
+                                if(lesson) {
                                     res.cookie('khoahoc',course.slug);
                                     res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lesson)});
-                                });
+                                }
+                                else {
+                                    const newProgress = new Progress({idUser: data._id, idCourse: course._id, nameCourse: course.nameCourse});
+                                    newProgress.save()
+                                    .then(()=> {
+                                        Progress.findOne({idUser: data._id, idCourse: course._id})
+                                        .then(lessonNew =>{
+                                            res.cookie('khoahoc',course.slug);
+                                            res.render('show', { course: mongooseToObject(course), title, lesson: mongooseToObject(lessonNew)});
+                                        });
+                                    });
+                                }
                             });
                         }
                     });
