@@ -22,7 +22,7 @@ class adminController{
                 }
                 else {
                     res.render('admin/admin', {
-                    courses: mutipleMongooseToObject(courses), title});
+                    courses: mutipleMongooseToObject(courses), title, hiddenHeader: true});
                 }
             })
         })
@@ -44,7 +44,7 @@ class adminController{
         Course.findOne({ _id: req.params.id})
         .then(courses =>{
             res.render('admin/edit', {
-                courses: mongooseToObject(courses), title});
+                courses: mongooseToObject(courses), title, hiddenHeader: true});
         })
         .catch(next);      
     }
@@ -58,7 +58,7 @@ class adminController{
         Course.findOne({ _id: req.params.id})
         .then(courses =>{
             res.render('admin/addvideo', {
-                courses: mongooseToObject(courses), title});
+                courses: mongooseToObject(courses), title, hiddenHeader: true});
         })
         .catch(next);
     }
@@ -76,7 +76,7 @@ class adminController{
         Course.findOne({ _id: req.params.id})
         .then(courses =>{
             res.render('admin/addvideo', {
-                courses: mongooseToObject(courses), title});
+                courses: mongooseToObject(courses), title, hiddenHeader: true});
         }))
         .catch(next)
     }
@@ -96,7 +96,7 @@ class adminController{
         .then(user =>{
             User.countDocuments({})
             .then(num=>{
-               res.render('admin/thanhvien',{title, user: mutipleMongooseToObject(user), num, page, perpage}) 
+               res.render('admin/thanhvien',{title, user: mutipleMongooseToObject(user), num, page, perpage, hiddenHeader: true}) 
             });
         })
         .catch(next);
@@ -111,7 +111,7 @@ class adminController{
         User.findOne({_id: req.params.name})
         .then(info=>{
             if (info){
-                res.render('admin/chitiet',{title, info:mongooseToObject(info)});
+                res.render('admin/chitiet',{title, info:mongooseToObject(info), hiddenHeader: true});
             }else{
                 res.redirect('/admin/thanhvien');
             }
@@ -123,11 +123,11 @@ class adminController{
         const tukhoa = req.query.tukhoa;
         if (tukhoa === ''){
             var warning = "Nhập tên thành viên muốn tìm kiếm!";
-            res.render('admin/timkiem',{title, warning})
+            res.render('admin/timkiem',{title, warning, hiddenHeader: true})
         }else{
             User.find({ $text:{ $search: "\""+tukhoa+"\""}})
             .then(user =>{
-                res.render('admin/timkiem',{title, user: mutipleMongooseToObject(user)}) 
+                res.render('admin/timkiem',{title, user: mutipleMongooseToObject(user), hiddenHeader: true}) 
             })
             .catch(next);
         }
@@ -140,7 +140,7 @@ class adminController{
             .then(num =>{
                 Feed.countDocuments({new: 'chưa đọc'})
                 .then(newnum => {
-                    res.render('admin/thongbao',{title, newnum, num, news: mutipleMongooseToObject(news)})
+                    res.render('admin/thongbao',{title, newnum, num, news: mutipleMongooseToObject(news), hiddenHeader: true})
                 })
             }) 
         }) 
@@ -155,7 +155,7 @@ class adminController{
             Feed.findOne({name: req.params.name})
             .then(readLetter =>{
                 res.render('admin/thongbao',{title, read:'chưa đọc',
-                     news: mutipleMongooseToObject(news), readLetter: mongooseToObject(readLetter)}) 
+                     news: mutipleMongooseToObject(news), readLetter: mongooseToObject(readLetter), hiddenHeader: true}) 
             })
         }) 
         .catch(next);
@@ -178,7 +178,7 @@ class adminController{
         const title = 'Quản lí thanh toán';
         Payments.find({})
         .then(data => {
-            res.render('admin/payments', {title, data: mutipleMongooseToObject(data)})
+            res.render('admin/payments', {title, data: mutipleMongooseToObject(data), hiddenHeader: true})
         })
     }
 

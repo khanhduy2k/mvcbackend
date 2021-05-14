@@ -9,7 +9,17 @@ module.exports.requireAuth = function(req, res, next){
     next()    
 };
 
-module.exports.requireAdmin = function(req, res, next){
+module.exports.requireAdminLimit = function(req, res, next){
+    if (req.signedCookies.userPosition === 'admin'){
+        next()
+    }
+    else {
+        res.redirect('/');
+        return;
+    }
+};
+
+module.exports.requireAdminLv1 = function(req, res, next){
     if (req.signedCookies.userPosition === 'admin'||req.signedCookies.userPosition === 'adminLv1') {
         next()
     }

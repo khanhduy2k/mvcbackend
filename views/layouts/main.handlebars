@@ -24,9 +24,12 @@
 <body>
     <noscript>Ứng dụng chỉ hoạt động trên các trình duyệt có hỗ trợ javascript</noscript>
         <div class="main">
-            {{> header}}
-            {{{body}}}
-            {{> footer}}
+                {{> header}}
+                {{{body}}}
+            {{#if hiddenHeader}}
+            {{else}}
+                {{> footer}}
+            {{/if}}
         </div>
         <div id="table">
             <h3>Ứng dụng chưa hỗ trợ cho thiết bị này</h3>

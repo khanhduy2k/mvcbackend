@@ -27,11 +27,11 @@ router.post('/:id/addvideo', adminController.postvideo);
 router.get('/:id/edit', adminController.edit);
 router.post('/:id/edit', adminController.update);
 router.post('/:id/delete', adminController.delete);
-router.post('/position-change/:id', authMiddlewares.requireAdmin, adminController.positionChange)
-router.post('/:id/deleteuser', authMiddlewares.requireAdmin, adminController.deleteuser);
-router.get('/:name/chitiet', authMiddlewares.requireAdmin, adminController.chitiet);
-router.get('/payments', authMiddlewares.requireAdmin, adminController.payments);
-router.get('/thanhvien', authMiddlewares.requireAdmin, adminController.thanhvien);
-router.get('/thanhvien/timkiem', authMiddlewares.requireAdmin, adminController.timkiem);
+router.post('/position-change/:id', authMiddlewares.requireAdminLimit, adminController.positionChange)
+router.post('/:id/deleteuser', authMiddlewares.requireAdminLv1, adminController.deleteuser);
+router.get('/:name/chitiet', authMiddlewares.requireAdminLv1, adminController.chitiet);
+router.get('/payments', authMiddlewares.requireAdminLimit, adminController.payments);
+router.get('/thanhvien', authMiddlewares.requireAdminLv1, adminController.thanhvien);
+router.get('/thanhvien/timkiem', authMiddlewares.requireAdminLv1, adminController.timkiem);
 router.get('/', adminController.admin);
 module.exports = router;

@@ -1,16 +1,26 @@
 <div class="footer">
-  <div class="footer-ribbon">
-
+  <div class="footer-ribbon text-right p-3">
+      <b class="text-light">Số người Online: <span id="number-online"></span></b>
   </div>
   <div class="footer-info">
       <div class="footer-info-contact">
           <div class="footer-info-contact__email">
-              Email liên hệ: <a href="">duykhanh06@gmail.com</a>
+              Email contact: <a href="">duykhanh06.work@gmail.com</a>
+              or <a href="https://www.facebook.com/khanh0006/">Facebook</a>
           </div>
           <div class="footer-info-contact__author">
-              Design by Duy Khánh
+              Design by team Duy Khánh
           </div>
-          <small class="text-secondary">Start 2020</small>
+          <small class="text-secondary">Start 11/2020</small>
       </div>
   </div>
 </div>
+<script type="text/javascript">
+    socket.on('get-number-online', (online)=> {
+        document.getElementById('number-online').innerHTML = online;
+    })
+    socket.emit('nghe')
+    socket.on('hello', ()=> {
+        alert('say hi!')
+    })
+</script>

@@ -2,11 +2,11 @@ const User = require('../controller/model/user');
 const Progress = require('../controller/model/lessonProgress');
 const Payments = require('../controller/model/paymentpaypal');
 const Course = require('../controller/model/course');
-
-module.exports.socket = function(socket) {
-    socket.on('nghe', ()=> {
-        console.log('nghe')
-    });
+const express = require('express');
+const app = express();
+const sever = require('http').createServer(app);
+const io = require('socket.io')(sever);
+module.exports.socket = (socket)=> {
 
     socket.on('Lesson-finished', (data)=>{
         Progress.findOne({_id: data[0]})
@@ -56,5 +56,5 @@ module.exports.socket = function(socket) {
             })
         })
     });
-    
+
 }

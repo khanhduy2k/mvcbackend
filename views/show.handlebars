@@ -5,9 +5,6 @@
             <div class="video_src">
                 <div class="iframe_video" id="player" src=""></div>
             </div>
-            <div class="comment">
-                Cnow
-            </div>
         </div>
         <div class="video_list-fake"></div>
         <div class="video_list">
@@ -15,9 +12,33 @@
             <div class="list_lessons"></div>
         </div>
     </div>
+    <div class="comment">
+        <div class="course-comment">
+            <b>Phần bình luận  <span class="ml-3" id="num-count-q">0 câu hỏi</span></b> 
+            <div class="input-comment">
+                <div class="img">
+                    <img src="/img/userchat.png" alt="">
+                </div>
+                <div class="input-content">
+                    <input id="input-cmt" type="text" placeholder="Bạn có thắc mắc gì trong bài học này?">
+                </div>
+                <div class="btn-send-cmt">
+                    <i class="far fa-paper-plane"></i>
+                </div>
+            </div>
+            <div class="context-comment">
+                <div class="load-comment">
+                    Đang tải dữ liệu <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                </div>
+            </div>
+        </div>
+        <div class="img-bg">
+            <img src="/img/bg/q-a.jpg" alt="">
+        </div>
+    </div>
 </div>
 <script src="https://www.youtube.com/iframe_api"></script>
-   <script>
+<script>
  
     const S = document.querySelector.bind(document);
     const SA = document.querySelectorAll.bind(document);
@@ -60,6 +81,9 @@
         },
         events: function () {
             const _this = this;
+
+            socket.emit('get-index-lesson', _this.indexFirst);
+
             lessonBtn.onclick = function (e) {
                 const lesson = e.target.closest('.lesson_item:not(.active)')
 
@@ -67,9 +91,15 @@
                     if (lesson) {
                         _this.indexFirst = Number(lesson.dataset.index);
                         _this.setConfig('indexVideo', _this.indexFirst);
-                        _this.setConfig('resetIndexVideo', true)
+                        _this.setConfig('resetIndexVideo', true);
+                        document.querySelector('.context-comment').innerHTML = 
+                        `<div class="load-comment">
+                            Đang tải dữ liệu <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                        </div>`;
                         player.loadVideoById(_this.videos[_this.indexFirst].src);
                         socket.emit('reset-count-time');
+                        socket.emit('get-index-lesson', _this.indexFirst);
+                        socket.emit('call-get-cmt');
                         _this.idvideo();
                         _this.render();
                         _this.namevideo();
@@ -163,13 +193,341 @@
                 if (timeVideo >= videoIframe.timevideo()) {
                     socket.emit('Lesson-finished', [`{{lesson._id}}`, videoIframe.Progress, videoIframe.videos.length])
                 }
-            }, 1000)
+            }, 1000);
         }
-    })
+    });
 
     socket.on('Stop-count-time',()=>{
         clearInterval(myTime);
         myTime = null;
-    })
+    });
 </script>
+<script>
+(function(){
+    function oldTime(time) {
+        const timeCmt = new Date(time);
+        const min = timeCmt.getMinutes();
+        const hours = timeCmt.getHours();
+        const today = timeCmt.getDay()+1;
+        const day = timeCmt.getDate();
+        const month = timeCmt.getMonth()+1;
+        const year = timeCmt.getFullYear();
+        if (today==8) today = 'CN';
+        return `Thứ ${today}, ${day} tháng ${month} ${year} lúc ${hours}:${min}`;
+    }
 
+    function timeHistory(timesta) {
+        const time = Number(timesta);
+        const datenow = new Date();
+        let age = Math.abs(datenow - time);
+        let unti ='';
+        let out = '';
+
+        if (age < 60000) {
+            return out = "Vừa xong";
+        }
+        else {
+            if (age >=60000 && age <3600000) {
+            age = Math.round(age/1000/60);
+            unti = 'phút';
+            }
+            else if (age >= 3600000 && age <= 86400000) {
+                age = Math.round(age/1000/60/60);
+                unti = 'giờ';
+            }
+            else{
+                age = Math.round(age/1000/60/60/24);
+                unti = 'ngày';
+            }
+            return out = age +" "+ unti + " trước";
+        }
+    }
+
+    function btnDelReply(idUser, index) {
+        if (idUser == '{{idUser}}') {
+            return `
+                <div class="reply-comment underline-text del-cmt" data-id="${index}">Xóa</div>
+                <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
+            `
+        }else {
+            return '';
+        }
+    }
+
+    const countComments = document.querySelector('#num-count-q');
+    const mainComment = document.querySelector('.context-comment');
+    const inputCmt = document.querySelector('#input-cmt');
+    const submitCmt = document.querySelector('.btn-send-cmt');
+    let dataComment = [];
+    const idCourseCmt = '{{course._id}}';
+
+    const renderComment = {
+        indexCurr: 1,
+        lesson: 0,
+        sortComment: function (){
+            dataComment.sort((a, b)=> {
+                return b.date - a.date
+            })
+        },
+        handle: {
+            _this: this,
+            renderReply(data, idCmt) {
+                const html = data.map((value, index)=>{ 
+                    return `
+                        <div class="main-comment">
+                            <div class="user">
+                                <div class="img">
+                                    <img src="/img/userchat.png" alt="">
+                                </div>
+                            </div>
+                            <div class="content-comment">
+                                <div class="content-comment-text">
+                                    <div class="name-user">
+                                        ${value.nameUser}
+                                    </div>
+                                    <div class="text-cmt">
+                                        ${value.contentComment}
+                                    </div>
+                                </div>
+                                <div class="option-comment ">
+                                    <label for="checked-checked-reply-input-r-${index}${idCmt}" class="reply-comment underline-text">Trả lời</label>
+                                    <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
+                                    ${btnDelReply(value.idUser, index)}
+                                    <div class="time-comment underline-text">
+                                        ${timeHistory(value.date)}
+                                        <div class="title">${oldTime(value.date)}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-reply-cmt">
+                            <input type="checkbox" hidden class="checked-reply-input" id="checked-checked-reply-input-r-${index}${idCmt}">
+                            <div class="input-comment reply">
+                                <div class="img reply">
+                                    <img src="/img/userchat.png" alt="">
+                                </div>
+                                <div class="input-content reply">
+                                    <input type="text" placeholder="Trả lời ..." value="@${value.nameUser}&nbsp;">
+                                </div>
+                                <label class="btn-destroy-reply-cmt" for="checked-checked-reply-input-r-${index}${idCmt}">Hủy</label>
+                                <div class="btn-reply-cmt">
+                                    Trả lời
+                                </div>
+                            </div>
+                        </div>
+                    `
+                });
+                return html.join('');
+            },
+            showBtnDel(idUser, id) {
+                if (idUser == '{{idUser}}') {
+                    return `
+                        <div class="reply-comment underline-text del-cmt" data-id="${id}">Xóa</div>
+                        <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
+                    `
+                }else {
+                    return '';
+                }
+            }
+        },
+        event: function() {
+            const _this = this;
+
+            socket.on('index-lesson', (index)=>{
+                _this.lesson = index;
+            })
+            socket.on('get-data-cmt', (data)=> {
+                dataComment = [];
+                data.map(value=>{
+                    if (value.idCourse == '{{course._id}}' && value.lesson == _this.lesson) {
+                        dataComment.push(value);
+                    }
+                })
+                this.sortComment();
+                this.view();
+            })
+
+            submitCmt.onclick =()=> {
+                const data = inputCmt.value;
+                inputCmt.value = '';
+                socket.emit('add-cmt-to-array', [data, '{{course._id}}', '{{idUser}}', _this.lesson]);
+            }
+            
+            inputCmt.onfocus =()=> {
+                window.onkeyup =(e)=>{
+                    if (e.keyCode == 13) {
+                        const data = inputCmt.value;
+                        inputCmt.value = '';
+                        socket.emit('add-cmt-to-array', [data, '{{course._id}}', '{{idUser}}', _this.lesson]);
+                    }
+                }
+            }
+        },
+        view: function() {
+            {{!-- Comments --}}
+            const number = `${dataComment.length} câu hỏi`;
+            countComments.innerHTML = number;
+
+            const htmlCmt = dataComment.map((data, index)=> {
+                if (index < 4*this.indexCurr) {
+                    if (data.reply.length > 0) {
+                        return `
+                            <div class="main-comment">
+                                <div class="user">
+                                    <div class="img">
+                                        <img src="/img/userchat.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="content-comment">
+                                    <div class="content-comment-text">
+                                        <div class="name-user">
+                                            ${data.nameUser}
+                                        </div>
+                                        <div class="text-cmt">
+                                            ${data.contentComment}
+                                        </div>
+                                    </div>
+                                    <div class="option-comment ">
+                                        <label for="checked-checked-reply-input${index}" class="reply-comment underline-text">
+                                           Trả lời
+                                        </label>
+                                        <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
+                                        ${this.handle.showBtnDel(data.idUser, data._id)}
+                                        <div class="time-comment underline-text">
+                                            ${timeHistory(data.date)}
+                                            <div class="title">${oldTime(data.date)}</div>
+                                        </div>
+                                    </div>
+                                    <div class="reply-context">
+                                        <input type="checkbox" hidden class="checked-hidden" id="checked-hidden${index}">
+                                        <div class="reply-content">
+                                            ${this.handle.renderReply(data.reply, index)}
+                                        </div>
+                                        <label for="checked-hidden${index}" class="reply-btn-cmt btn-show-reply ">
+                                        Xem ${data.reply.length} câu trả lời <i class="fas fa-caret-down"></i>
+                                        </label>
+                                        <label for="checked-hidden${index}" class="reply-btn-cmt btn-hidden-reply">
+                                        Ẩn câu trả lời <i class="fas fa-caret-up"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-reply-cmt">
+                                <input type="checkbox" hidden class="checked-reply-input" id="checked-checked-reply-input${index}">
+                                <div class="input-comment reply">
+                                    <div class="img reply">
+                                        <img src="/img/userchat.png" alt="">
+                                    </div>
+                                    <div class="input-content reply">
+                                        <input class="reply-${index}" type="text" placeholder="Trả lời ..." value="@${data.nameUser}&nbsp;">
+                                    </div>
+                                    <label class="btn-destroy-reply-cmt" for="checked-checked-reply-input${index}">Hủy</label>
+                                    <div class="btn-reply-cmt" data-index="${index}" data-id="${data._id}">
+                                        Trả lời
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                } else {
+                    return `
+                            <div class="main-comment">
+                                <div class="user">
+                                    <div class="img">
+                                        <img src="/img/userchat.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="content-comment">
+                                    <div class="content-comment-text">
+                                        <div class="name-user">
+                                            ${data.nameUser}
+                                        </div>
+                                        <div class="text-cmt">
+                                            ${data.contentComment}
+                                        </div>
+                                    </div>
+                                    <div class="option-comment ">
+                                        <label for="checked-checked-reply-input${index}" class="reply-comment underline-text">
+                                           Trả lời
+                                        </label>
+                                        <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
+                                        ${this.handle.showBtnDel(data.idUser, data._id)}
+                                        <div class="time-comment underline-text">
+                                             ${timeHistory(data.date)}
+                                            <div class="title">${oldTime(data.date)}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-reply-cmt">
+                                <input type="checkbox" hidden class="checked-reply-input" id="checked-checked-reply-input${index}">
+                                <div class="input-comment reply">
+                                    <div class="img reply">
+                                        <img src="/img/userchat.png" alt="">
+                                    </div>
+                                    <div class="input-content reply">
+                                        <input class="reply-${index}" type="text" placeholder="Trả lời ..." value="@${data.nameUser}&nbsp;">
+                                    </div>
+                                    <label class="btn-destroy-reply-cmt" for="checked-checked-reply-input${index}">Hủy</label>
+                                    <div class="btn-reply-cmt" data-index="${index}" data-id="${data._id}">
+                                        Trả lời
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }
+                } else if (index == 4*this.indexCurr) {
+                    return `
+                        <div class="btn-more-cmt">
+                            <b>Xem thêm bình luận</b> 
+                        </div>
+                    `
+                }
+            });
+            if (dataComment.length <= 0) {
+                const htmlCmt = `<div class="text-center text-secondary"> <b>Hiện tại chưa có bình luận nào</b></div>`;
+                mainComment.innerHTML = htmlCmt;
+            }
+            else {
+                mainComment.innerHTML = htmlCmt.join('');
+            }
+            const showMore = document.querySelector('.btn-more-cmt');
+            if (showMore) {
+                showMore.onclick =()=> {
+                    this.indexCurr+=1;
+                    this.view();
+                }
+            }
+
+            const btnDel = document.querySelectorAll('.del-cmt');
+            if (btnDel.length > 0) {
+                btnDel.forEach(e=>{
+                    e.onclick =()=>{
+                        socket.emit('del-comment', [e.dataset.id, '{{idUser}}']);
+                    }
+                });
+            }
+
+            const submitReply = document.querySelectorAll('.btn-reply-cmt');
+            if (submitReply.length > 0) {
+                submitReply.forEach(e=>{
+                    e.onclick =()=>{
+                        const idUser = '{{idUser}}';
+                        const elementInput = document.querySelector(`.reply-${e.dataset.index}`);
+                        const idCmt = e.dataset.id;
+                        socket.emit('add-reply', [elementInput.value, idCmt, idUser]);
+                        elementInput.value = '';
+                    }
+                });
+            }
+            {{!--  --}}
+        },
+        start: function() {
+            socket.emit('call-get-cmt', '{{idCourse}}')
+            this.event();
+            this.sortComment();
+        }
+    }
+    renderComment.start();
+})();
+
+</script>

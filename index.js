@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const exphbs  = require('express-handlebars');
@@ -5,7 +6,7 @@ const bodyparser= require('body-parser');
 const cookieparser = require('cookie-parser');
 const route = require('./routes');
 const app = express();
-const sever = require('http').Server(app);
+const sever = require('http').createServer(app);
 const io = require('socket.io')(sever);
 const db = require('./config/db');
 const passport = require('passport');
@@ -16,6 +17,10 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const middlewaresSocket = require('./middlewares/socket');
 const middlewaresExphbs = require('./middlewares/exphbs');
 const paypal = require('paypal-rest-sdk');
+const dbUser = require('./controller/model/user');
+const dbCourse = require('./controller/model/course');
+const dbComment = require('./controller/model/commentCourse');
+const user = require('./controller/model/user');
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
@@ -72,9 +77,77 @@ app.use(express.json());
 app.use(session({ secret: 'keyboard cat', key: 'sid' })); //Save user login
 app.use(passport.initialize());
 app.use(passport.session());
-
 route(app);
-io.on('connection', middlewaresSocket.socket)
+let numberUserOnline = 0;
+io.on('connection', middlewaresSocket.socket);
+io.on('connection', (socket)=>{
+    numberUserOnline++;
+    io.sockets.emit('get-number-online', numberUserOnline);
+    socket.on('disconnect', ()=>{
+        numberUserOnline > 0 ? numberUserOnline-- : numberUserOnline = 0;
+        io.sockets.emit('get-number-online', numberUserOnline);
+    });
+
+    socket.on('call-get-cmt', ()=> {
+        dbComment.find({})
+        .then((data)=>io.sockets.emit('get-data-cmt', data));
+    });
+
+    socket.on('add-cmt-to-array', (data)=> {
+        dbCourse.findOne({_id: data[1]})
+        .then(course => {
+            if (course) {
+                dbUser.findOne({_id: data[2]})
+                .then(user=>{
+                    if (user) {
+                        const newComment = new dbComment({
+                            idUser: data[2], 
+                            idCourse: data[1], 
+                            nameUser: user.fullName, 
+                            contentComment: data[0],
+                            lesson: data[3],
+                        });
+                        newComment.save()
+                        .then(()=>{
+                            dbComment.find({})
+                            .then((data)=>io.sockets.emit('get-data-cmt', data));
+                        })
+                    }
+                })
+            }            
+        })
+    });
+
+    socket.on('get-index-lesson', (index)=> {
+        socket.emit('index-lesson', index)
+    });
+
+    socket.on('del-comment', (data)=> {
+        dbComment.deleteOne({_id: data[0], idUser: data[1]})
+        .then(()=>{
+            dbComment.find({})
+            .then((data)=>io.sockets.emit('get-data-cmt', data));
+        })
+    });
+
+    socket.on('add-reply', (data)=>{
+        dbUser.findOne({_id: data[2]})
+        .then(user=>{
+            if(user){
+                dbComment.updateOne({_id: data[1]}, {$push: {reply: {
+                    idUser: data[2],
+                    nameUser: user.fullName,
+                    date: Number(new Date),
+                    contentComment: data[0]
+                }}})
+                .then(()=>{
+                    dbComment.find({})
+                    .then((data)=>io.sockets.emit('get-data-cmt', data));
+                });
+            }
+        });
+    });
+});
 const port = process.env.PORT || 8800;
 
 sever.listen(port, () => console.log(`App listening at http://localhost:${port}`));

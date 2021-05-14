@@ -7,9 +7,11 @@
         <a class="btn btn-secondary mt-2" href="/admin/thanhvien" >Quản lí thành viên
             <i class="fas fa-users"></i>
         </a>
+        {{#if adminLimit}}
         <a class="btn btn-info mt-2" href="/admin/payments" >Quản lí thanh toán
             <i class="fas fa-money-bill-wave-alt"></i>
         </a>
+        {{/if}}
         {{/if}}
         <div class = "mt-2">
           <a class="btn btn-dark" href="/admin/thongbao">

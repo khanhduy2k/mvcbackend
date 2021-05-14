@@ -3,55 +3,58 @@ const Course = require('./model/course');
 const User = require('./model/user');
 const Progress = require('./model/lessonProgress');
 const Payments = require('./model/paymentpaypal');
-const http = 'https://courseonline-vnua.herokuapp.com/';
+
 class PayController{
     pay(req, res, next){
         Course.findOne({_id: req.params.id})
         .then(data => {
-            res.cookie('IdCourseBuy', data._id, {
-                signed: true
-            });
-            res.cookie('slugCourse', data.slug, {
-                signed: true
-            });
-            const create_payment_json = {
-                "intent": "sale",
-                "payer": {
-                    "payment_method": "paypal"
-                },
-                "redirect_urls": {
-                    "return_url": `${http}pay/success`,
-                    "cancel_url": `${http}pay/cancel`
-                },
-                "transactions": [{
-                    "item_list": {
-                        "items": [{
-                            "name": `Khóa ${data.nameCourse}`,
-                            "sku": "001",
-                            "price": `${data.priceCourse}`,
+            if(data) {
+                res.cookie('IdCourseBuy', data._id, {
+                    signed: true
+                });
+                res.cookie('slugCourse', data.slug, {
+                    signed: true
+                });
+                const create_payment_json = {
+                    "intent": "sale",
+                    "payer": {
+                        "payment_method": "paypal"
+                    },
+                    "redirect_urls": {
+                        "return_url": "http://localhost:8800/pay/success",
+                        "cancel_url": "http://localhost:8800/pay/cancel"
+                    },
+                    "transactions": [{
+                        "item_list": {
+                            "items": [{
+                                "name": `Khóa ${data.nameCourse}`,
+                                "sku": "001",
+                                "price": `${data.priceCourse}`,
+                                "currency": "USD",
+                                "quantity": 1
+                            }]
+                        },
+                        "amount": {
                             "currency": "USD",
-                            "quantity": 1
-                        }]
-                    },
-                    "amount": {
-                        "currency": "USD",
-                        "total": `${data.priceCourse}`
-                    },
-                    "description": `Thanh toán khóa học ${data.nameCourse} cho Cnow`
-                }]
-            };
-            
-            paypal.payment.create(create_payment_json, function (error, payment) {
-                if (error) {
-                    throw error;
-                } else {
-                    for(let i = 0;i < payment.links.length;i++){
-                    if(payment.links[i].rel === 'approval_url'){
-                        res.redirect(payment.links[i].href);
-                    }
+                            "total": `${data.priceCourse}`
+                        },
+                        "description": `Thanh toán khóa học ${data.nameCourse} cho Cnow`
+                    }]
+                };
+                paypal.payment.create(create_payment_json, function (error, payment) {
+                    if (error) {
+                        throw error;
+                    } else {
+                        for(let i = 0;i < payment.links.length;i++){
+                        if(payment.links[i].rel === 'approval_url'){
+                            res.redirect(payment.links[i].href);
+                        }
                     }
                 }
             });
+            }else {
+                res.send('Đã có lỗi xảy ra!');
+            } 
         })    
     }
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 async function connect(){
     try{
-        await mongoose.connect('mongodb+srv://duykhanh:gENglSwLA5eNSJNR@posts.llbbe.mongodb.net/courses?retryWrites=true&w=majority', {
+        await mongoose.connect('mongodb+srv://courseonline:OVMNnUfMZuXJy54J@cluster0.x0kzz.mongodb.net/courses?retryWrites=true&w=majority', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,

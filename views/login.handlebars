@@ -1,4 +1,4 @@
-<div class="main__login">
+<div class="{{#if hiddenHeader}}main-login-page-admin{{else}}main__login{{/if}}" {{#if hiddenHeader}} style="background-image: url('/img/bg/bg.jpg');"{{/if}}>
     <div class="container col-sm-4 col-md-6 col-lg-4 sign-up">
         <h2>Đăng nhập</h2>
         <form method="POST" id="login-form">

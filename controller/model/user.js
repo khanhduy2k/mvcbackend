@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchame = new Schema({
-    user: { type: String, required: true},
+    user: { type: String,},
     fullName: { type: String, required: true },
-    email:{ type: String, required: true, },
-    passWord: { type: String, required: true,},
+    email:{ type: String,},
+    passWord: { type: String,},
     facebookId: { type: String },
     learning: { type: Array },
     secret: { type: String },

@@ -3,7 +3,7 @@ const { mongooseToObject } = require('../util/mongoose');
 const Course = require('./model/course');
 const User = require('./model/user');
 const md5 = require('md5');
-global.crypto = require('crypto')
+global.crypto = require('crypto');
 const mailer = require('../util/mailer');
 
 class SiteController{
@@ -12,20 +12,22 @@ class SiteController{
         const title = 'Cnow team';
         Course.find({})
             .then(courses => {
+                if (courses){
                     User.findOne({_id: req.signedCookies.userId})
                     .then(data=>{
                         Course.countDocuments({})
                         .then(num =>{
-                    if (!req.signedCookies.userId) {
-                    res.render('home',{ 
-                        courses: mutipleMongooseToObject(courses), title, num});
-                    }
-                    if (req.signedCookies.userId) {
+                        if (!req.signedCookies.userId) {
                         res.render('home',{ 
-                        courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title});            
-                    }  
-                    })
-                })  
+                            courses: mutipleMongooseToObject(courses), title, num});
+                        }
+                        if (req.signedCookies.userId) {
+                            res.render('home',{ 
+                            courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title});            
+                        }  
+                        })
+                    }) 
+                }
             })
         .catch(next);             
     }
@@ -33,20 +35,22 @@ class SiteController{
         const title = 'Khóa học';
         Course.find({})
             .then(courses => {
+                if (courses) {
                     User.findOne({_id: req.signedCookies.userId})
                     .then(data=>{
                         Course.countDocuments({})
                         .then(num =>{
-                    if (!req.signedCookies.userId) {
-                    res.render('course',{ 
-                        courses: mutipleMongooseToObject(courses), title, num});
-                    }
-                    if (req.signedCookies.userId) {
-                        res.render('course',{ 
-                        courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title});            
-                    }  
-                    })
-                })  
+                            if (!req.signedCookies.userId) {
+                            res.render('course',{ 
+                                courses: mutipleMongooseToObject(courses), title, num});
+                            }
+                            if (req.signedCookies.userId) {
+                                res.render('course',{ 
+                                courses: mutipleMongooseToObject(courses), num, data: mongooseToObject(data), title});            
+                            }  
+                        })
+                    })  
+                }
             })
         .catch(next);  
     }
@@ -111,7 +115,7 @@ class SiteController{
                 res.cookie('userId', data._id,{
                     signed: true
                 });
-                res.cookie('userName', data.user,{
+                res.cookie('userName', data.fullName,{
                     signed: true
                 });
                 res.cookie('userPosition', data.position,{
@@ -220,7 +224,7 @@ class SiteController{
             User.findOne({ facebookId: req.user.id })
                 .then(data => {
                     if (data) {
-                        res.cookie('userName', data.user,{
+                        res.cookie('userName', data.fullName,{
                             signed: true
                         });
                         res.cookie('userPosition', data.position,{
@@ -251,7 +255,7 @@ class SiteController{
             User.findOne({ email: email })
                 .then(data => {
                     if (data) {
-                        res.cookie('userName', data.user,{
+                        res.cookie('userName', data.fullName,{
                             signed: true
                         });
                         res.cookie('userPosition', data.position,{
@@ -262,8 +266,14 @@ class SiteController{
                         });
                         res.redirect('/');
                     } else {
-                        const newUser = new User({ user: req.user.displayName, fullName: req.user.displayName, email: email });
+                        const newUser = new User({ user: null, fullName: req.user.displayName, email: email, passWord: nulll});
                         newUser.save().then(data => {
+                            res.cookie('userName', data.fullName,{
+                                signed: true
+                            });
+                            res.cookie('userPosition', data.position,{
+                                signed: true
+                            });
                             res.cookie('userId', data._id, {
                                 signed: true
                             });
@@ -302,7 +312,7 @@ class SiteController{
                         User.updateOne({ _id: data._id }, { $set: { secret: token } }).then()
                     }
                 });
-            await mailer.sendMail(email, "Login vào học lập trình trực tuyến với gmail", `<a href='https://courseonline-vnua.herokuapp.com/login/email/link?token=${token}&email=${email}' class="login-with-facebook">Đăng nhập site</a>`)
+            await mailer.sendMail(email, "Login vào học lập trình trực tuyến với gmail", `<a href='http://localhost:8800/login/email/link?token=${token}&email=${email}' class="login-with-facebook">Đăng nhập site</a>`)
             const msg = 'Link đăng nhập đã được gửi đến gmail của bạn';
             res.render('loginLinkEmail', { msg });
         } catch (error) {
@@ -318,7 +328,7 @@ class SiteController{
             User.findOne({ email: email })
                 .then(data => {
                     if (data.secret == token) {
-                        res.cookie('userName', data.user,{
+                        res.cookie('userName', data.fullName,{
                             signed: true
                         });
                         res.cookie('userPosition', data.position,{
@@ -349,9 +359,9 @@ class SiteController{
                         });
                         res.redirect('/');
                     } else {
-                        const newUser = new User({ user: req.user.displayName, fullName: req.user.displayName, email: null, passWord: null, facebookId: req.user.id });
+                        const newUser = new User({ user: null, fullName: req.user.displayName, email: null, passWord: null, facebookId: req.user.id });
                         newUser.save().then(data => {
-                            res.cookie('userName', data.user,{
+                            res.cookie('userName', data.fullName,{
                                 signed: true
                             });
                             res.cookie('userPosition', data.position,{
@@ -390,6 +400,47 @@ class SiteController{
     
     account(req, res, next){
         res.render('account/account');
+    }
+
+    adminPage(req, res, next) {
+        const title = 'Đăng nhập trang quản trị';
+        res.render('login', {title, hiddenHeader: true})
+    }
+
+    pageLoginAdmin(req, res){
+        const title = 'Đăng nhập trang quản trị';
+        const user = req.body.user;
+        const passWord = md5(req.body.passWord);
+        const check = req.body.mact;
+        const check2 = req.body.mact2;
+        if (user ===''||passWord===''){
+            const msg ='Vui lòng nhập đầy đủ!';
+            res.render('login',{title, msg, hiddenHeader: true});
+            return;
+        }
+        if(check == check2){
+            User.findOne({user: user,passWord: passWord})
+            .then(data=>{
+                if(data.position === 'admin'||data.position === 'adminLv1'||data.position === 'collaborators'){
+                    res.cookie('userId', data._id,{
+                        signed: true
+                    });
+                    res.cookie('userName', data.fullName,{
+                        signed: true
+                    });
+                    res.cookie('userPosition', data.position,{
+                        signed: true
+                    });
+                    res.redirect('/admin');
+                }else{
+                    const msg ='Tài khoản hoặc mật khẩu không chính xác!!';
+                    res.render('login',{msg, title, hiddenHeader: true});
+                }
+        })
+        }else{
+            const msg ='Mã xác thực không chính xác!!';
+            res.render('login',{msg, title, hiddenHeader: true});
+        }
     }
 
 }

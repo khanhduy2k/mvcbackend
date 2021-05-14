@@ -9,8 +9,9 @@ router.get('/profile',authMiddlewares.requireAuth,siteController.profile);
 router.get('/backend', siteController.backend);
 router.get('/frontend', siteController.frontend);
 router.get('/logout', siteController.logout);
-router.post('/login', siteController.checklogin);
-router.post('/signup', siteController.checksignup);
+router.post('/login', authMiddlewares.requireLogin, siteController.checklogin);
+router.post('/admin-login',authMiddlewares.requireLogin, siteController.pageLoginAdmin);
+router.post('/signup', authMiddlewares.requireLogin, siteController.checksignup);
 router.get('/course', siteController.course);
 router.get('/signup',authMiddlewares.requireLogin, siteController.signup);
 router.get('/login',authMiddlewares.requireLogin, siteController.login);
@@ -41,6 +42,7 @@ router.get('/auth/google/callback',
         successRedirect: '/login/google',
         failureRedirect: '/login'
     }));
+router.get('/admin-login', authMiddlewares.requireLogin, siteController.adminPage);
 router.get('/', siteController.index);
 
 module.exports = router;

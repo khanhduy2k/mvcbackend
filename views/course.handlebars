@@ -46,7 +46,7 @@
                 if (renderCourse.learning.includes(slug)) {
                     return `<a class="btnJoin btn-learning" href="/courses/${slug}">Học tiếp</a>`
                 }else {
-                    {{#if admin}}
+                    {{#if collaborators}}
                         return `
                             <a class="btnJoin btn-learning" href="/courses/${slug}">Học tiếp</a>
                             `
