@@ -4,6 +4,7 @@
             <div class="name_video"></div>
             <div class="video_src">
                 <div class="iframe_video" id="player" src=""></div>
+                <p>ok</p>
             </div>
         </div>
         <div class="video_list-fake"></div>
@@ -205,15 +206,15 @@
 <script>
 (function(){
     function oldTime(time) {
-        const timeCmt = new Date(time);
-        const min = timeCmt.getMinutes();
-        const hours = timeCmt.getHours();
-        const today = timeCmt.getDay()+1;
-        const day = timeCmt.getDate();
-        const month = timeCmt.getMonth()+1;
-        const year = timeCmt.getFullYear();
-        if (today==8) today = 'CN';
-        return `Thứ ${today}, ${day} tháng ${month} ${year} lúc ${hours}:${min}`;
+        let timeCmt = new Date(time);
+        let min = timeCmt.getMinutes();
+        let hours = timeCmt.getHours();
+        let today = timeCmt.getDay()+1;
+        let day = timeCmt.getDate();
+        let month = timeCmt.getMonth()+1;
+        let year = timeCmt.getFullYear();
+        if (today==1) today = 'CN';
+        return `${today=='CN'?'':'Thứ'} ${today}, ${day} tháng ${month} ${year} lúc ${hours}:${min}`;
     }
 
     function timeHistory(timesta) {
@@ -243,10 +244,10 @@
         }
     }
 
-    function btnDelReply(idUser, index) {
+    function btnDelReply(idUser, id, index) {
         if (idUser == '{{idUser}}') {
             return `
-                <div class="reply-comment underline-text del-cmt" data-id="${index}">Xóa</div>
+                <div class="reply-comment underline-text del-cmt-reply" data-id="${id}" data-iduser="${idUser}" data-index="${index}">Xóa</div>
                 <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
             `
         }else {
@@ -269,10 +270,15 @@
                 return b.date - a.date
             })
         },
+        config: JSON.parse(localStorage.getItem(STORAGE_INDEX_VIDEO)) || {},
+        setConfig: function (index, value) {
+            this.config[index] = value;
+            localStorage.setItem(STORAGE_INDEX_VIDEO, JSON.stringify(this.config));
+        },
         handle: {
             _this: this,
-            renderReply(data, idCmt) {
-                const html = data.map((value, index)=>{ 
+            renderReply(data, idCmt, id) {
+                const html = data.map((value, index)=>{
                     return `
                         <div class="main-comment">
                             <div class="user">
@@ -292,7 +298,7 @@
                                 <div class="option-comment ">
                                     <label for="checked-checked-reply-input-r-${index}${idCmt}" class="reply-comment underline-text">Trả lời</label>
                                     <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
-                                    ${btnDelReply(value.idUser, index)}
+                                    ${btnDelReply(value.idUser, id, value._idCmt)}
                                     <div class="time-comment underline-text">
                                         ${timeHistory(value.date)}
                                         <div class="title">${oldTime(value.date)}</div>
@@ -307,10 +313,10 @@
                                     <img src="/img/userchat.png" alt="">
                                 </div>
                                 <div class="input-content reply">
-                                    <input type="text" placeholder="Trả lời ..." value="@${value.nameUser}&nbsp;">
+                                    <input type="text" id="input-r-${index}${idCmt}" placeholder="Trả lời ..." value="@${value.nameUser}&nbsp;">
                                 </div>
                                 <label class="btn-destroy-reply-cmt" for="checked-checked-reply-input-r-${index}${idCmt}">Hủy</label>
-                                <div class="btn-reply-cmt">
+                                <div class="btn-reply-cmt btn-reply-reply" data-input="input-r-${index}${idCmt}" data-id="${id}">
                                     Trả lời
                                 </div>
                             </div>
@@ -399,11 +405,11 @@
                                         </div>
                                     </div>
                                     <div class="reply-context">
-                                        <input type="checkbox" hidden class="checked-hidden" id="checked-hidden${index}">
+                                        <input type="checkbox" hidden ${data._id==this.config.reply?'checked':''} class="checked-hidden" id="checked-hidden${index}">
                                         <div class="reply-content">
-                                            ${this.handle.renderReply(data.reply, index)}
+                                            ${this.handle.renderReply(data.reply, index, data._id)}
                                         </div>
-                                        <label for="checked-hidden${index}" class="reply-btn-cmt btn-show-reply ">
+                                        <label for="checked-hidden${index}" data-id="${data._id}" class="reply-btn-cmt btn-show-reply ">
                                         Xem ${data.reply.length} câu trả lời <i class="fas fa-caret-down"></i>
                                         </label>
                                         <label for="checked-hidden${index}" class="reply-btn-cmt btn-hidden-reply">
@@ -490,6 +496,12 @@
             else {
                 mainComment.innerHTML = htmlCmt.join('');
             }
+            {{!--  --}}
+
+            this.handleClick();
+        },
+        handleClick: function() {
+            const _this = this;
             const showMore = document.querySelector('.btn-more-cmt');
             if (showMore) {
                 showMore.onclick =()=> {
@@ -508,19 +520,52 @@
             }
 
             const submitReply = document.querySelectorAll('.btn-reply-cmt');
-            if (submitReply.length > 0) {
-                submitReply.forEach(e=>{
-                    e.onclick =()=>{
-                        const idUser = '{{idUser}}';
-                        const elementInput = document.querySelector(`.reply-${e.dataset.index}`);
-                        const idCmt = e.dataset.id;
-                        socket.emit('add-reply', [elementInput.value, idCmt, idUser]);
-                        elementInput.value = '';
-                    }
-                });
-            }
-            {{!--  --}}
-        },
+            submitReply.forEach(e=>{
+                e.onclick =()=>{
+                    const idUser = '{{idUser}}';
+                    const elementInput = document.querySelector(`.reply-${e.dataset.index}`);
+                    const idCmt = e.dataset.id;
+                    _this.setConfig('reply', idCmt);
+                    socket.emit('add-reply', [elementInput.value, idCmt, idUser]);
+                    elementInput.value = '';
+                }
+            });
+
+            const btnDelReplyCmt = document.querySelectorAll('.del-cmt-reply');
+            btnDelReplyCmt.forEach(e=>{
+                e.onclick =()=> {
+                    socket.emit('del-comment-reply', {'id': e.dataset.id, 'idUser': e.dataset.iduser, 'index': e.dataset.index});
+                }
+            });
+
+            const showReply = document.querySelectorAll('.btn-show-reply');
+            showReply.forEach(e=>{
+                e.onclick =()=> {
+                    _this.setConfig('reply',e.dataset.id);
+                    _this.view();
+                }
+            });
+
+            const hideReply = document.querySelectorAll('.btn-hidden-reply');
+            hideReply.forEach(e=>{
+                e.onclick =()=> {
+                    _this.setConfig('reply',null);
+                    _this.view();
+                }
+            });
+
+            const submitReplyof = document.querySelectorAll('.btn-reply-reply');
+            submitReplyof.forEach(e=>{
+                e.onclick =()=>{
+                    const idUser = '{{idUser}}';
+                    const elementInput = document.querySelector(`#${e.dataset.input}`);
+                    const idCmt = e.dataset.id;
+                    socket.emit('add-reply', [elementInput.value, idCmt, idUser]);
+                    elementInput.value = '';
+                }
+            });
+        }
+        ,
         start: function() {
             socket.emit('call-get-cmt', '{{idCourse}}')
             this.event();
