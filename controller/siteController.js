@@ -443,6 +443,19 @@ class SiteController{
         }
     }
 
+    checkSSl(req, res) {
+        res.send(`
+        1D412164460951D768580BA32CB0D2B7DCD290027CB28090CCD983C1332F532D\n
+        comodoca.com\n
+        87d0a24d1a0ddaa`
+        );
+    }
+
+    page404(req, res) {
+        const title = '404';
+        res.status(404).render('page404', {title});
+    }
+
 }
 
 module.exports = new SiteController();

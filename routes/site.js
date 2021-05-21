@@ -43,6 +43,8 @@ router.get('/auth/google/callback',
         failureRedirect: '/login'
     }));
 router.get('/admin-login', authMiddlewares.requireLogin, siteController.adminPage);
+router.get('/.well-known/pki-validation/C3FE040EBBE57052B23FFB299A6B4DE2.txt', siteController.checkSSl);
 router.get('/', siteController.index);
+router.use(siteController.page404);
 
 module.exports = router;
