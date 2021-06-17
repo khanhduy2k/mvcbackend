@@ -196,7 +196,11 @@ class SiteController{
                             }else{
                                 const md5passWord = md5(passWord);
                                 const newUser = new User({
-                                    user: user, 
+                                    user: xss(user, {
+                                        whiteList: {},
+                                        stripIgnoreTag: true,
+                                        stripIgnoreTagBody: ["script"]
+                                    }), 
                                     fullName: xss(fullName, {
                                         whiteList: {},
                                         stripIgnoreTag: true,
