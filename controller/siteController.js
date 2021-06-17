@@ -5,6 +5,7 @@ const User = require('./model/user');
 const md5 = require('md5');
 global.crypto = require('crypto');
 const mailer = require('../util/mailer');
+const xss = require("xss");
 
 class SiteController{
 
@@ -194,7 +195,14 @@ class SiteController{
                                 errors.push({ msg: 'Nhập tên tài khoản!' });
                             }else{
                                 const md5passWord = md5(passWord);
-                                const newUser = new User({user: user, fullName: fullName, email: email, passWord: md5passWord});
+                                const newUser = new User({
+                                    user: user, 
+                                    fullName: xss(fullName, {
+                                        whiteList: {},
+                                        stripIgnoreTag: true,
+                                        stripIgnoreTagBody: ["script"]
+                                    }), 
+                                    email: email, passWord: md5passWord});
                                 newUser.save();
                                 res.render('signup',{success: true});
                                 }
