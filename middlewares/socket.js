@@ -2,7 +2,9 @@ const dbProgress = require('../controller/model/lessonProgress');
 const dbPayments = require('../controller/model/paymentpaypal');
 const dbUser = require('../controller/model/user');
 const dbCourse = require('../controller/model/course');
+const validator = require('validator');
 const dbComment = require('../controller/model/commentCourse');
+const xss = require("xss");
 
 module.exports.start = (io) => {
     let numberUserOnline = 0;
@@ -81,7 +83,11 @@ module.exports.start = (io) => {
                                 idUser: data[2],
                                 idCourse: data[1],
                                 nameUser: user.fullName,
-                                contentComment: data[0],
+                                contentComment: xss(data[0], {
+                                    whiteList: {},
+                                    stripIgnoreTag: true,
+                                    stripIgnoreTagBody: ["script"]
+                                }),
                                 lesson: data[3],
                             });
                             newComment.save().then(() => {
@@ -123,7 +129,11 @@ module.exports.start = (io) => {
                                         idUser: data[2],
                                         nameUser: user.fullName,
                                         date: Number(new Date()),
-                                        contentComment: data[0],
+                                        contentComment: xss(data[0], {
+                                            whiteList: {},
+                                            stripIgnoreTag: true,
+                                            stripIgnoreTagBody: ["script"]
+                                        }),
                                     },
                                 },
                             },
