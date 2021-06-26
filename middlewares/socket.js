@@ -2,14 +2,67 @@ const dbProgress = require('../controller/model/lessonProgress');
 const dbPayments = require('../controller/model/paymentpaypal');
 const dbUser = require('../controller/model/user');
 const dbCourse = require('../controller/model/course');
-const validator = require('validator');
 const dbComment = require('../controller/model/commentCourse');
-const xss = require("xss");
+const dbVisited = require('../controller/model/visited');
 
 module.exports.start = (io) => {
     let numberUserOnline = 0;
 
     io.on('connection', (socket) => {
+        socket.on('user-connected', () => {
+            const date = new Date();
+            if (date.getDay() === 6) {
+                dbVisited
+                    .findOne({
+                        date: `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`,
+                    })
+                    .then((data) => {
+                        if (data) {
+                            dbVisited
+                                .find()
+                                .sort({ date: -1 })
+                                .skip(0)
+                                .limit(1)
+                                .then((data) => {
+                                    dbVisited
+                                        .updateOne(
+                                            { _id: data[0]._id },
+                                            { number: data[0].number + 1 },
+                                        )
+                                        .then();
+                                });
+                        } else {
+                            new dbVisited({
+                                date: `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`,
+                            }).save();
+                        }
+                    });
+            } else {
+                dbVisited
+                    .find()
+                    .sort({ date: -1 })
+                    .skip(0)
+                    .limit(1)
+                    .then((data) => {
+                        dbVisited
+                            .updateOne(
+                                { _id: data[0]._id },
+                                { number: data[0].number + 1 },
+                            )
+                            .then();
+                    });
+            }
+        });
+
+        socket.on('get-visted', () => {
+            dbVisited
+                .find()
+                .sort({ date: -1 })
+                .skip(0)
+                .limit(2)
+                .then((data) => socket.emit('get-number-visit', data));
+        });
+
         socket.on('Lesson-finished', (data) => {
             dbProgress.findOne({ _id: data[0] }).then((user) => {
                 if (user.position == 'admin' || user.position == 'adminLv1') {
@@ -51,13 +104,17 @@ module.exports.start = (io) => {
 
         socket.on('details-payments', (data) => {
             dbCourse.findOne({ _id: data.idCourse }).then((course) => {
-                dbUser.findOne({ _id: data.idUser }).then((user) => {
-                    socket.emit('get-data-payment', {
-                        course: course,
-                        user: user,
-                        date: data.date,
-                    });
-                });
+                course
+                    ? dbUser.findOne({ _id: data.idUser }).then((user) => {
+                          user
+                              ? socket.emit('get-data-payment', {
+                                    course: course,
+                                    user: user,
+                                    date: data.date,
+                                })
+                              : socket.emit('error-user');
+                      })
+                    : socket.emit('error-course');
             });
         });
 
@@ -83,11 +140,7 @@ module.exports.start = (io) => {
                                 idUser: data[2],
                                 idCourse: data[1],
                                 nameUser: user.fullName,
-                                contentComment: xss(data[0], {
-                                    whiteList: {},
-                                    stripIgnoreTag: true,
-                                    stripIgnoreTagBody: ["script"]
-                                }),
+                                contentComment: data[0],
                                 lesson: data[3],
                             });
                             newComment.save().then(() => {
@@ -129,11 +182,7 @@ module.exports.start = (io) => {
                                         idUser: data[2],
                                         nameUser: user.fullName,
                                         date: Number(new Date()),
-                                        contentComment: xss(data[0], {
-                                            whiteList: {},
-                                            stripIgnoreTag: true,
-                                            stripIgnoreTagBody: ["script"]
-                                        }),
+                                        contentComment: data[0],
                                     },
                                 },
                             },
@@ -172,6 +221,24 @@ module.exports.start = (io) => {
                                 );
                         });
                 }
+            });
+        });
+
+        socket.on('edit-cmt', (data) => {
+            dbComment
+                .updateOne({ _id: data.id }, { contentComment: data.cmt })
+                .then(() => {
+                    dbComment
+                        .find({})
+                        .then((data) => io.sockets.emit('get-data-cmt', data));
+                    socket.emit('success-edit-cmt');
+                })
+                .catch(() => socket.emit('error-edit-cmt'));
+        });
+
+        socket.on('get-data-products', () => {
+            dbCourse.find({}).then((data) => {
+                socket.emit('send-data-client', data);
             });
         });
     });

@@ -14,9 +14,10 @@
                     <span class="fas fa-angle-right text-info" style="float: right; font-size:20px"></span>
                     <p class="text-info">********</p>
                 </div>
-                <div class="border-bottom mb-3" >
+                <div class="border-bottom mb-3" style="cursor: pointer;" onclick="changeemail()">
                     <h4>Email</h4>
-                    <p class="text-info">{{profile.email}}</p>
+                    <span class="fas fa-angle-right text-info" style="float: right; font-size:20px"></span>
+                    <p class="text-info">{{{hideEmail profile.email}}}</p>
                 </div>
             </div>
         </div>
@@ -24,5 +25,9 @@
 <script>
 function changepass() {
   location.replace("/profile/password")
+}
+
+function changeemail() {
+  location.replace("/profile/email")
 }
 </script>

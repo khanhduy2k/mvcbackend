@@ -58,7 +58,7 @@
 <script>
     const bodyLoading = document.querySelector('.loader');
     let setLoad = sessionStorage.getItem('isLoad');
-    if (!setLoad) sessionStorage.setItem('isLoad', 0);
+    if (!setLoad && setLoad <= 0 ) sessionStorage.setItem('isLoad', 0);
     const loading = {
         isLoad: Number(setLoad),
         handle: function() {

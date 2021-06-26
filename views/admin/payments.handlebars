@@ -12,9 +12,11 @@
             <img src="/img/icon/load.png" alt="">
         </div>
     </div>
-    <div class="main-admin-pay__details">
+    <div class="main-admin-pay__details row">
     </div>
 </div>
+<div id="toast"></div>
+<script src="/js/toast.js"></script>
 <script type="text/javascript">
     const loadWait = document.querySelector('.main-admin-pay__wait');
     const mainPayments = document.querySelector('.panel-payments__info');
@@ -81,6 +83,7 @@
             const htmls = this.data.map((data, index) => {
                 if(index >= (this.pagination.index*this.pagination.skip-this.pagination.skip) && index < (this.pagination.index*this.pagination.skip)) {
                     return `
+                    <div class="col-lg-3 col-md-6"">
                     <div class="card-info">
                         <div class="card-info__text">
                             <b>Đơn số: ${index+1}</b>
@@ -102,6 +105,7 @@
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
+                    </div>
                     </div>
                     `
                 }
@@ -126,7 +130,6 @@
 
     socket.on('get-data-payment', (data)=> {
         loadWait.style.display = 'none';
-        console.log(data)
         const htmls = `
             <div class="details-user">
             <div class="close">&times;</div>
@@ -152,4 +155,24 @@
             }  
         }
     });
+
+    socket.on('error-course',()=> {
+        loadWait.style.display = 'none';
+        Toast({
+            title: 'Có lỗi',
+            message: 'Khóa học không tồn tại hoặc đã bị xóa',
+            type: 'error',
+            duration: 3000
+        })
+    })
+
+    socket.on('error-user',()=> {
+        loadWait.style.display = 'none';
+        Toast({
+            title: 'Có lỗi',
+            message: 'Người dùng không tồn tại hoặc đã bị xóa',
+            type: 'error',
+            duration: 3000
+        })
+    })
 </script>

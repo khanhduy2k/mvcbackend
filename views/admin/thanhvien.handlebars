@@ -15,10 +15,11 @@
     <thead>
       <tr>
         <th scope="col">STT</th>
+        <th scope="col"></th> 
         <th scope="col">Tên đăng nhập</th>
         <th scope="col">Họ & tên</th>
         <th scope="col">Chức vụ</th>
-        <th scope="col">Email liên hệ</th>    
+        <th scope="col">Email liên hệ</th>        
         <th scope="col"></th>     
         <th scope="col"></th>     
         <th scope="col"></th>     
@@ -29,6 +30,7 @@
         {{#each user}}
       <tr>
         <th scope="row">{{sum @key 1}}</th>
+        {{{isblocked this.status}}}
         {{{admin this.position this.user}}}
         {{{admin this.position this.fullName}}}
         {{{admin this.position this.position}}}

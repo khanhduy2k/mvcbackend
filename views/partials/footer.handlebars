@@ -5,22 +5,21 @@
   <div class="footer-info">
       <div class="footer-info-contact">
           <div class="footer-info-contact__email">
-              Email contact: <a href="">duykhanh06.work@gmail.com</a>
-              or <a href="https://www.facebook.com/khanh0006/">Facebook</a>
+              Email liên hệ: <a href="">Duykhanh06.work@gmail.com</a>
           </div>
           <div class="footer-info-contact__author">
-              Design by team Duy Khánh
+              Design by Duykhanh
           </div>
-          <small class="text-secondary">Start 11/2020</small>
+          <small class="text-secondary">Start 2020</small>
       </div>
   </div>
 </div>
 <script type="text/javascript">
     socket.on('get-number-online', (online)=> {
-        document.getElementById('number-online').innerHTML = online;
-    })
-    socket.emit('nghe')
-    socket.on('hello', ()=> {
-        alert('say hi!')
-    })
+        if (online) {
+            document.getElementById('number-online').innerHTML = online;
+        }else {
+            document.getElementById('number-online').innerHTML = 1;
+        }
+    });
 </script>

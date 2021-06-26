@@ -9,7 +9,7 @@
             </div>
             <div class="form-group">
                 <label for="priceCourse"><h5>Giá khóa học</h5></label>
-                <input type="text" id="priceCourse" class="form-control" name="priceCourse">
+                <input type="number" id="priceCourse" class="form-control" name="priceCourse">
             </div>
             <div class="form-group">
                 <label for="classify"><h5>Phân loại</h5></label>
@@ -24,7 +24,14 @@
             </div>
             <div class="form-group">
                 <label for="img"><h5>Ảnh khóa học</h5></label>
-                <input type="file" id="img" class="form-control" name="img">
+                 <div style="position:relative;">
+                    <a class='btn btn-primary' href='javascript:;'>
+                        Chọn ảnh...
+                        <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="img" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
+                    </a>
+                    &nbsp;
+                    <span class='label label-info' id="upload-file-info"></span>
+                </div>
             </div>
             <div class="form-group text-right">
                 <a class="btn btn-secondary mb-4 text-light" href="/admin" style="float: left;">Về trang quản lí</a>

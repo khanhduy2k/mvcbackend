@@ -2,25 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="Yf-CDoggW4w9WdJHu-hL4rhWdcioYuPV7Rd1Fg2dT1I">
-    <meta name="google-site-verification" content="7OJq2xDtTzB5HdHstgI3_8Fp8e8p7mc33KUqz6CRl8Q">
-    <meta name="keywords" content="{{title}},khanhblog.xyz, javascript, html, css, nodejs">
-    <meta name="keywords" content="courseonline-vnua">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/msg.css">
+    <link rel="stylesheet" href="/css/toast.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/showcourse.css">
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/viewShow.css">
     <link rel="stylesheet" href="/css/seemore.css">
+    <link rel="stylesheet" href="/css/panel.css">
     <link rel="stylesheet" href="/css/mycourses.css">
     <link rel="stylesheet" href="/css/responsive_mobile.css">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://kit.fontawesome.com/882f0e5447.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.12.1.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="/img/favcion.jpg" type="image/gif" sizes="16x16">
     <title id="title">{{title}}</title>
     <script>const socket = io(window.location.origin);</script>
@@ -28,14 +26,18 @@
 <body>
     <noscript>Ứng dụng chỉ hoạt động trên các trình duyệt có hỗ trợ javascript</noscript>
         <div class="main">
+            {{#if hiddenHeader}}
+                {{> headeradmin}}
+            {{else}}
                 {{> header}}
+            {{/if}}
                 {{{body}}}
             {{#if hiddenHeader}}
             {{else}}
                 {{> footer}}
             {{/if}}
         </div>
-        <div id="table">
+        <div id="table" class="text-dark">
             <h3>Ứng dụng chưa hỗ trợ cho thiết bị này</h3>
             <p>Sử dụng pc để có trải nghiệm tốt nhất</p>
         </div>
@@ -44,9 +46,6 @@
             <p>Sử dụng pc để có trải nghiệm tốt nhất</p>
         </div>
 </body>
-<!-- Cloudflare Web Analytics -->
-<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "4715699b276b46c6975bd574c4d45bf0"}'></script><!-- End Cloudflare Web Analytics -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="/js/visited.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>

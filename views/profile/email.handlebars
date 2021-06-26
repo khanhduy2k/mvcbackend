@@ -1,0 +1,80 @@
+<div class="container profile__" >
+    <div id="toast"></div>
+    <div class="bg-light col-sm-7 m-auto rounded pt-2" style="height: 500px;">
+        <div class="mb-3 pl-5">
+                <a class="ml-sm-5 text-info" href="/profile" style="font-size:20px;text-decoration:none">
+                    <i class="fas fa-angle-left "></i>&nbsp;&nbsp;&nbsp;&nbsp;Tài khoản
+                </a>           
+            <div class="mt-5 ml-sm-5">
+                <h1>Đổi email liên hệ</h1>
+            </div> 
+        </div>
+        <div class="text-center" style="height: 20px;">
+            <p class="text-danger" id="msg">{{msg}}</p>
+            <b class="text-success">{{msg2}}</b>
+        </div>
+        <div class="col-sm-9 m-auto">
+            <form action="password">
+                <div class="form-group">
+                    <div>
+                        <label for="Password1"><b>Nhập email hiện tại</b></label>
+                    </div>
+                    <input style="font-size: 14px;" class="form-control p-2" type="text" name="pass" autocomplete="off" id="old-mail" >
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label for="Password1"><b>Email mới</b></label>
+                    </div>
+                    <input style="font-size: 14px;" class="form-control p-2" type="text" name="pass" autocomplete="off" id="new-mail" >
+                </div>
+                <div class="form-group text-right">
+                    <input class="btn btn-danger btn-sub" type="submit" value="Lưu thay đổi">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/js/toast.js"></script>
+<script>
+    $('.btn-sub').click((e)=> {
+        e.preventDefault();
+        $.ajax({
+        url: `/profile/email`,
+        method: 'PUT',
+        data: {
+            oldEmail: $('#old-mail').val(),
+            newEmail_1: $('#new-mail').val(),
+        },
+        success: (msg) => {
+            if (msg == 'success') {
+                $('#old-mail').val('');
+                $('#new-mail').val('');
+                Toast({
+                    style: 1,
+                    title:'Đã lưu email liên hệ',
+                    message: '',
+                    type: 'success',
+                    duration: 1500,
+                })
+            }else{
+                Toast({
+                    style: 1,
+                    title: msg,
+                    type: 'warn',
+                    duration: 2000,
+                });
+            }
+        },
+        error: (error) => {
+            Toast({
+                style: 1,
+                title: 'Đã xảy ra lỗi',
+                message: '',
+                type: 'error',
+                duration: 3000,
+            });
+        },
+    });
+})
+</script>

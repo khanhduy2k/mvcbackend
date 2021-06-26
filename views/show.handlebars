@@ -37,6 +37,7 @@
             <img src="/img/bg/q-a.jpg" alt="">
         </div>
     </div>
+    <div id="edit-cmt"></div>
 </div>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
@@ -255,6 +256,51 @@
         }
     }
 
+    function formEditCmt({
+        data = {
+            nameUser: '',
+            comment: '',
+        },
+        action = function(){
+
+        }
+    }){
+        const main = document.querySelector('#edit-cmt');
+        if (main) {
+            const edit = document.createElement('div');
+            edit.classList.add('edit-cmt');
+            edit.innerHTML = `
+            <div class="form-edit">
+                <div class="form-edit__name">
+                <span class="text-danger">${data.nameUser}</span> - Chỉnh sửa bình luận
+                </div>
+                <div class="form-edit__input">
+                    <input class="input-edit" type="text" value="${data.comment}">
+                </div>
+                <div class="form-edit__actions">
+                    <div class="btn btn-primary">
+                        Cập nhật
+                    </div>
+                    <div class="btn btn-secondary">
+                        Hủy
+                    </div>
+                </div>
+            </div>
+            `
+            main.appendChild(edit);
+
+            edit.onclick =(e)=> {
+                if(e.target.closest('.btn-secondary')) {
+                    main.removeChild(edit)
+                }else if(e.target.closest('.btn-primary')) {
+                    const input = document.querySelector('.input-edit');
+                    action(input.value);
+                    main.removeChild(edit);
+                }
+            }
+        }
+    }
+
     const countComments = document.querySelector('#num-count-q');
     const mainComment = document.querySelector('.context-comment');
     const inputCmt = document.querySelector('#input-cmt');
@@ -325,10 +371,12 @@
                 });
                 return html.join('');
             },
-            showBtnDel(idUser, id) {
+            showBtnDel(idUser, id, comment) {
                 if (idUser == '{{idUser}}') {
                     return `
                         <div class="reply-comment underline-text del-cmt" data-id="${id}">Xóa</div>
+                        <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
+                        <div class="reply-comment underline-text edit-cmt-btn" data-id="${id}" data-content="${comment}">Sửa</div>
                         <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
                     `
                 }else {
@@ -398,7 +446,7 @@
                                            Trả lời
                                         </label>
                                         <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
-                                        ${this.handle.showBtnDel(data.idUser, data._id)}
+                                        ${this.handle.showBtnDel(data.idUser, data._id, data.contentComment)}
                                         <div class="time-comment underline-text">
                                             ${timeHistory(data.date)}
                                             <div class="title">${oldTime(data.date)}</div>
@@ -456,7 +504,7 @@
                                            Trả lời
                                         </label>
                                         <i class="fas fa-circle m-2" style="font-size: .25rem;"></i>
-                                        ${this.handle.showBtnDel(data.idUser, data._id)}
+                                        ${this.handle.showBtnDel(data.idUser, data._id, data.contentComment)}
                                         <div class="time-comment underline-text">
                                              ${timeHistory(data.date)}
                                             <div class="title">${oldTime(data.date)}</div>
@@ -564,6 +612,22 @@
                     elementInput.value = '';
                 }
             });
+
+            const btnEdit = document.querySelectorAll('.edit-cmt-btn');
+            btnEdit.forEach(e=>{
+                e.onclick =()=>{
+                    console.log(e.dataset.content)
+                   formEditCmt({
+                       data: {
+                           nameUser: '{{name}}',
+                           comment: `${e.dataset.content}`
+                       },
+                       action: function(data) {
+                            socket.emit('edit-cmt', {'id': e.dataset.id, 'cmt': data});
+                       }
+                   })
+                }
+            });
         }
         ,
         start: function() {
@@ -574,5 +638,4 @@
     }
     renderComment.start();
 })();
-
 </script>

@@ -103,4 +103,40 @@ module.exports.helpers = {
             return `<p class ="text-right"><a href="/admin/pinread" class ="text-danger">Đánh dấu tất cả là đã đọc</a></p>`;
         }
     },
+    islocked: (id, status) => {
+        if (status == 'open') {
+            return `
+            <form action="/admin/block/${id}" name="delete-user-form" method="POST">
+                <button class="btn btn-danger">Khóa tài khoản</button>
+            </form>
+            `;
+        } else {
+            return `
+            <form action="/admin/block/${id}" name="delete-user-form" method="POST">
+                <button class="btn btn-secondary">Mở khóa tài khoản</button>
+            </form>`;
+        }
+    },
+    isblocked: (status) => {
+        if (status == 'open') {
+            return `
+            <td class="text-secondary"><i class="fas fa-lock-open"></i></td>
+            `;
+        } else {
+            return `
+            <td ><i class="fas fa-user-lock"></i></td>
+            `;
+        }
+    },
+    hideEmail: (email) => {
+        let hasd = [];
+        for (let i = 0; i < email.length; i++) {
+            if (i > 1 && i < email.length - email.length / 2) {
+                hasd.push('*');
+            } else {
+                hasd.push(email[i]);
+            }
+        }
+        return hasd.join('');
+    },
 };
