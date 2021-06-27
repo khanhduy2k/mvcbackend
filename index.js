@@ -81,7 +81,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(session({ secret: 'keyboard cat', key: 'sid' })); //Save user login
 app.use(passport.initialize());
 app.use(passport.session());
 route(app);
