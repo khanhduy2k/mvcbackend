@@ -85,7 +85,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 route(app);
 middlewaresSocket.start(io);
-const port = process.env.PORT || 8800;
+const port = process.env.PORT || 7878;
 
 sever.listen(port, () =>
     console.log(`App listening at http://localhost:${port}`),
